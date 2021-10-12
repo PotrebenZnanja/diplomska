@@ -1,0 +1,1495 @@
+Track 0: 
+MetaMessage('time_signature', numerator=2, denominator=4, clocks_per_click=24, notated_32nd_notes_per_beat=8, time=0)
+MetaMessage('key_signature', key='C', time=0)
+MetaMessage('set_tempo', tempo=909089, time=0)
+MetaMessage('set_tempo', tempo=937500, time=99840)
+MetaMessage('set_tempo', tempo=967741, time=1920)
+MetaMessage('set_tempo', tempo=1000000, time=2880)
+MetaMessage('set_tempo', tempo=1090909, time=960)
+MetaMessage('end_of_track', time=1)
+Track 1: 
+program_change channel=0 program=0 time=0
+control_change channel=0 control=121 value=0 time=0
+control_change channel=0 control=64 value=0 time=0
+control_change channel=0 control=91 value=48 time=0
+control_change channel=0 control=10 value=51 time=0
+control_change channel=0 control=7 value=107 time=0
+note_on channel=0 note=72 velocity=89 time=0
+note_on channel=0 note=76 velocity=89 time=0
+control_change channel=0 control=121 value=0 time=0
+control_change channel=0 control=64 value=0 time=0
+control_change channel=0 control=91 value=48 time=0
+control_change channel=0 control=10 value=51 time=0
+control_change channel=0 control=7 value=107 time=0
+control_change channel=0 control=64 value=127 time=0
+note_on channel=0 note=52 velocity=88 time=0
+note_on channel=0 note=57 velocity=88 time=0
+control_change channel=0 control=64 value=0 time=3045
+note_off channel=0 note=72 velocity=0 time=795
+note_off channel=0 note=76 velocity=0 time=0
+note_off channel=0 note=52 velocity=0 time=0
+note_off channel=0 note=57 velocity=0 time=0
+note_on channel=0 note=48 velocity=57 time=0
+note_on channel=0 note=52 velocity=57 time=0
+note_on channel=0 note=45 velocity=38 time=0
+note_off channel=0 note=48 velocity=0 time=960
+note_off channel=0 note=52 velocity=0 time=0
+note_off channel=0 note=45 velocity=0 time=0
+note_on channel=0 note=48 velocity=59 time=0
+note_on channel=0 note=52 velocity=59 time=0
+note_on channel=0 note=45 velocity=42 time=0
+note_off channel=0 note=48 velocity=0 time=240
+note_off channel=0 note=52 velocity=0 time=0
+note_off channel=0 note=45 velocity=0 time=0
+note_on channel=0 note=48 velocity=62 time=240
+note_on channel=0 note=52 velocity=62 time=0
+note_on channel=0 note=45 velocity=41 time=0
+note_off channel=0 note=48 velocity=0 time=240
+note_off channel=0 note=52 velocity=0 time=0
+note_off channel=0 note=45 velocity=0 time=0
+note_on channel=0 note=47 velocity=61 time=240
+note_on channel=0 note=52 velocity=61 time=0
+note_on channel=0 note=44 velocity=36 time=0
+note_off channel=0 note=47 velocity=0 time=480
+note_off channel=0 note=52 velocity=0 time=0
+note_off channel=0 note=44 velocity=0 time=0
+note_on channel=0 note=47 velocity=59 time=480
+note_on channel=0 note=52 velocity=59 time=0
+note_on channel=0 note=44 velocity=35 time=0
+note_off channel=0 note=47 velocity=0 time=428
+note_off channel=0 note=52 velocity=0 time=0
+note_off channel=0 note=44 velocity=0 time=0
+note_on channel=0 note=47 velocity=56 time=532
+note_on channel=0 note=52 velocity=56 time=0
+note_on channel=0 note=40 velocity=42 time=0
+note_off channel=0 note=47 velocity=0 time=960
+note_off channel=0 note=52 velocity=0 time=0
+note_off channel=0 note=40 velocity=0 time=0
+note_on channel=0 note=47 velocity=61 time=0
+note_on channel=0 note=52 velocity=61 time=0
+note_on channel=0 note=40 velocity=40 time=0
+note_off channel=0 note=47 velocity=0 time=240
+note_off channel=0 note=52 velocity=0 time=0
+note_off channel=0 note=40 velocity=0 time=0
+note_on channel=0 note=47 velocity=60 time=240
+note_on channel=0 note=52 velocity=60 time=0
+note_on channel=0 note=40 velocity=43 time=0
+note_off channel=0 note=47 velocity=0 time=240
+note_off channel=0 note=52 velocity=0 time=0
+note_off channel=0 note=40 velocity=0 time=0
+note_on channel=0 note=48 velocity=62 time=240
+note_on channel=0 note=52 velocity=62 time=0
+note_on channel=0 note=45 velocity=38 time=0
+note_off channel=0 note=48 velocity=0 time=480
+note_off channel=0 note=52 velocity=0 time=0
+note_off channel=0 note=45 velocity=0 time=0
+note_on channel=0 note=48 velocity=59 time=480
+note_on channel=0 note=52 velocity=59 time=0
+note_on channel=0 note=45 velocity=39 time=0
+note_off channel=0 note=48 velocity=0 time=428
+note_off channel=0 note=52 velocity=0 time=0
+note_off channel=0 note=45 velocity=0 time=0
+note_on channel=0 note=48 velocity=59 time=532
+note_on channel=0 note=52 velocity=59 time=0
+note_on channel=0 note=45 velocity=39 time=0
+note_off channel=0 note=48 velocity=0 time=960
+note_off channel=0 note=52 velocity=0 time=0
+note_off channel=0 note=45 velocity=0 time=0
+note_on channel=0 note=48 velocity=59 time=0
+note_on channel=0 note=52 velocity=59 time=0
+note_on channel=0 note=45 velocity=41 time=0
+note_off channel=0 note=48 velocity=0 time=240
+note_off channel=0 note=52 velocity=0 time=0
+note_off channel=0 note=45 velocity=0 time=0
+note_on channel=0 note=50 velocity=66 time=240
+note_on channel=0 note=54 velocity=66 time=0
+note_on channel=0 note=45 velocity=39 time=0
+note_off channel=0 note=50 velocity=0 time=240
+note_off channel=0 note=54 velocity=0 time=0
+note_off channel=0 note=45 velocity=0 time=0
+note_on channel=0 note=52 velocity=61 time=240
+note_on channel=0 note=55 velocity=61 time=0
+note_on channel=0 note=43 velocity=39 time=0
+note_off channel=0 note=52 velocity=0 time=480
+note_off channel=0 note=55 velocity=0 time=0
+note_off channel=0 note=43 velocity=0 time=0
+note_on channel=0 note=52 velocity=59 time=480
+note_on channel=0 note=55 velocity=59 time=0
+note_on channel=0 note=43 velocity=36 time=0
+note_off channel=0 note=52 velocity=0 time=428
+note_off channel=0 note=55 velocity=0 time=0
+note_off channel=0 note=43 velocity=0 time=0
+note_on channel=0 note=50 velocity=64 time=532
+note_on channel=0 note=55 velocity=64 time=0
+note_on channel=0 note=43 velocity=45 time=0
+note_off channel=0 note=50 velocity=0 time=960
+note_off channel=0 note=55 velocity=0 time=0
+note_off channel=0 note=43 velocity=0 time=0
+note_on channel=0 note=48 velocity=60 time=0
+note_on channel=0 note=55 velocity=60 time=0
+note_on channel=0 note=43 velocity=40 time=0
+note_off channel=0 note=48 velocity=0 time=240
+note_off channel=0 note=55 velocity=0 time=0
+note_off channel=0 note=43 velocity=0 time=0
+note_on channel=0 note=50 velocity=61 time=240
+note_on channel=0 note=55 velocity=61 time=0
+note_on channel=0 note=43 velocity=40 time=0
+note_off channel=0 note=50 velocity=0 time=240
+note_off channel=0 note=55 velocity=0 time=0
+note_off channel=0 note=43 velocity=0 time=0
+note_on channel=0 note=52 velocity=56 time=240
+note_on channel=0 note=55 velocity=56 time=0
+note_on channel=0 note=48 velocity=43 time=0
+note_off channel=0 note=52 velocity=0 time=480
+note_off channel=0 note=55 velocity=0 time=0
+note_off channel=0 note=48 velocity=0 time=0
+note_on channel=0 note=52 velocity=55 time=1440
+note_on channel=0 note=55 velocity=55 time=0
+note_on channel=0 note=48 velocity=38 time=0
+note_off channel=0 note=52 velocity=0 time=960
+note_off channel=0 note=55 velocity=0 time=0
+note_off channel=0 note=48 velocity=0 time=0
+note_on channel=0 note=52 velocity=56 time=0
+note_on channel=0 note=55 velocity=56 time=0
+note_on channel=0 note=48 velocity=40 time=0
+note_off channel=0 note=52 velocity=0 time=240
+note_off channel=0 note=55 velocity=0 time=0
+note_off channel=0 note=48 velocity=0 time=0
+note_on channel=0 note=52 velocity=58 time=240
+note_on channel=0 note=57 velocity=58 time=0
+note_on channel=0 note=48 velocity=40 time=0
+note_off channel=0 note=52 velocity=0 time=240
+note_off channel=0 note=57 velocity=0 time=0
+note_off channel=0 note=48 velocity=0 time=0
+note_on channel=0 note=51 velocity=66 time=240
+note_on channel=0 note=59 velocity=66 time=0
+note_on channel=0 note=47 velocity=37 time=0
+note_off channel=0 note=51 velocity=0 time=480
+note_off channel=0 note=59 velocity=0 time=0
+note_off channel=0 note=47 velocity=0 time=0
+note_on channel=0 note=51 velocity=63 time=480
+note_on channel=0 note=59 velocity=63 time=0
+note_on channel=0 note=47 velocity=37 time=0
+note_off channel=0 note=51 velocity=0 time=428
+note_off channel=0 note=59 velocity=0 time=0
+note_off channel=0 note=47 velocity=0 time=0
+note_on channel=0 note=50 velocity=58 time=532
+note_on channel=0 note=54 velocity=58 time=0
+note_on channel=0 note=47 velocity=45 time=0
+note_off channel=0 note=50 velocity=0 time=960
+note_off channel=0 note=54 velocity=0 time=0
+note_off channel=0 note=47 velocity=0 time=0
+note_on channel=0 note=50 velocity=63 time=0
+note_on channel=0 note=54 velocity=63 time=0
+note_on channel=0 note=47 velocity=45 time=0
+note_off channel=0 note=50 velocity=0 time=240
+note_off channel=0 note=54 velocity=0 time=0
+note_off channel=0 note=47 velocity=0 time=0
+note_on channel=0 note=50 velocity=61 time=240
+note_on channel=0 note=56 velocity=61 time=0
+note_on channel=0 note=47 velocity=42 time=0
+note_off channel=0 note=50 velocity=0 time=240
+note_off channel=0 note=56 velocity=0 time=0
+note_off channel=0 note=47 velocity=0 time=0
+note_on channel=0 note=49 velocity=66 time=240
+note_on channel=0 note=57 velocity=66 time=0
+note_on channel=0 note=45 velocity=38 time=0
+note_off channel=0 note=57 velocity=0 time=480
+note_off channel=0 note=45 velocity=0 time=0
+note_off channel=0 note=49 velocity=0 time=15
+note_on channel=0 note=48 velocity=64 time=465
+note_on channel=0 note=57 velocity=64 time=0
+note_on channel=0 note=45 velocity=39 time=0
+note_off channel=0 note=48 velocity=0 time=428
+note_off channel=0 note=57 velocity=0 time=0
+note_off channel=0 note=45 velocity=0 time=0
+note_on channel=0 note=48 velocity=55 time=532
+note_on channel=0 note=52 velocity=55 time=0
+note_on channel=0 note=45 velocity=36 time=0
+note_off channel=0 note=48 velocity=0 time=960
+note_off channel=0 note=52 velocity=0 time=0
+note_off channel=0 note=45 velocity=0 time=0
+note_on channel=0 note=48 velocity=63 time=0
+note_on channel=0 note=52 velocity=63 time=0
+note_on channel=0 note=45 velocity=36 time=0
+note_off channel=0 note=48 velocity=0 time=240
+note_off channel=0 note=52 velocity=0 time=0
+note_off channel=0 note=45 velocity=0 time=0
+note_on channel=0 note=48 velocity=62 time=240
+note_on channel=0 note=52 velocity=62 time=0
+note_on channel=0 note=45 velocity=38 time=0
+note_off channel=0 note=48 velocity=0 time=240
+note_off channel=0 note=52 velocity=0 time=0
+note_off channel=0 note=45 velocity=0 time=0
+note_on channel=0 note=47 velocity=60 time=240
+note_on channel=0 note=52 velocity=60 time=0
+note_on channel=0 note=44 velocity=40 time=0
+note_off channel=0 note=52 velocity=0 time=480
+note_off channel=0 note=47 velocity=0 time=15
+note_off channel=0 note=44 velocity=0 time=0
+note_on channel=0 note=48 velocity=59 time=465
+note_on channel=0 note=52 velocity=59 time=0
+note_on channel=0 note=45 velocity=40 time=0
+note_off channel=0 note=48 velocity=0 time=428
+note_off channel=0 note=52 velocity=0 time=0
+note_off channel=0 note=45 velocity=0 time=0
+note_on channel=0 note=47 velocity=57 time=532
+note_on channel=0 note=52 velocity=57 time=0
+note_on channel=0 note=40 velocity=37 time=0
+note_off channel=0 note=47 velocity=0 time=960
+note_off channel=0 note=52 velocity=0 time=0
+note_off channel=0 note=40 velocity=0 time=0
+note_on channel=0 note=47 velocity=65 time=0
+note_on channel=0 note=54 velocity=65 time=0
+note_on channel=0 note=40 velocity=40 time=0
+note_off channel=0 note=47 velocity=0 time=240
+note_off channel=0 note=54 velocity=0 time=0
+note_off channel=0 note=40 velocity=0 time=0
+note_on channel=0 note=47 velocity=62 time=240
+note_on channel=0 note=56 velocity=62 time=0
+note_on channel=0 note=40 velocity=42 time=0
+note_off channel=0 note=47 velocity=0 time=240
+note_off channel=0 note=56 velocity=0 time=0
+note_off channel=0 note=40 velocity=0 time=0
+note_on channel=0 note=48 velocity=57 time=240
+note_on channel=0 note=57 velocity=57 time=0
+note_on channel=0 note=45 velocity=43 time=0
+note_off channel=0 note=48 velocity=0 time=480
+note_off channel=0 note=57 velocity=0 time=0
+note_off channel=0 note=45 velocity=0 time=0
+note_on channel=0 note=52 velocity=34 time=1440
+note_on channel=0 note=55 velocity=34 time=0
+note_on channel=0 note=48 velocity=20 time=0
+note_off channel=0 note=52 velocity=0 time=960
+note_off channel=0 note=55 velocity=0 time=0
+note_off channel=0 note=48 velocity=0 time=0
+note_on channel=0 note=52 velocity=34 time=0
+note_on channel=0 note=55 velocity=34 time=0
+note_on channel=0 note=48 velocity=19 time=0
+note_off channel=0 note=52 velocity=0 time=240
+note_off channel=0 note=55 velocity=0 time=0
+note_off channel=0 note=48 velocity=0 time=0
+note_on channel=0 note=52 velocity=44 time=240
+note_on channel=0 note=57 velocity=44 time=0
+note_on channel=0 note=48 velocity=18 time=0
+note_off channel=0 note=52 velocity=0 time=240
+note_off channel=0 note=57 velocity=0 time=0
+note_off channel=0 note=48 velocity=0 time=0
+note_on channel=0 note=51 velocity=38 time=240
+note_on channel=0 note=59 velocity=38 time=0
+note_on channel=0 note=47 velocity=21 time=0
+note_off channel=0 note=51 velocity=0 time=480
+note_off channel=0 note=59 velocity=0 time=0
+note_off channel=0 note=47 velocity=0 time=0
+note_on channel=0 note=51 velocity=40 time=480
+note_on channel=0 note=59 velocity=40 time=0
+note_on channel=0 note=47 velocity=21 time=0
+note_off channel=0 note=51 velocity=0 time=428
+note_off channel=0 note=59 velocity=0 time=0
+note_off channel=0 note=47 velocity=0 time=0
+note_on channel=0 note=50 velocity=37 time=532
+note_on channel=0 note=54 velocity=37 time=0
+note_on channel=0 note=47 velocity=21 time=0
+note_off channel=0 note=50 velocity=0 time=960
+note_off channel=0 note=54 velocity=0 time=0
+note_off channel=0 note=47 velocity=0 time=0
+note_on channel=0 note=50 velocity=39 time=0
+note_on channel=0 note=54 velocity=39 time=0
+note_on channel=0 note=47 velocity=15 time=0
+note_off channel=0 note=50 velocity=0 time=240
+note_off channel=0 note=54 velocity=0 time=0
+note_off channel=0 note=47 velocity=0 time=0
+note_on channel=0 note=50 velocity=41 time=240
+note_on channel=0 note=56 velocity=41 time=0
+note_on channel=0 note=47 velocity=20 time=0
+note_off channel=0 note=50 velocity=0 time=240
+note_off channel=0 note=56 velocity=0 time=0
+note_off channel=0 note=47 velocity=0 time=0
+note_on channel=0 note=49 velocity=39 time=240
+note_on channel=0 note=57 velocity=39 time=0
+note_on channel=0 note=45 velocity=18 time=0
+note_off channel=0 note=57 velocity=0 time=480
+note_off channel=0 note=45 velocity=0 time=0
+note_off channel=0 note=49 velocity=0 time=15
+note_on channel=0 note=48 velocity=37 time=465
+note_on channel=0 note=57 velocity=37 time=0
+note_on channel=0 note=45 velocity=19 time=0
+note_off channel=0 note=48 velocity=0 time=428
+note_off channel=0 note=57 velocity=0 time=0
+note_off channel=0 note=45 velocity=0 time=0
+note_on channel=0 note=48 velocity=36 time=532
+note_on channel=0 note=52 velocity=36 time=0
+note_on channel=0 note=45 velocity=22 time=0
+note_off channel=0 note=48 velocity=0 time=960
+note_off channel=0 note=52 velocity=0 time=0
+note_off channel=0 note=45 velocity=0 time=0
+note_on channel=0 note=48 velocity=37 time=0
+note_on channel=0 note=52 velocity=37 time=0
+note_on channel=0 note=45 velocity=18 time=0
+note_off channel=0 note=48 velocity=0 time=240
+note_off channel=0 note=52 velocity=0 time=0
+note_off channel=0 note=45 velocity=0 time=0
+note_on channel=0 note=48 velocity=39 time=240
+note_on channel=0 note=52 velocity=39 time=0
+note_on channel=0 note=45 velocity=17 time=0
+note_off channel=0 note=48 velocity=0 time=240
+note_off channel=0 note=52 velocity=0 time=0
+note_off channel=0 note=45 velocity=0 time=0
+note_on channel=0 note=47 velocity=42 time=240
+note_on channel=0 note=52 velocity=42 time=0
+note_on channel=0 note=44 velocity=21 time=0
+note_off channel=0 note=52 velocity=0 time=480
+note_off channel=0 note=47 velocity=0 time=15
+note_off channel=0 note=44 velocity=0 time=0
+note_on channel=0 note=48 velocity=41 time=465
+note_on channel=0 note=52 velocity=41 time=0
+note_on channel=0 note=45 velocity=21 time=0
+note_off channel=0 note=48 velocity=0 time=428
+note_off channel=0 note=52 velocity=0 time=0
+note_off channel=0 note=45 velocity=0 time=0
+note_on channel=0 note=47 velocity=37 time=532
+note_on channel=0 note=52 velocity=37 time=0
+note_on channel=0 note=40 velocity=22 time=0
+note_off channel=0 note=47 velocity=0 time=960
+note_off channel=0 note=52 velocity=0 time=0
+note_off channel=0 note=40 velocity=0 time=0
+note_on channel=0 note=47 velocity=41 time=0
+note_on channel=0 note=54 velocity=41 time=0
+note_on channel=0 note=40 velocity=21 time=0
+note_off channel=0 note=47 velocity=0 time=240
+note_off channel=0 note=54 velocity=0 time=0
+note_off channel=0 note=40 velocity=0 time=0
+note_on channel=0 note=47 velocity=44 time=240
+note_on channel=0 note=56 velocity=44 time=0
+note_on channel=0 note=40 velocity=24 time=0
+note_off channel=0 note=47 velocity=0 time=240
+note_off channel=0 note=56 velocity=0 time=0
+note_off channel=0 note=40 velocity=0 time=0
+note_on channel=0 note=48 velocity=38 time=240
+note_on channel=0 note=57 velocity=38 time=0
+note_on channel=0 note=45 velocity=21 time=0
+note_off channel=0 note=48 velocity=0 time=480
+note_off channel=0 note=57 velocity=0 time=0
+note_off channel=0 note=45 velocity=0 time=0
+note_on channel=0 note=64 velocity=30 time=1440
+note_on channel=0 note=60 velocity=37 time=0
+note_off channel=0 note=64 velocity=0 time=960
+note_on channel=0 note=64 velocity=39 time=0
+note_on channel=0 note=45 velocity=36 time=0
+note_off channel=0 note=64 velocity=0 time=240
+note_off channel=0 note=45 velocity=0 time=0
+note_on channel=0 note=64 velocity=39 time=240
+note_on channel=0 note=45 velocity=39 time=0
+note_off channel=0 note=64 velocity=0 time=240
+note_off channel=0 note=45 velocity=0 time=0
+note_on channel=0 note=64 velocity=38 time=240
+note_on channel=0 note=59 velocity=34 time=0
+note_on channel=0 note=44 velocity=37 time=0
+note_off channel=0 note=60 velocity=0 time=38
+note_off channel=0 note=44 velocity=0 time=202
+note_off channel=0 note=64 velocity=0 time=214
+note_on channel=0 note=64 velocity=38 time=506
+note_on channel=0 note=56 velocity=37 time=0
+note_off channel=0 note=56 velocity=0 time=240
+note_off channel=0 note=64 velocity=0 time=214
+note_off channel=0 note=59 velocity=0 time=315
+note_on channel=0 note=64 velocity=38 time=191
+note_on channel=0 note=59 velocity=41 time=0
+note_on channel=0 note=62 velocity=42 time=480
+note_off channel=0 note=59 velocity=0 time=8
+note_off channel=0 note=64 velocity=0 time=472
+note_on channel=0 note=64 velocity=40 time=0
+note_on channel=0 note=60 velocity=38 time=0
+note_on channel=0 note=40 velocity=37 time=0
+note_off channel=0 note=62 velocity=0 time=8
+note_off channel=0 note=64 velocity=0 time=232
+note_off channel=0 note=40 velocity=0 time=0
+note_on channel=0 note=64 velocity=43 time=240
+note_on channel=0 note=59 velocity=38 time=0
+note_on channel=0 note=40 velocity=41 time=0
+note_off channel=0 note=60 velocity=0 time=8
+note_off channel=0 note=64 velocity=0 time=217
+note_off channel=0 note=40 velocity=0 time=15
+note_off channel=0 note=59 velocity=0 time=214
+note_on channel=0 note=64 velocity=40 time=26
+note_on channel=0 note=59 velocity=39 time=0
+note_on channel=0 note=45 velocity=43 time=0
+note_off channel=0 note=45 velocity=0 time=240
+note_off channel=0 note=64 velocity=0 time=214
+note_on channel=0 note=60 velocity=43 time=26
+note_off channel=0 note=59 velocity=0 time=15
+note_off channel=0 note=60 velocity=0 time=439
+note_on channel=0 note=64 velocity=39 time=26
+note_on channel=0 note=60 velocity=36 time=0
+note_on channel=0 note=57 velocity=34 time=0
+note_off channel=0 note=57 velocity=0 time=240
+note_off channel=0 note=64 velocity=0 time=214
+note_off channel=0 note=60 velocity=0 time=457
+note_on channel=0 note=64 velocity=64 time=49
+note_on channel=0 note=60 velocity=42 time=0
+note_off channel=0 note=64 velocity=0 time=960
+note_off channel=0 note=60 velocity=0 time=0
+note_on channel=0 note=64 velocity=59 time=0
+note_on channel=0 note=60 velocity=38 time=0
+note_on channel=0 note=45 velocity=37 time=0
+note_off channel=0 note=45 velocity=0 time=240
+note_off channel=0 note=64 velocity=0 time=4
+note_on channel=0 note=66 velocity=66 time=236
+note_on channel=0 note=62 velocity=40 time=0
+note_on channel=0 note=45 velocity=43 time=0
+note_off channel=0 note=60 velocity=0 time=8
+note_off channel=0 note=66 velocity=0 time=217
+note_off channel=0 note=45 velocity=0 time=15
+note_off channel=0 note=62 velocity=0 time=214
+note_on channel=0 note=67 velocity=65 time=26
+note_on channel=0 note=63 velocity=36 time=0
+note_on channel=0 note=43 velocity=37 time=0
+note_off channel=0 note=43 velocity=0 time=240
+note_off channel=0 note=67 velocity=0 time=214
+note_on channel=0 note=64 velocity=42 time=26
+note_off channel=0 note=63 velocity=0 time=15
+note_off channel=0 note=64 velocity=0 time=439
+note_on channel=0 note=67 velocity=61 time=26
+note_on channel=0 note=64 velocity=37 time=0
+note_on channel=0 note=55 velocity=38 time=0
+note_off channel=0 note=55 velocity=0 time=240
+note_off channel=0 note=67 velocity=0 time=214
+note_off channel=0 note=64 velocity=0 time=457
+note_on channel=0 note=67 velocity=61 time=49
+note_on channel=0 note=62 velocity=35 time=0
+note_on channel=0 note=65 velocity=37 time=480
+note_off channel=0 note=62 velocity=0 time=8
+note_off channel=0 note=67 velocity=0 time=472
+note_on channel=0 note=67 velocity=59 time=0
+note_on channel=0 note=64 velocity=31 time=0
+note_on channel=0 note=55 velocity=38 time=0
+note_off channel=0 note=65 velocity=0 time=8
+note_off channel=0 note=67 velocity=0 time=232
+note_off channel=0 note=55 velocity=0 time=0
+note_on channel=0 note=67 velocity=66 time=240
+note_on channel=0 note=62 velocity=36 time=0
+note_on channel=0 note=55 velocity=40 time=0
+note_off channel=0 note=64 velocity=0 time=8
+note_off channel=0 note=67 velocity=0 time=217
+note_off channel=0 note=55 velocity=0 time=15
+note_off channel=0 note=62 velocity=0 time=214
+note_on channel=0 note=67 velocity=61 time=26
+note_on channel=0 note=62 velocity=37 time=0
+note_on channel=0 note=48 velocity=37 time=0
+note_off channel=0 note=48 velocity=0 time=240
+note_off channel=0 note=67 velocity=0 time=214
+note_on channel=0 note=64 velocity=40 time=26
+note_off channel=0 note=62 velocity=0 time=15
+note_off channel=0 note=64 velocity=0 time=439
+note_on channel=0 note=67 velocity=58 time=26
+note_on channel=0 note=64 velocity=37 time=0
+note_on channel=0 note=60 velocity=33 time=0
+note_off channel=0 note=60 velocity=0 time=240
+note_off channel=0 note=67 velocity=0 time=214
+note_off channel=0 note=64 velocity=0 time=457
+note_on channel=0 note=67 velocity=62 time=49
+note_on channel=0 note=64 velocity=38 time=0
+note_off channel=0 note=67 velocity=0 time=960
+note_on channel=0 note=67 velocity=60 time=0
+note_on channel=0 note=48 velocity=35 time=0
+note_off channel=0 note=48 velocity=0 time=240
+note_off channel=0 note=67 velocity=0 time=4
+note_on channel=0 note=69 velocity=67 time=236
+note_on channel=0 note=48 velocity=41 time=0
+note_off channel=0 note=48 velocity=0 time=240
+note_off channel=0 note=69 velocity=0 time=4
+note_on channel=0 note=71 velocity=61 time=236
+note_on channel=0 note=63 velocity=33 time=0
+note_on channel=0 note=47 velocity=39 time=0
+note_off channel=0 note=64 velocity=0 time=38
+note_off channel=0 note=47 velocity=0 time=202
+note_off channel=0 note=71 velocity=0 time=214
+note_on channel=0 note=71 velocity=60 time=506
+note_on channel=0 note=59 velocity=36 time=0
+note_off channel=0 note=59 velocity=0 time=240
+note_off channel=0 note=71 velocity=0 time=214
+note_off channel=0 note=63 velocity=0 time=315
+note_on channel=0 note=66 velocity=46 time=191
+note_on channel=0 note=62 velocity=38 time=0
+note_on channel=0 note=59 velocity=40 time=480
+note_off channel=0 note=62 velocity=0 time=8
+note_off channel=0 note=66 velocity=0 time=472
+note_on channel=0 note=66 velocity=57 time=0
+note_on channel=0 note=62 velocity=41 time=0
+note_on channel=0 note=52 velocity=39 time=0
+note_off channel=0 note=59 velocity=0 time=8
+note_off channel=0 note=52 velocity=0 time=232
+note_off channel=0 note=66 velocity=0 time=4
+note_on channel=0 note=68 velocity=61 time=236
+note_on channel=0 note=64 velocity=48 time=0
+note_on channel=0 note=52 velocity=40 time=0
+note_off channel=0 note=62 velocity=0 time=8
+note_off channel=0 note=68 velocity=0 time=217
+note_off channel=0 note=52 velocity=0 time=15
+note_off channel=0 note=64 velocity=0 time=214
+note_on channel=0 note=69 velocity=65 time=26
+note_on channel=0 note=62 velocity=37 time=0
+note_on channel=0 note=45 velocity=37 time=0
+note_off channel=0 note=45 velocity=0 time=240
+note_off channel=0 note=69 velocity=0 time=214
+note_on channel=0 note=61 velocity=37 time=26
+note_off channel=0 note=62 velocity=0 time=15
+note_off channel=0 note=61 velocity=0 time=446
+note_on channel=0 note=69 velocity=63 time=19
+note_on channel=0 note=60 velocity=34 time=0
+note_on channel=0 note=57 velocity=37 time=0
+note_off channel=0 note=57 velocity=0 time=240
+note_off channel=0 note=69 velocity=0 time=214
+note_off channel=0 note=60 velocity=0 time=457
+note_on channel=0 note=64 velocity=56 time=49
+note_on channel=0 note=60 velocity=42 time=0
+note_off channel=0 note=64 velocity=0 time=960
+note_on channel=0 note=64 velocity=59 time=0
+note_on channel=0 note=45 velocity=35 time=0
+note_off channel=0 note=64 velocity=0 time=240
+note_off channel=0 note=45 velocity=0 time=0
+note_on channel=0 note=64 velocity=61 time=240
+note_on channel=0 note=45 velocity=40 time=0
+note_off channel=0 note=64 velocity=0 time=240
+note_off channel=0 note=45 velocity=0 time=0
+note_on channel=0 note=64 velocity=60 time=240
+note_on channel=0 note=59 velocity=38 time=0
+note_on channel=0 note=44 velocity=40 time=0
+note_off channel=0 note=60 velocity=0 time=38
+note_off channel=0 note=44 velocity=0 time=202
+note_off channel=0 note=64 velocity=0 time=240
+note_on channel=0 note=64 velocity=63 time=480
+note_on channel=0 note=60 velocity=40 time=0
+note_on channel=0 note=45 velocity=40 time=0
+note_off channel=0 note=59 velocity=0 time=38
+note_off channel=0 note=45 velocity=0 time=202
+note_off channel=0 note=64 velocity=0 time=188
+note_off channel=0 note=60 velocity=0 time=435
+note_on channel=0 note=64 velocity=64 time=97
+note_on channel=0 note=59 velocity=40 time=0
+note_on channel=0 note=62 velocity=44 time=480
+note_off channel=0 note=59 velocity=0 time=8
+note_on channel=0 note=66 velocity=70 time=472
+note_on channel=0 note=60 velocity=38 time=0
+note_on channel=0 note=40 velocity=34 time=0
+note_off channel=0 note=62 velocity=0 time=8
+note_off channel=0 note=64 velocity=0 time=11
+note_off channel=0 note=40 velocity=0 time=221
+note_off channel=0 note=66 velocity=0 time=4
+note_on channel=0 note=68 velocity=64 time=236
+note_on channel=0 note=59 velocity=36 time=0
+note_on channel=0 note=40 velocity=40 time=0
+note_off channel=0 note=60 velocity=0 time=8
+note_off channel=0 note=68 velocity=0 time=217
+note_off channel=0 note=40 velocity=0 time=15
+note_off channel=0 note=59 velocity=0 time=214
+note_on channel=0 note=69 velocity=65 time=26
+note_on channel=0 note=60 velocity=37 time=0
+note_on channel=0 note=45 velocity=40 time=0
+note_off channel=0 note=45 velocity=0 time=240
+note_off channel=0 note=69 velocity=0 time=720
+note_off channel=0 note=60 velocity=0 time=0
+note_on channel=0 note=60 velocity=42 time=0
+note_on channel=0 note=57 velocity=38 time=0
+note_off channel=0 note=57 velocity=0 time=240
+note_on channel=0 note=62 velocity=44 time=240
+note_off channel=0 note=60 velocity=0 time=8
+note_off channel=0 note=62 velocity=0 time=446
+note_on channel=0 note=67 velocity=53 time=26
+note_on channel=0 note=64 velocity=45 time=0
+note_off channel=0 note=67 velocity=0 time=960
+note_on channel=0 note=67 velocity=62 time=0
+note_on channel=0 note=48 velocity=34 time=0
+note_off channel=0 note=48 velocity=0 time=240
+note_off channel=0 note=67 velocity=0 time=4
+note_on channel=0 note=69 velocity=63 time=236
+note_on channel=0 note=48 velocity=40 time=0
+note_off channel=0 note=48 velocity=0 time=240
+note_off channel=0 note=69 velocity=0 time=4
+note_on channel=0 note=71 velocity=64 time=236
+note_on channel=0 note=63 velocity=42 time=0
+note_on channel=0 note=47 velocity=37 time=0
+note_off channel=0 note=64 velocity=0 time=38
+note_off channel=0 note=47 velocity=0 time=202
+note_off channel=0 note=71 velocity=0 time=214
+note_on channel=0 note=71 velocity=64 time=506
+note_on channel=0 note=59 velocity=34 time=0
+note_off channel=0 note=59 velocity=0 time=240
+note_off channel=0 note=71 velocity=0 time=214
+note_off channel=0 note=63 velocity=0 time=315
+note_on channel=0 note=66 velocity=52 time=191
+note_on channel=0 note=62 velocity=36 time=0
+note_on channel=0 note=59 velocity=37 time=480
+note_off channel=0 note=62 velocity=0 time=8
+note_off channel=0 note=66 velocity=0 time=472
+note_on channel=0 note=66 velocity=57 time=0
+note_on channel=0 note=62 velocity=44 time=0
+note_on channel=0 note=52 velocity=36 time=0
+note_off channel=0 note=59 velocity=0 time=8
+note_off channel=0 note=52 velocity=0 time=232
+note_off channel=0 note=66 velocity=0 time=4
+note_on channel=0 note=68 velocity=65 time=236
+note_on channel=0 note=64 velocity=49 time=0
+note_on channel=0 note=52 velocity=40 time=0
+note_off channel=0 note=62 velocity=0 time=8
+note_off channel=0 note=68 velocity=0 time=217
+note_off channel=0 note=52 velocity=0 time=15
+note_off channel=0 note=64 velocity=0 time=214
+note_on channel=0 note=69 velocity=62 time=26
+note_on channel=0 note=62 velocity=37 time=0
+note_on channel=0 note=45 velocity=39 time=0
+note_off channel=0 note=45 velocity=0 time=240
+note_off channel=0 note=69 velocity=0 time=214
+note_on channel=0 note=61 velocity=35 time=26
+note_off channel=0 note=62 velocity=0 time=15
+note_off channel=0 note=61 velocity=0 time=446
+note_on channel=0 note=69 velocity=66 time=19
+note_on channel=0 note=60 velocity=39 time=0
+note_on channel=0 note=57 velocity=37 time=0
+note_off channel=0 note=57 velocity=0 time=240
+note_off channel=0 note=69 velocity=0 time=214
+note_off channel=0 note=60 velocity=0 time=457
+note_on channel=0 note=64 velocity=55 time=49
+note_on channel=0 note=60 velocity=36 time=0
+note_off channel=0 note=64 velocity=0 time=960
+note_on channel=0 note=64 velocity=57 time=0
+note_on channel=0 note=45 velocity=37 time=0
+note_off channel=0 note=64 velocity=0 time=240
+note_off channel=0 note=45 velocity=0 time=0
+note_on channel=0 note=64 velocity=63 time=240
+note_on channel=0 note=45 velocity=42 time=0
+note_off channel=0 note=64 velocity=0 time=240
+note_off channel=0 note=45 velocity=0 time=0
+note_on channel=0 note=64 velocity=62 time=240
+note_on channel=0 note=59 velocity=33 time=0
+note_on channel=0 note=44 velocity=41 time=0
+note_off channel=0 note=60 velocity=0 time=38
+note_off channel=0 note=44 velocity=0 time=202
+note_off channel=0 note=64 velocity=0 time=240
+note_on channel=0 note=64 velocity=63 time=480
+note_on channel=0 note=60 velocity=40 time=0
+note_on channel=0 note=45 velocity=36 time=0
+note_off channel=0 note=59 velocity=0 time=38
+note_off channel=0 note=45 velocity=0 time=202
+note_off channel=0 note=64 velocity=0 time=188
+note_off channel=0 note=60 velocity=0 time=435
+note_on channel=0 note=64 velocity=59 time=97
+note_on channel=0 note=59 velocity=35 time=0
+note_on channel=0 note=62 velocity=36 time=480
+note_off channel=0 note=59 velocity=0 time=8
+note_on channel=0 note=66 velocity=62 time=472
+note_on channel=0 note=60 velocity=40 time=0
+note_on channel=0 note=40 velocity=37 time=0
+note_off channel=0 note=62 velocity=0 time=8
+note_off channel=0 note=64 velocity=0 time=11
+note_off channel=0 note=40 velocity=0 time=221
+note_off channel=0 note=66 velocity=0 time=4
+note_on channel=0 note=68 velocity=71 time=236
+note_on channel=0 note=59 velocity=40 time=0
+note_on channel=0 note=40 velocity=41 time=0
+note_off channel=0 note=60 velocity=0 time=8
+note_off channel=0 note=68 velocity=0 time=217
+note_off channel=0 note=40 velocity=0 time=15
+note_off channel=0 note=59 velocity=0 time=214
+note_on channel=0 note=69 velocity=63 time=26
+note_on channel=0 note=60 velocity=37 time=0
+note_on channel=0 note=45 velocity=42 time=0
+note_off channel=0 note=45 velocity=0 time=240
+note_off channel=0 note=69 velocity=0 time=720
+note_off channel=0 note=60 velocity=0 time=0
+note_on channel=0 note=57 velocity=38 time=0
+note_off channel=0 note=57 velocity=0 time=240
+note_on channel=0 note=74 velocity=36 time=720
+note_on channel=0 note=76 velocity=36 time=0
+note_on channel=0 note=52 velocity=33 time=0
+note_off channel=0 note=74 velocity=0 time=480
+note_off channel=0 note=76 velocity=0 time=0
+note_on channel=0 note=74 velocity=44 time=480
+note_on channel=0 note=78 velocity=44 time=0
+note_off channel=0 note=52 velocity=0 time=0
+note_on channel=0 note=52 velocity=39 time=0
+note_off channel=0 note=74 velocity=0 time=240
+note_off channel=0 note=78 velocity=0 time=0
+note_off channel=0 note=52 velocity=0 time=0
+note_on channel=0 note=74 velocity=37 time=240
+note_on channel=0 note=80 velocity=37 time=0
+note_on channel=0 note=52 velocity=41 time=0
+note_off channel=0 note=74 velocity=0 time=240
+note_off channel=0 note=80 velocity=0 time=0
+note_off channel=0 note=52 velocity=0 time=0
+note_on channel=0 note=76 velocity=40 time=240
+note_on channel=0 note=81 velocity=40 time=0
+note_on channel=0 note=57 velocity=42 time=0
+note_off channel=0 note=76 velocity=0 time=960
+note_off channel=0 note=81 velocity=0 time=0
+note_off channel=0 note=57 velocity=0 time=0
+note_on channel=0 note=59 velocity=36 time=960
+note_on channel=0 note=62 velocity=36 time=0
+note_on channel=0 note=40 velocity=34 time=0
+note_off channel=0 note=59 velocity=0 time=480
+note_off channel=0 note=62 velocity=0 time=0
+note_off channel=0 note=40 velocity=0 time=0
+note_on channel=0 note=59 velocity=45 time=480
+note_on channel=0 note=62 velocity=45 time=0
+note_on channel=0 note=42 velocity=40 time=0
+note_off channel=0 note=59 velocity=0 time=240
+note_off channel=0 note=62 velocity=0 time=0
+note_off channel=0 note=42 velocity=0 time=0
+note_on channel=0 note=59 velocity=38 time=240
+note_on channel=0 note=62 velocity=38 time=0
+note_on channel=0 note=44 velocity=39 time=0
+note_off channel=0 note=59 velocity=0 time=240
+note_off channel=0 note=62 velocity=0 time=0
+note_off channel=0 note=44 velocity=0 time=0
+note_on channel=0 note=57 velocity=39 time=240
+note_on channel=0 note=60 velocity=39 time=0
+note_on channel=0 note=45 velocity=40 time=0
+note_off channel=0 note=57 velocity=0 time=480
+note_off channel=0 note=60 velocity=0 time=0
+note_off channel=0 note=45 velocity=0 time=0
+note_on channel=0 note=54 velocity=63 time=480
+note_off channel=0 note=54 velocity=0 time=240
+note_on channel=0 note=56 velocity=63 time=240
+note_off channel=0 note=56 velocity=0 time=240
+note_on channel=0 note=64 velocity=67 time=240
+note_on channel=0 note=57 velocity=62 time=0
+note_off channel=0 note=57 velocity=0 time=480
+note_off channel=0 note=64 velocity=0 time=480
+note_on channel=0 note=76 velocity=65 time=0
+note_on channel=0 note=66 velocity=55 time=0
+note_off channel=0 note=66 velocity=0 time=480
+note_on channel=0 note=68 velocity=67 time=0
+note_off channel=0 note=76 velocity=0 time=480
+note_on channel=0 note=78 velocity=122 time=0
+note_on channel=0 note=72 velocity=64 time=0
+note_off channel=0 note=68 velocity=0 time=0
+note_on channel=0 note=64 velocity=119 time=0
+note_on channel=0 note=69 velocity=119 time=0
+note_off channel=0 note=78 velocity=0 time=240
+note_on channel=0 note=80 velocity=127 time=240
+note_off channel=0 note=80 velocity=0 time=240
+note_on channel=0 note=81 velocity=121 time=240
+note_off channel=0 note=81 velocity=0 time=480
+control_change channel=0 control=64 value=127 time=476
+control_change channel=0 control=64 value=0 time=1924
+note_off channel=0 note=72 velocity=0 time=480
+note_off channel=0 note=64 velocity=0 time=0
+note_off channel=0 note=69 velocity=0 time=0
+MetaMessage('end_of_track', time=1)
+tempo set:  0.0009469677083333332  pri casu  0
+tempo set:  0.0009765625  pri casu  99840
+tempo set:  0.0010080635416666666  pri casu  1920
+tempo set:  0.0010416666666666667  pri casu  2880
+tempo set:  0.0011363635416666666  pri casu  960
+[(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+[('program_change', None, 0), ('control_change', None, 0), ('control_change', None, 0), ('control_change', None, 0), ('control_change', None, 0), ('control_change', None, 0), ('note_on', 72, 0), ('note_on', 76, 0), ('control_change', None, 0), ('control_change', None, 0), ('control_change', None, 0), ('control_change', None, 0), ('control_change', None, 0), ('control_change', None, 0), ('note_on', 52, 0), ('note_on', 57, 0), ('control_change', None, 3045), ('note_off', 72, 795), ('note_off', 76, 0), ('note_off', 52, 0), ('note_off', 57, 0), ('note_on', 48, 0), ('note_on', 52, 0), ('note_on', 45, 0), ('note_off', 48, 960), ('note_off', 52, 0), ('note_off', 45, 0), ('note_on', 48, 0), ('note_on', 52, 0), ('note_on', 45, 0), ('note_off', 48, 240), ('note_off', 52, 0), ('note_off', 45, 0), ('note_on', 48, 240), ('note_on', 52, 0), ('note_on', 45, 0), ('note_off', 48, 240), ('note_off', 52, 0), ('note_off', 45, 0), ('note_on', 47, 240), ('note_on', 52, 0), ('note_on', 44, 0), ('note_off', 47, 480), ('note_off', 52, 0), ('note_off', 44, 0), ('note_on', 47, 480), ('note_on', 52, 0), ('note_on', 44, 0), ('note_off', 47, 428), ('note_off', 52, 0), ('note_off', 44, 0), ('note_on', 47, 532), ('note_on', 52, 0), ('note_on', 40, 0), ('note_off', 47, 960), ('note_off', 52, 0), ('note_off', 40, 0), ('note_on', 47, 0), ('note_on', 52, 0), ('note_on', 40, 0), ('note_off', 47, 240), ('note_off', 52, 0), ('note_off', 40, 0), ('note_on', 47, 240), ('note_on', 52, 0), ('note_on', 40, 0), ('note_off', 47, 240), ('note_off', 52, 0), ('note_off', 40, 0), ('note_on', 48, 240), ('note_on', 52, 0), ('note_on', 45, 0), ('note_off', 48, 480), ('note_off', 52, 0), ('note_off', 45, 0), ('note_on', 48, 480), ('note_on', 52, 0), ('note_on', 45, 0), ('note_off', 48, 428), ('note_off', 52, 0), ('note_off', 45, 0), ('note_on', 48, 532), ('note_on', 52, 0), ('note_on', 45, 0), ('note_off', 48, 960), ('note_off', 52, 0), ('note_off', 45, 0), ('note_on', 48, 0), ('note_on', 52, 0), ('note_on', 45, 0), ('note_off', 48, 240), ('note_off', 52, 0), ('note_off', 45, 0), ('note_on', 50, 240), ('note_on', 54, 0), ('note_on', 45, 0), ('note_off', 50, 240), ('note_off', 54, 0), ('note_off', 45, 0), ('note_on', 52, 240), ('note_on', 55, 0), ('note_on', 43, 0), ('note_off', 52, 480), ('note_off', 55, 0), ('note_off', 43, 0), ('note_on', 52, 480), ('note_on', 55, 0), ('note_on', 43, 0), ('note_off', 52, 428), ('note_off', 55, 0), ('note_off', 43, 0), ('note_on', 50, 532), ('note_on', 55, 0), ('note_on', 43, 0), ('note_off', 50, 960), ('note_off', 55, 0), ('note_off', 43, 0), ('note_on', 48, 0), ('note_on', 55, 0), ('note_on', 43, 0), ('note_off', 48, 240), ('note_off', 55, 0), ('note_off', 43, 0), ('note_on', 50, 240), ('note_on', 55, 0), ('note_on', 43, 0), ('note_off', 50, 240), ('note_off', 55, 0), ('note_off', 43, 0), ('note_on', 52, 240), ('note_on', 55, 0), ('note_on', 48, 0), ('note_off', 52, 480), ('note_off', 55, 0), ('note_off', 48, 0), ('note_on', 52, 1440), ('note_on', 55, 0), ('note_on', 48, 0), ('note_off', 52, 960), ('note_off', 55, 0), ('note_off', 48, 0), ('note_on', 52, 0), ('note_on', 55, 0), ('note_on', 48, 0), ('note_off', 52, 240), ('note_off', 55, 0), ('note_off', 48, 0), ('note_on', 52, 240), ('note_on', 57, 0), ('note_on', 48, 0), ('note_off', 52, 240), ('note_off', 57, 0), ('note_off', 48, 0), ('note_on', 51, 240), ('note_on', 59, 0), ('note_on', 47, 0), ('note_off', 51, 480), ('note_off', 59, 0), ('note_off', 47, 0), ('note_on', 51, 480), ('note_on', 59, 0), ('note_on', 47, 0), ('note_off', 51, 428), ('note_off', 59, 0), ('note_off', 47, 0), ('note_on', 50, 532), ('note_on', 54, 0), ('note_on', 47, 0), ('note_off', 50, 960), ('note_off', 54, 0), ('note_off', 47, 0), ('note_on', 50, 0), ('note_on', 54, 0), ('note_on', 47, 0), ('note_off', 50, 240), ('note_off', 54, 0), ('note_off', 47, 0), ('note_on', 50, 240), ('note_on', 56, 0), ('note_on', 47, 0), ('note_off', 50, 240), ('note_off', 56, 0), ('note_off', 47, 0), ('note_on', 49, 240), ('note_on', 57, 0), ('note_on', 45, 0), ('note_off', 57, 480), ('note_off', 45, 0), ('note_off', 49, 15), ('note_on', 48, 465), ('note_on', 57, 0), ('note_on', 45, 0), ('note_off', 48, 428), ('note_off', 57, 0), ('note_off', 45, 0), ('note_on', 48, 532), ('note_on', 52, 0), ('note_on', 45, 0), ('note_off', 48, 960), ('note_off', 52, 0), ('note_off', 45, 0), ('note_on', 48, 0), ('note_on', 52, 0), ('note_on', 45, 0), ('note_off', 48, 240), ('note_off', 52, 0), ('note_off', 45, 0), ('note_on', 48, 240), ('note_on', 52, 0), ('note_on', 45, 0), ('note_off', 48, 240), ('note_off', 52, 0), ('note_off', 45, 0), ('note_on', 47, 240), ('note_on', 52, 0), ('note_on', 44, 0), ('note_off', 52, 480), ('note_off', 47, 15), ('note_off', 44, 0), ('note_on', 48, 465), ('note_on', 52, 0), ('note_on', 45, 0), ('note_off', 48, 428), ('note_off', 52, 0), ('note_off', 45, 0), ('note_on', 47, 532), ('note_on', 52, 0), ('note_on', 40, 0), ('note_off', 47, 960), ('note_off', 52, 0), ('note_off', 40, 0), ('note_on', 47, 0), ('note_on', 54, 0), ('note_on', 40, 0), ('note_off', 47, 240), ('note_off', 54, 0), ('note_off', 40, 0), ('note_on', 47, 240), ('note_on', 56, 0), ('note_on', 40, 0), ('note_off', 47, 240), ('note_off', 56, 0), ('note_off', 40, 0), ('note_on', 48, 240), ('note_on', 57, 0), ('note_on', 45, 0), ('note_off', 48, 480), ('note_off', 57, 0), ('note_off', 45, 0), ('note_on', 52, 1440), ('note_on', 55, 0), ('note_on', 48, 0), ('note_off', 52, 960), ('note_off', 55, 0), ('note_off', 48, 0), ('note_on', 52, 0), ('note_on', 55, 0), ('note_on', 48, 0), ('note_off', 52, 240), ('note_off', 55, 0), ('note_off', 48, 0), ('note_on', 52, 240), ('note_on', 57, 0), ('note_on', 48, 0), ('note_off', 52, 240), ('note_off', 57, 0), ('note_off', 48, 0), ('note_on', 51, 240), ('note_on', 59, 0), ('note_on', 47, 0), ('note_off', 51, 480), ('note_off', 59, 0), ('note_off', 47, 0), ('note_on', 51, 480), ('note_on', 59, 0), ('note_on', 47, 0), ('note_off', 51, 428), ('note_off', 59, 0), ('note_off', 47, 0), ('note_on', 50, 532), ('note_on', 54, 0), ('note_on', 47, 0), ('note_off', 50, 960), ('note_off', 54, 0), ('note_off', 47, 0), ('note_on', 50, 0), ('note_on', 54, 0), ('note_on', 47, 0), ('note_off', 50, 240), ('note_off', 54, 0), ('note_off', 47, 0), ('note_on', 50, 240), ('note_on', 56, 0), ('note_on', 47, 0), ('note_off', 50, 240), ('note_off', 56, 0), ('note_off', 47, 0), ('note_on', 49, 240), ('note_on', 57, 0), ('note_on', 45, 0), ('note_off', 57, 480), ('note_off', 45, 0), ('note_off', 49, 15), ('note_on', 48, 465), ('note_on', 57, 0), ('note_on', 45, 0), ('note_off', 48, 428), ('note_off', 57, 0), ('note_off', 45, 0), ('note_on', 48, 532), ('note_on', 52, 0), ('note_on', 45, 0), ('note_off', 48, 960), ('note_off', 52, 0), ('note_off', 45, 0), ('note_on', 48, 0), ('note_on', 52, 0), ('note_on', 45, 0), ('note_off', 48, 240), ('note_off', 52, 0), ('note_off', 45, 0), ('note_on', 48, 240), ('note_on', 52, 0), ('note_on', 45, 0), ('note_off', 48, 240), ('note_off', 52, 0), ('note_off', 45, 0), ('note_on', 47, 240), ('note_on', 52, 0), ('note_on', 44, 0), ('note_off', 52, 480), ('note_off', 47, 15), ('note_off', 44, 0), ('note_on', 48, 465), ('note_on', 52, 0), ('note_on', 45, 0), ('note_off', 48, 428), ('note_off', 52, 0), ('note_off', 45, 0), ('note_on', 47, 532), ('note_on', 52, 0), ('note_on', 40, 0), ('note_off', 47, 960), ('note_off', 52, 0), ('note_off', 40, 0), ('note_on', 47, 0), ('note_on', 54, 0), ('note_on', 40, 0), ('note_off', 47, 240), ('note_off', 54, 0), ('note_off', 40, 0), ('note_on', 47, 240), ('note_on', 56, 0), ('note_on', 40, 0), ('note_off', 47, 240), ('note_off', 56, 0), ('note_off', 40, 0), ('note_on', 48, 240), ('note_on', 57, 0), ('note_on', 45, 0), ('note_off', 48, 480), ('note_off', 57, 0), ('note_off', 45, 0), ('note_on', 64, 1440), ('note_on', 60, 0), ('note_off', 64, 960), ('note_on', 64, 0), ('note_on', 45, 0), ('note_off', 64, 240), ('note_off', 45, 0), ('note_on', 64, 240), ('note_on', 45, 0), ('note_off', 64, 240), ('note_off', 45, 0), ('note_on', 64, 240), ('note_on', 59, 0), ('note_on', 44, 0), ('note_off', 60, 38), ('note_off', 44, 202), ('note_off', 64, 214), ('note_on', 64, 506), ('note_on', 56, 0), ('note_off', 56, 240), ('note_off', 64, 214), ('note_off', 59, 315), ('note_on', 64, 191), ('note_on', 59, 0), ('note_on', 62, 480), ('note_off', 59, 8), ('note_off', 64, 472), ('note_on', 64, 0), ('note_on', 60, 0), ('note_on', 40, 0), ('note_off', 62, 8), ('note_off', 64, 232), ('note_off', 40, 0), ('note_on', 64, 240), ('note_on', 59, 0), ('note_on', 40, 0), ('note_off', 60, 8), ('note_off', 64, 217), ('note_off', 40, 15), ('note_off', 59, 214), ('note_on', 64, 26), ('note_on', 59, 0), ('note_on', 45, 0), ('note_off', 45, 240), ('note_off', 64, 214), ('note_on', 60, 26), ('note_off', 59, 15), ('note_off', 60, 439), ('note_on', 64, 26), ('note_on', 60, 0), ('note_on', 57, 0), ('note_off', 57, 240), ('note_off', 64, 214), ('note_off', 60, 457), ('note_on', 64, 49), ('note_on', 60, 0), ('note_off', 64, 960), ('note_off', 60, 0), ('note_on', 64, 0), ('note_on', 60, 0), ('note_on', 45, 0), ('note_off', 45, 240), ('note_off', 64, 4), ('note_on', 66, 236), ('note_on', 62, 0), ('note_on', 45, 0), ('note_off', 60, 8), ('note_off', 66, 217), ('note_off', 45, 15), ('note_off', 62, 214), ('note_on', 67, 26), ('note_on', 63, 0), ('note_on', 43, 0), ('note_off', 43, 240), ('note_off', 67, 214), ('note_on', 64, 26), ('note_off', 63, 15), ('note_off', 64, 439), ('note_on', 67, 26), ('note_on', 64, 0), ('note_on', 55, 0), ('note_off', 55, 240), ('note_off', 67, 214), ('note_off', 64, 457), ('note_on', 67, 49), ('note_on', 62, 0), ('note_on', 65, 480), ('note_off', 62, 8), ('note_off', 67, 472), ('note_on', 67, 0), ('note_on', 64, 0), ('note_on', 55, 0), ('note_off', 65, 8), ('note_off', 67, 232), ('note_off', 55, 0), ('note_on', 67, 240), ('note_on', 62, 0), ('note_on', 55, 0), ('note_off', 64, 8), ('note_off', 67, 217), ('note_off', 55, 15), ('note_off', 62, 214), ('note_on', 67, 26), ('note_on', 62, 0), ('note_on', 48, 0), ('note_off', 48, 240), ('note_off', 67, 214), ('note_on', 64, 26), ('note_off', 62, 15), ('note_off', 64, 439), ('note_on', 67, 26), ('note_on', 64, 0), ('note_on', 60, 0), ('note_off', 60, 240), ('note_off', 67, 214), ('note_off', 64, 457), ('note_on', 67, 49), ('note_on', 64, 0), ('note_off', 67, 960), ('note_on', 67, 0), ('note_on', 48, 0), ('note_off', 48, 240), ('note_off', 67, 4), ('note_on', 69, 236), ('note_on', 48, 0), ('note_off', 48, 240), ('note_off', 69, 4), ('note_on', 71, 236), ('note_on', 63, 0), ('note_on', 47, 0), ('note_off', 64, 38), ('note_off', 47, 202), ('note_off', 71, 214), ('note_on', 71, 506), ('note_on', 59, 0), ('note_off', 59, 240), ('note_off', 71, 214), ('note_off', 63, 315), ('note_on', 66, 191), ('note_on', 62, 0), ('note_on', 59, 480), ('note_off', 62, 8), ('note_off', 66, 472), ('note_on', 66, 0), ('note_on', 62, 0), ('note_on', 52, 0), ('note_off', 59, 8), ('note_off', 52, 232), ('note_off', 66, 4), ('note_on', 68, 236), ('note_on', 64, 0), ('note_on', 52, 0), ('note_off', 62, 8), ('note_off', 68, 217), ('note_off', 52, 15), ('note_off', 64, 214), ('note_on', 69, 26), ('note_on', 62, 0), ('note_on', 45, 0), ('note_off', 45, 240), ('note_off', 69, 214), ('note_on', 61, 26), ('note_off', 62, 15), ('note_off', 61, 446), ('note_on', 69, 19), ('note_on', 60, 0), ('note_on', 57, 0), ('note_off', 57, 240), ('note_off', 69, 214), ('note_off', 60, 457), ('note_on', 64, 49), ('note_on', 60, 0), ('note_off', 64, 960), ('note_on', 64, 0), ('note_on', 45, 0), ('note_off', 64, 240), ('note_off', 45, 0), ('note_on', 64, 240), ('note_on', 45, 0), ('note_off', 64, 240), ('note_off', 45, 0), ('note_on', 64, 240), ('note_on', 59, 0), ('note_on', 44, 0), ('note_off', 60, 38), ('note_off', 44, 202), ('note_off', 64, 240), ('note_on', 64, 480), ('note_on', 60, 0), ('note_on', 45, 0), ('note_off', 59, 38), ('note_off', 45, 202), ('note_off', 64, 188), ('note_off', 60, 435), ('note_on', 64, 97), ('note_on', 59, 0), ('note_on', 62, 480), ('note_off', 59, 8), ('note_on', 66, 472), ('note_on', 60, 0), ('note_on', 40, 0), ('note_off', 62, 8), ('note_off', 64, 11), ('note_off', 40, 221), ('note_off', 66, 4), ('note_on', 68, 236), ('note_on', 59, 0), ('note_on', 40, 0), ('note_off', 60, 8), ('note_off', 68, 217), ('note_off', 40, 15), ('note_off', 59, 214), ('note_on', 69, 26), ('note_on', 60, 0), ('note_on', 45, 0), ('note_off', 45, 240), ('note_off', 69, 720), ('note_off', 60, 0), ('note_on', 60, 0), ('note_on', 57, 0), ('note_off', 57, 240), ('note_on', 62, 240), ('note_off', 60, 8), ('note_off', 62, 446), ('note_on', 67, 26), ('note_on', 64, 0), ('note_off', 67, 960), ('note_on', 67, 0), ('note_on', 48, 0), ('note_off', 48, 240), ('note_off', 67, 4), ('note_on', 69, 236), ('note_on', 48, 0), ('note_off', 48, 240), ('note_off', 69, 4), ('note_on', 71, 236), ('note_on', 63, 0), ('note_on', 47, 0), ('note_off', 64, 38), ('note_off', 47, 202), ('note_off', 71, 214), ('note_on', 71, 506), ('note_on', 59, 0), ('note_off', 59, 240), ('note_off', 71, 214), ('note_off', 63, 315), ('note_on', 66, 191), ('note_on', 62, 0), ('note_on', 59, 480), ('note_off', 62, 8), ('note_off', 66, 472), ('note_on', 66, 0), ('note_on', 62, 0), ('note_on', 52, 0), ('note_off', 59, 8), ('note_off', 52, 232), ('note_off', 66, 4), ('note_on', 68, 236), ('note_on', 64, 0), ('note_on', 52, 0), ('note_off', 62, 8), ('note_off', 68, 217), ('note_off', 52, 15), ('note_off', 64, 214), ('note_on', 69, 26), ('note_on', 62, 0), ('note_on', 45, 0), ('note_off', 45, 240), ('note_off', 69, 214), ('note_on', 61, 26), ('note_off', 62, 15), ('note_off', 61, 446), ('note_on', 69, 19), ('note_on', 60, 0), ('note_on', 57, 0), ('note_off', 57, 240), ('note_off', 69, 214), ('note_off', 60, 457), ('note_on', 64, 49), ('note_on', 60, 0), ('note_off', 64, 960), ('note_on', 64, 0), ('note_on', 45, 0), ('note_off', 64, 240), ('note_off', 45, 0), ('note_on', 64, 240), ('note_on', 45, 0), ('note_off', 64, 240), ('note_off', 45, 0), ('note_on', 64, 240), ('note_on', 59, 0), ('note_on', 44, 0), ('note_off', 60, 38), ('note_off', 44, 202), ('note_off', 64, 240), ('note_on', 64, 480), ('note_on', 60, 0), ('note_on', 45, 0), ('note_off', 59, 38), ('note_off', 45, 202), ('note_off', 64, 188), ('note_off', 60, 435), ('note_on', 64, 97), ('note_on', 59, 0), ('note_on', 62, 480), ('note_off', 59, 8), ('note_on', 66, 472), ('note_on', 60, 0), ('note_on', 40, 0), ('note_off', 62, 8), ('note_off', 64, 11), ('note_off', 40, 221), ('note_off', 66, 4), ('note_on', 68, 236), ('note_on', 59, 0), ('note_on', 40, 0), ('note_off', 60, 8), ('note_off', 68, 217), ('note_off', 40, 15), ('note_off', 59, 214), ('note_on', 69, 26), ('note_on', 60, 0), ('note_on', 45, 0), ('note_off', 45, 240), ('note_off', 69, 720), ('note_off', 60, 0), ('note_on', 57, 0), ('note_off', 57, 240), ('note_on', 74, 720), ('note_on', 76, 0), ('note_on', 52, 0), ('note_off', 74, 480), ('note_off', 76, 0), ('note_on', 74, 480), ('note_on', 78, 0), ('note_off', 52, 0), ('note_on', 52, 0), ('note_off', 74, 240), ('note_off', 78, 0), ('note_off', 52, 0), ('note_on', 74, 240), ('note_on', 80, 0), ('note_on', 52, 0), ('note_off', 74, 240), ('note_off', 80, 0), ('note_off', 52, 0), ('note_on', 76, 240), ('note_on', 81, 0), ('note_on', 57, 0), ('note_off', 76, 960), ('note_off', 81, 0), ('note_off', 57, 0), ('note_on', 59, 960), ('note_on', 62, 0), ('note_on', 40, 0), ('note_off', 59, 480), ('note_off', 62, 0), ('note_off', 40, 0), ('note_on', 59, 480), ('note_on', 62, 0), ('note_on', 42, 0), ('note_off', 59, 240), ('note_off', 62, 0), ('note_off', 42, 0), ('note_on', 59, 240), ('note_on', 62, 0), ('note_on', 44, 0), ('note_off', 59, 240), ('note_off', 62, 0), ('note_off', 44, 0), ('note_on', 57, 240), ('note_on', 60, 0), ('note_on', 45, 0), ('note_off', 57, 480), ('note_off', 60, 0), ('note_off', 45, 0), ('note_on', 54, 480), ('note_off', 54, 240), ('note_on', 56, 240), ('note_off', 56, 240), ('note_on', 64, 240), ('note_on', 57, 0), ('note_off', 57, 480), ('note_off', 64, 480), ('note_on', 76, 0), ('note_on', 66, 0), ('note_off', 66, 480), ('note_on', 68, 0), ('note_off', 76, 480), ('note_on', 78, 0), ('note_on', 72, 0), ('note_off', 68, 0), ('note_on', 64, 0), ('note_on', 69, 0), ('note_off', 78, 240), ('note_on', 80, 240), ('note_off', 80, 240), ('note_on', 81, 240), ('note_off', 81, 480), ('control_change', None, 476), ('control_change', None, 1924), ('note_off', 72, 480), ('note_off', 64, 0), ('note_off', 69, 0)]
+0.0005208333333333333
+tempo casi,  [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+zacetni tempo  909089  zacetni tempo timer  0
+('note_off', 72, 795)
+795 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 48, 960)
+1755 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 48, 240)
+1995 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 48, 240)
+2235 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 48, 240)
+2475 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 47, 240)
+2715 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 47, 480)
+3195 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 47, 480)
+3675 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 47, 428)
+4103 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 47, 532)
+4635 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 47, 960)
+5595 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 47, 240)
+5835 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 47, 240)
+6075 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 47, 240)
+6315 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 48, 240)
+6555 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 48, 480)
+7035 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 48, 480)
+7515 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 48, 428)
+7943 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 48, 532)
+8475 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 48, 960)
+9435 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 48, 240)
+9675 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 50, 240)
+9915 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 50, 240)
+10155 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 52, 240)
+10395 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 52, 480)
+10875 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 52, 480)
+11355 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 52, 428)
+11783 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 50, 532)
+12315 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 50, 960)
+13275 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 48, 240)
+13515 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 50, 240)
+13755 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 50, 240)
+13995 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 52, 240)
+14235 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 52, 480)
+14715 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 52, 1440)
+16155 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 52, 960)
+17115 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 52, 240)
+17355 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 52, 240)
+17595 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 52, 240)
+17835 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 51, 240)
+18075 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 51, 480)
+18555 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 51, 480)
+19035 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 51, 428)
+19463 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 50, 532)
+19995 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 50, 960)
+20955 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 50, 240)
+21195 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 50, 240)
+21435 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 50, 240)
+21675 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 49, 240)
+21915 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 57, 480)
+22395 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 49, 15)
+22410 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 48, 465)
+22875 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 48, 428)
+23303 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 48, 532)
+23835 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 48, 960)
+24795 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 48, 240)
+25035 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 48, 240)
+25275 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 48, 240)
+25515 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 47, 240)
+25755 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 52, 480)
+26235 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 47, 15)
+26250 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 48, 465)
+26715 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 48, 428)
+27143 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 47, 532)
+27675 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 47, 960)
+28635 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 47, 240)
+28875 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 47, 240)
+29115 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 47, 240)
+29355 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 48, 240)
+29595 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 48, 480)
+30075 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 52, 1440)
+31515 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 52, 960)
+32475 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 52, 240)
+32715 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 52, 240)
+32955 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 52, 240)
+33195 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 51, 240)
+33435 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 51, 480)
+33915 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 51, 480)
+34395 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 51, 428)
+34823 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 50, 532)
+35355 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 50, 960)
+36315 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 50, 240)
+36555 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 50, 240)
+36795 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 50, 240)
+37035 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 49, 240)
+37275 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 57, 480)
+37755 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 49, 15)
+37770 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 48, 465)
+38235 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 48, 428)
+38663 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 48, 532)
+39195 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 48, 960)
+40155 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 48, 240)
+40395 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 48, 240)
+40635 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 48, 240)
+40875 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 47, 240)
+41115 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 52, 480)
+41595 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 47, 15)
+41610 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 48, 465)
+42075 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 48, 428)
+42503 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 47, 532)
+43035 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 47, 960)
+43995 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 47, 240)
+44235 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 47, 240)
+44475 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 47, 240)
+44715 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 48, 240)
+44955 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 48, 480)
+45435 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 64, 1440)
+46875 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 64, 960)
+47835 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 64, 240)
+48075 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 64, 240)
+48315 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 64, 240)
+48555 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 64, 240)
+48795 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 60, 38)
+48833 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 44, 202)
+49035 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 64, 214)
+49249 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 64, 506)
+49755 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 56, 240)
+49995 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 64, 214)
+50209 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 59, 315)
+50524 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 64, 191)
+50715 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 62, 480)
+51195 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 59, 8)
+51203 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 64, 472)
+51675 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 62, 8)
+51683 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 64, 232)
+51915 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 64, 240)
+52155 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 60, 8)
+52163 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 64, 217)
+52380 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 40, 15)
+52395 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 59, 214)
+52609 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 64, 26)
+52635 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 45, 240)
+52875 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 64, 214)
+53089 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 60, 26)
+53115 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 59, 15)
+53130 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 60, 439)
+53569 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 64, 26)
+53595 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 57, 240)
+53835 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 64, 214)
+54049 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 60, 457)
+54506 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 64, 49)
+54555 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 64, 960)
+55515 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 45, 240)
+55755 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 64, 4)
+55759 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 66, 236)
+55995 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 60, 8)
+56003 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 66, 217)
+56220 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 45, 15)
+56235 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 62, 214)
+56449 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 67, 26)
+56475 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 43, 240)
+56715 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 67, 214)
+56929 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 64, 26)
+56955 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 63, 15)
+56970 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 64, 439)
+57409 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 67, 26)
+57435 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 55, 240)
+57675 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 67, 214)
+57889 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 64, 457)
+58346 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 67, 49)
+58395 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 65, 480)
+58875 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 62, 8)
+58883 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 67, 472)
+59355 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 65, 8)
+59363 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 67, 232)
+59595 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 67, 240)
+59835 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 64, 8)
+59843 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 67, 217)
+60060 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 55, 15)
+60075 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 62, 214)
+60289 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 67, 26)
+60315 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 48, 240)
+60555 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 67, 214)
+60769 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 64, 26)
+60795 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 62, 15)
+60810 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 64, 439)
+61249 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 67, 26)
+61275 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 60, 240)
+61515 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 67, 214)
+61729 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 64, 457)
+62186 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 67, 49)
+62235 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 67, 960)
+63195 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 48, 240)
+63435 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 67, 4)
+63439 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 69, 236)
+63675 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 48, 240)
+63915 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 69, 4)
+63919 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 71, 236)
+64155 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 64, 38)
+64193 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 47, 202)
+64395 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 71, 214)
+64609 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 71, 506)
+65115 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 59, 240)
+65355 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 71, 214)
+65569 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 63, 315)
+65884 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 66, 191)
+66075 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 59, 480)
+66555 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 62, 8)
+66563 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 66, 472)
+67035 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 59, 8)
+67043 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 52, 232)
+67275 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 66, 4)
+67279 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 68, 236)
+67515 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 62, 8)
+67523 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 68, 217)
+67740 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 52, 15)
+67755 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 64, 214)
+67969 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 69, 26)
+67995 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 45, 240)
+68235 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 69, 214)
+68449 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 61, 26)
+68475 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 62, 15)
+68490 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 61, 446)
+68936 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 69, 19)
+68955 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 57, 240)
+69195 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 69, 214)
+69409 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 60, 457)
+69866 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 64, 49)
+69915 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 64, 960)
+70875 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 64, 240)
+71115 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 64, 240)
+71355 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 64, 240)
+71595 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 64, 240)
+71835 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 60, 38)
+71873 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 44, 202)
+72075 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 64, 240)
+72315 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 64, 480)
+72795 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 59, 38)
+72833 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 45, 202)
+73035 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 64, 188)
+73223 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 60, 435)
+73658 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 64, 97)
+73755 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 62, 480)
+74235 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 59, 8)
+74243 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 66, 472)
+74715 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 62, 8)
+74723 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 64, 11)
+74734 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 40, 221)
+74955 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 66, 4)
+74959 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 68, 236)
+75195 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 60, 8)
+75203 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 68, 217)
+75420 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 40, 15)
+75435 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 59, 214)
+75649 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 69, 26)
+75675 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 45, 240)
+75915 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 69, 720)
+76635 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 57, 240)
+76875 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 62, 240)
+77115 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 60, 8)
+77123 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 62, 446)
+77569 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 67, 26)
+77595 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 67, 960)
+78555 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 48, 240)
+78795 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 67, 4)
+78799 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 69, 236)
+79035 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 48, 240)
+79275 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 69, 4)
+79279 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 71, 236)
+79515 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 64, 38)
+79553 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 47, 202)
+79755 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 71, 214)
+79969 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 71, 506)
+80475 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 59, 240)
+80715 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 71, 214)
+80929 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 63, 315)
+81244 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 66, 191)
+81435 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 59, 480)
+81915 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 62, 8)
+81923 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 66, 472)
+82395 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 59, 8)
+82403 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 52, 232)
+82635 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 66, 4)
+82639 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 68, 236)
+82875 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 62, 8)
+82883 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 68, 217)
+83100 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 52, 15)
+83115 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 64, 214)
+83329 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 69, 26)
+83355 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 45, 240)
+83595 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 69, 214)
+83809 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 61, 26)
+83835 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 62, 15)
+83850 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 61, 446)
+84296 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 69, 19)
+84315 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 57, 240)
+84555 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 69, 214)
+84769 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 60, 457)
+85226 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 64, 49)
+85275 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 64, 960)
+86235 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 64, 240)
+86475 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 64, 240)
+86715 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 64, 240)
+86955 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 64, 240)
+87195 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 60, 38)
+87233 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 44, 202)
+87435 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 64, 240)
+87675 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 64, 480)
+88155 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 59, 38)
+88193 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 45, 202)
+88395 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 64, 188)
+88583 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 60, 435)
+89018 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 64, 97)
+89115 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 62, 480)
+89595 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 59, 8)
+89603 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 66, 472)
+90075 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 62, 8)
+90083 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 64, 11)
+90094 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 40, 221)
+90315 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 66, 4)
+90319 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 68, 236)
+90555 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 60, 8)
+90563 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 68, 217)
+90780 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 40, 15)
+90795 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 59, 214)
+91009 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 69, 26)
+91035 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 45, 240)
+91275 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 69, 720)
+91995 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 57, 240)
+92235 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 74, 720)
+92955 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 74, 480)
+93435 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 74, 480)
+93915 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 74, 240)
+94155 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 74, 240)
+94395 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 74, 240)
+94635 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 76, 240)
+94875 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 76, 960)
+95835 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 59, 960)
+96795 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 59, 480)
+97275 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 59, 480)
+97755 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 59, 240)
+97995 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 59, 240)
+98235 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 59, 240)
+98475 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 57, 240)
+98715 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 57, 480)
+99195 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 54, 480)
+99675 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 54, 240)
+99915 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+TEMPO CHANGE  (909089, 0)  ->  (937500, 99840)  @ 99915
+current tempo  937500  current tempo timer  75 , indeks 2
+('note_on', 56, 240)
+315 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 56, 240)
+555 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 64, 240)
+795 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 57, 480)
+1275 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 64, 480)
+1755 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 66, 480)
+2235 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+TEMPO CHANGE  (937500, 99840)  ->  (967741, 1920)  @ 2235
+current tempo  967741  current tempo timer  315 , indeks 3
+('note_off', 76, 480)
+795 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 78, 240)
+1035 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 80, 240)
+1275 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 80, 240)
+1515 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_on', 81, 240)
+1755 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 81, 480)
+2235 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+('note_off', 72, 480)
+2715 [(909089, 0), (937500, 99840), (967741, 1920), (1000000, 2880), (1090909, 960)]
+0.0019989013671875
+102150
+109920
