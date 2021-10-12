@@ -54,49 +54,71 @@ def extractSongInfo(mid):
             tempo_set.append((x["tempo"],x["time"]))
 
     print(tempo_set)
-    print(tr)
+    #print(tr)
+    print(mid.ticks_per_beat)
     print(mido.tick2second(1, mid.ticks_per_beat, 500_000))
 
-    extract_notes(tr,tempo_set)
-    printTickLength(mid)
+    extract_notes(tr,tempo_set,mid.ticks_per_beat)
+    #printTickLength(mid)
 
 #ta funkcija gre po vrsti po delta casu znotraj midi datoteke in "prebira" note v casovnem zaporedju, naceloma se tukaj dela izris blokcev
-def extract_notes(track,t2s):
+def extract_notes(track,t2s,ticks_per_beat):
 
     #t2s je tempo change array
     #track je array vseh not znotrja glasbe (non-meta message) (ime_akcije, tipka, cas)
     zacet = time.time();
-    tempo_timer = 0 #timer za delta timer
-    tempo_timer_indeks = 1 #Iterator za tempo change array
-    celoten_tempo = 0
+    tempo_timer, tempo_timer_indeks, celoten_tempo, tempo = 0 , 1 , 0, 500_000 #timer za delta timer, indeks za array tempo set, default tempo
+
     print("tempo casi, ",t2s)
 
-    tempo = 500_000 #default tempo
+     #default tempo
     if len(t2s)>0 and t2s[0][1] == 0:
         tempo = t2s[0][0] #trenutni tempo
     print("zacetni tempo ", tempo, " zacetni tempo timer ",tempo_timer)
+    print(t2s)
+    #ce je cas 0, potem naj appenda vse v list za komande, ki se poslejo naprej v funkcijo za prebiranje komand
+    komande = []
+    #prve komande loop
+    for tr in track:
+        if tr[2]>0:
+            break
+        komande.append(tr)
+    preberiKomande(komande)
     for i in range(len(track)):
         #if track[i][0]=="note_on" or track[i][0]=="note_off":
         if track[i][2]>0:
+            #ce je komanda, ki ima delay, naj prebira dokler ni se ena komanda z delayom
+            j = i+1
+            komande.append(track[i])
+            while(j<len(track) and track[j][2]==0):
+                komande.append(track[j])
+                print("dodajam ", track[j])
+                j+=1
+
+
+            preberiKomande(komande)
+            komande.clear()
             tempo_timer+=track[i][2]
-            print(track[i])
+            #print(track[i])
             #print("ayo timer ++ ",tempo_timer)
             if(tempo_timer_indeks<len(t2s)):
-                print(tempo_timer,t2s)
+                #print(tempo_timer,t2s)
                 if(t2s[tempo_timer_indeks][1] <= tempo_timer):
-                    print("TEMPO CHANGE ",t2s[tempo_timer_indeks-1]," -> ",t2s[tempo_timer_indeks], " @",tempo_timer)
-                    tempo = t2s[tempo_timer_indeks][0] #tempo set kokr je znotraj arraya
-                    celoten_tempo=tempo_timer+celoten_tempo
-                    tempo_timer=tempo_timer-t2s[tempo_timer_indeks][1] #odsteje trenutni cas in delta cas za tempo
+                    #print("TEMPO CHANGE ",t2s[tempo_timer_indeks-1]," -> ",t2s[tempo_timer_indeks], " @",tempo_timer)
+                    tempo, celoten_tempo, tempo_timer = t2s[tempo_timer_indeks][0], tempo_timer+celoten_tempo, tempo_timer-t2s[tempo_timer_indeks][1] #tempo set kokr je znotraj arraya  #odsteje trenutni cas in delta cas za tempo
                     tempo_timer_indeks+=1 #gleda naslednji element
-                    print("current tempo ", tempo, " current tempo timer ",tempo_timer, ", indeks",tempo_timer_indeks)
-            time.sleep(track[i][2]*tempo)
-            #print("sleep time: ",track[i][2]*t2s)
+                    #print("current tempo ", tempo, " current tempo timer ",tempo_timer, ", indeks",tempo_timer_indeks)
+            print("sleep time: ", track[i][2] * tempo/1_000_000_000)
+            time.sleep(track[i][2]*tempo/1_000_000_000)
         #print(track[i])
-
+    #ta je na koncu, saj se lahko nahajajo komande po zadnjem timu (note-off za druge note, ko je le ena napisana na delay)
+    #preberiKomande(komande)
     print(time.time()-zacet)
     print(celoten_tempo)
 
+
+def preberiKomande(com):
+    print(com)
 
 def printTickLength(mid):
     tick_length=0
