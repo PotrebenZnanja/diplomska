@@ -109,7 +109,7 @@ def extract_notes(track,t2s,ticks_per_beat):
                     tempo_timer_indeks+=1 #gleda naslednji element
                     #print("current tempo ", tempo, " current tempo timer ",tempo_timer, ", indeks",tempo_timer_indeks)
             print("sleep time: ", track[i][2] * tempo/1_000_000_000)
-            time.sleep(track[i][2]*tempo/1_000_000_000)
+            #time.sleep(track[i][2]*tempo/1_000_000_000)
         #print(track[i])
     #ta je na koncu, saj se lahko nahajajo komande po zadnjem timu (note-off za druge note, ko je le ena napisana na delay)
     #preberiKomande(komande)
@@ -118,7 +118,11 @@ def extract_notes(track,t2s,ticks_per_beat):
 
 
 def preberiKomande(com):
-    print(com)
+    note = ["C","C#",'D','D#','E','F','F#','G','G#','A','A#','B']
+    for i in com:
+        if(i[0] == "note_on" or i[0] == "note_off"):
+            m=note[i[1]%12]
+            print(i[1],"->",m+""+str(int(i[1]/12)))
 
 def printTickLength(mid):
     tick_length=0
