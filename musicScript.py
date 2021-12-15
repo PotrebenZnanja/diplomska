@@ -1,5 +1,6 @@
 import mido
 import time
+import os
 
 #v nov format spremeniti
 #zanima nas le note_on, time, note
@@ -7,8 +8,15 @@ import time
 #time atribut je podan v TICKS
 def readSong(text):
     mid = mido.MidiFile("music/"+text, clip=True)
-    extractSongInfo(mid)
+    #port = mido.open_output()
+    #print(mido.ports)
+    return mid;
+    #velik cajta slo stran ker sem glupo sestavljal midi play omfg, mid.play() sam pretvarja cas med igranjem in ima prakticno timeout
+    #print("Playing msg: ",pretvori_v_noto(msg))
+    #extractSongInfo(mid)
     #printSongInfo(mid)
+
+
 
 def extractSongInfo(mid):
 
@@ -29,6 +37,7 @@ def extractSongInfo(mid):
     #tick je time parameter v MIDI formatu
     tr = []
     meta_msgs = []
+
     for i, track in enumerate(mid.tracks):
         for msg in track:
             if not msg.is_meta:
@@ -66,6 +75,9 @@ def extract_notes(track,t2s,ticks_per_beat):
 
     #t2s je tempo change array
     #track je array vseh not znotrja glasbe (non-meta message) (ime_akcije, tipka, cas)
+
+    current_play = [0]*88
+
     zacet = time.time();
     tempo_timer, tempo_timer_indeks, celoten_tempo, tempo = 0 , 1 , 0, 500_000 #timer za delta timer, indeks za array tempo set, default tempo
 
@@ -83,7 +95,7 @@ def extract_notes(track,t2s,ticks_per_beat):
         if tr[2]>0:
             break
         komande.append(tr)
-    preberiKomande(komande)
+    preberiKomande(current_play,komande)
     for i in range(len(track)):
         #if track[i][0]=="note_on" or track[i][0]=="note_off":
         if track[i][2]>0:
@@ -92,11 +104,12 @@ def extract_notes(track,t2s,ticks_per_beat):
             komande.append(track[i])
             while(j<len(track) and track[j][2]==0):
                 komande.append(track[j])
-                print("dodajam ", track[j])
+                #print("dodajam ", track[j])
                 j+=1
 
 
-            preberiKomande(komande)
+            preberiKomande(current_play,komande)
+            print(current_play)
             komande.clear()
             tempo_timer+=track[i][2]
             #print(track[i])
@@ -108,21 +121,37 @@ def extract_notes(track,t2s,ticks_per_beat):
                     tempo, celoten_tempo, tempo_timer = t2s[tempo_timer_indeks][0], tempo_timer+celoten_tempo, tempo_timer-t2s[tempo_timer_indeks][1] #tempo set kokr je znotraj arraya  #odsteje trenutni cas in delta cas za tempo
                     tempo_timer_indeks+=1 #gleda naslednji element
                     #print("current tempo ", tempo, " current tempo timer ",tempo_timer, ", indeks",tempo_timer_indeks)
-            print("sleep time: ", track[i][2] * tempo/1_000_000_000)
-            #time.sleep(track[i][2]*tempo/1_000_000_000)
+            #print("sleep time: ", track[i][2] * tempo/1_000_000_000)
+            time.sleep(track[i][2]*tempo/1_000_000_000)
         #print(track[i])
     #ta je na koncu, saj se lahko nahajajo komande po zadnjem timu (note-off za druge note, ko je le ena napisana na delay)
     #preberiKomande(komande)
-    print(time.time()-zacet)
-    print(celoten_tempo)
+    #print(time.time()-zacet)
+    #print(celoten_tempo)
 
+def pretvori_v_noto(i):
+    note = ["C", "C#", 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B']
+    if (i[0] == "note_on" or i[0] == "note_off"):
+        m = note[int(i[1]) % 12]
+        n = m+""+str(int(int(i[1])/12))+" "+i[0]+" "+str(i[2])
+        return n
 
-def preberiKomande(com):
-    note = ["C","C#",'D','D#','E','F','F#','G','G#','A','A#','B']
+def preberiKomande(current_play,com):
+
+    prvi = com[0][0]
     for i in com:
-        if(i[0] == "note_on" or i[0] == "note_off"):
-            m=note[i[1]%12]
-            print(i[1],"->",m+""+str(int(i[1]/12)))
+
+        if i[0]!=prvi: #Tukaj se bo poslal signal, naj se spusti tipko in ponovno pritisne
+            prvi=i[0]
+            #send current
+            print(prvi)
+        if(i[0]=='note_on'):
+            current_play[i[1] - 9]=1
+        elif(i[0]=='note_off'):
+            current_play[i[1]-9]=0
+        pretvori_v_noto(i)
+    #os.system('cls' if os.name == 'nt' else 'clear')
+
 
 def printTickLength(mid):
     tick_length=0

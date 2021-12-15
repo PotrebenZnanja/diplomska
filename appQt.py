@@ -5,7 +5,6 @@ from PyQt5.QtWidgets import QApplication,QLineEdit,QWidget,QFormLayout, QPushBut
 from PyQt5.QtGui import QFont
 from PyQt5.QtCore import QObject
 
-import pygame
 import os
 import re
 import sys
@@ -38,12 +37,14 @@ class HelperThread(QObject):
     def run(self):
         while self._run_flag and self._play_flag:
             pass
+
     def pass_label(self,indeksi):
         #print(helperLabel)
         if len(indeksi)>0:
             print(indeksi)
             indeksi[:] = [int(x/3) for x in indeksi]
             print(indeksi)
+            print(len(indeksi))
             helperLabel[:,indeksi,:] = [255,0,0]
 
             self.indeksi = indeksi
@@ -67,8 +68,45 @@ class HelperThread(QObject):
         else:
             self._run_flag=True
 
-    def play_song(self):
-        self.time_start = time
+
+class MusicThread(QObject):
+    #play_signal = pyqtSignal(bool)
+    output_signal = pyqtSignal(str)
+    def __init__(self):
+        super(MusicThread, self).__init__()
+        self._run_flag = False
+        self.song_name = ""
+        self.mid= None
+
+    #vsakic updata helper_label
+    def run(self):
+        if self._run_flag:
+            self.send_signal_notes()
+            pass
+
+    def send_signal_notes(self):
+        for msg in self.mid.play():
+            # port.send(msg)
+            comm = []
+            if ('note' in str(msg).split()[0]):
+                comm.append(str(msg).split()[0])
+                comm.append(str(msg).split()[2][5:])
+                comm.append(str(msg).split()[4][5:])
+                #self.change_pixmap_signal_calib.emit(result,self.indeksi)
+                self.output_signal.emit(ms.pretvori_v_noto(comm))
+
+
+    def play(self,f,t):
+        self._run_flag=f
+        self.song_name=t
+        self.mid = ms.readSong(self.song_name)
+        self.run()
+
+    def stop(self):
+        if (self._run_flag):
+            self._run_flag = False
+        else:
+            self._run_flag = True
 
 
 #Main thread za cel video
@@ -92,12 +130,16 @@ class VideoThread(QObject): #QThread spremeni ce ne dela
 
     def run(self):
         cap = cv2.VideoCapture(0)#self.url
+        #cap = cv2.VideoCapture(self.url)
+
         while self._run_flag and cap is not None:
             if self.calib and self.tmp_image is not None:
                 result = self.convert_cv_qt(self.tmp_image)
                 self.change_pixmap_signal_calib.emit(result,self.indeksi)
             else:
                 ret, cv_img = cap.read()
+                if cv_img is None:
+                    break;
                 cv_img = cv2.resize(cv_img, (960, 540))
                 h, w, _ = cv_img.shape
                 h1 = int(h / 3)
@@ -105,10 +147,9 @@ class VideoThread(QObject): #QThread spremeni ce ne dela
                 if self.update_timer!=0:
                     self.update_timer-=1
                 elif ret and self.update_timer==0:
-                    #print("yo")
                     result = self.convert_cv_qt(cv_img)
                     self.change_pixmap_signal.emit(result) #Vrne QPixmap
-                    self.update_timer=3
+                    self.update_timer=0
                 self.tmp_image = cv_img
 
         # shut down capture system
@@ -167,6 +208,7 @@ class MainWindow(QMainWindow):
         super(MainWindow,self).__init__(parent)
         self.setCentralWidget(App(surface))
 
+
 class App(QWidget):#QWidget
     url = ""
     cap = None
@@ -176,11 +218,13 @@ class App(QWidget):#QWidget
     video_slot = pyqtSignal(np.ndarray)
     video_stop_signal = pyqtSignal()
     video_calib_signal = pyqtSignal(bool)
+    play_signal = pyqtSignal(bool,str)
+
     indeksi = None
     helper_send_signal = pyqtSignal(np.ndarray)
     helper_stop_signal = pyqtSignal()
 
-    def __init__(self,surface,parent=None):
+    def __init__(self,parent=None):
         super(App,self).__init__(parent)
         self.setWindowTitle("Connection manager")
         self.display_width = 1440
@@ -233,8 +277,7 @@ class App(QWidget):#QWidget
         self.musicList.activated[str].connect(self.updateMusicChoice)
         self.playButton = QPushButton("Play")
         self.playButton.setFixedWidth(100)
-        self.playButton.clicked.connect(lambda: ms.readSong(self.musicList.currentText()))
-
+        self.playButton.clicked.connect(self.playFunc)
         self.flo.addRow(self.musicList,self.playButton)
         self.setLayout(self.flo)
         self.b2.hide()
@@ -247,15 +290,18 @@ class App(QWidget):#QWidget
         self.thread.disconnect()
         self.thread.quit()
         self.thread.wait()
-        self.thread2.disconnect()
-        self.thread2.quit()
-        self.thread2.wait()
+        #self.thread2.disconnect()
+        #self.thread2.quit()
+        #self.thread2.wait()
+        self.thread3.disconnect()
+        self.thread3.quit()
+        self.thread3.wait()
         self.image_label.hide()
         self.b2.hide()
         self.b1.clicked.connect(self.setURL)
 
     def calibrate(self):
-        #print("Button pressed")
+
         if self.b2.isHidden():
             self.b2.show()
 
@@ -274,6 +320,17 @@ class App(QWidget):#QWidget
 
     def updateMusicChoice(self,text):
         return text
+
+    def playFunc(self):
+
+        if self.playButton.text()== "Play":
+            self.play_signal.emit(True,self.musicList.currentText());
+            print("playing ",self.musicList.currentText())
+            self.playButton.setText("Stop")
+        else:
+            self.play_signal.emit(False,self.musicList.currentText());
+            self.playButton.setText("Play")
+        #lambda: ms.readSong(self.musicList.currentText())
 
     def setURL(self):
         #Disable connection button and set URL
@@ -314,9 +371,18 @@ class App(QWidget):#QWidget
             self.thread2.started.connect(self.helper.run)
             self.thread2.finished.connect(self.helper.stop)
 
+            self.thread3 = QThread()
+            self.music = MusicThread()
+            self.play_signal.connect(self.music.play)
+            self.music.moveToThread(self.thread3)
+            self.music.output_signal.connect(self.musicThreadOutput)
+
+            #self.thread3.started.connect(self.music.run)
+            self.thread3.finished.connect(self.music.stop)
+
             self.thread.start()
             self.thread2.start()
-
+            self.thread3.start()
         self.url = ""
         return None
 
@@ -338,10 +404,13 @@ class App(QWidget):#QWidget
     @pyqtSlot(QPixmap)
     def update_label(self, QLabelPixmap):
         # qt_img = self.convert_cv_qt(cv_img)
-        # print("update_label")
         self.image_label.setPixmap(QLabelPixmap)
 
     polje_tipk=np.zeros((52,2), dtype=np.uint16)
+
+    @pyqtSlot(str)
+    def musicThreadOutput(self, stri):
+        pass
 
     #Dobesedna povrsina tipke v helper label
     def tipkeCalib(self):
@@ -360,14 +429,14 @@ class App(QWidget):#QWidget
                 self.polje_tipk[i, 0] =(self.indeksi[i-1]+1)
                 self.polje_tipk[i, 1] = (self.indeksi[i])
                 helperLabel[:,self.polje_tipk[i,0]:self.polje_tipk[i,1]] = [112, 128, 144]
-            print(self.polje_tipk)
+            print(self.polje_tipk,len(self.indeksi))
         else:
             pass
 
 
     update_timer=0
-    #Funkcija, ki se izvede ob pridobitvi signala, kjer je izhod QPixmap, da ga samo spremeni
 
+    #Funkcija, ki se izvede ob pridobitvi signala, kjer je izhod QPixmap, da ga samo spremeni
     @pyqtSlot(QPixmap, np.ndarray)
     def update_label_indeks(self,QLabelPixmap,indeks_array):
         self.update_label(QLabelPixmap)
@@ -393,13 +462,10 @@ class App(QWidget):#QWidget
 if __name__ == "__main__":
 
     #pygame test
-    pygame.init()
-    s = pygame.Surface((640,480))
-    s.fill((64,128,192,224))
     #Ustvari QApplication
     app = QApplication(sys.argv)
 
-    a = App(s)
+    a = App()
     a.move(QApplication.desktop().availableGeometry().topLeft())
     a.show()
 
