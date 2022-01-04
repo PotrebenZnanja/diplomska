@@ -29,54 +29,38 @@ helperLabel = np.zeros((120,320,3), dtype=np.uint8)
 #helper label je vbistvu ekran za blocke, ce je 0, ni note, drugace naj bo malce zelene barve?
 #torej dobim indeks note A3 npr. in potem spremenim barvo pixlov na helperLabel na indeksu A3 (npr. helperLabel[0:10, 135:140, :] = [0,200,100])
 
+
+#helper thread naj bo kar musicThread
 class HelperThread(QObject):
     change_pixmap_signal = pyqtSignal(QPixmap) #vrne QPixmap za Helper_label
-    music_signal = pyqtSignal(bool,str)
+    msg = pyqtSignal(str)
 
     def __init__(self):
         super(HelperThread, self).__init__()
         self._run_flag = True
         self._play_flag = False
         self.time_start = 0
+        self.song_name=""
 
-        self.music = MusicThread()
-        self.threadSetup()
-
-    def threadSetup(self):
-        print("Thread setup")
-        self.thread3 = QThread()
-
-        self.music_signal.connect(self.music.run)
-        self.music.moveToThread(self.thread3)
-        self.music.output_signal.connect(self.music_function)
-        self.thread3.start()
-        #self.thread3.finished.connect(self.music.stop)
-        #self.thread3.run()
-    
     def musicSetup(self,fl,nam):
         print(fl,nam)
-        self.music.song_name=nam
+        self.song_name=nam
         self._play_flag=fl
+        self._run_flag=fl
+        print(self._play_flag,self._run_flag, "sedaj je play_flag")
         if self._play_flag:
-            self.thread3.start()
-            self.music_signal.emit(fl,nam)
-
-
-
-    @pyqtSlot(str)
-    def music_function(self, stri):
-        print(stri)
-        if stri[0]=='A':
-            result = self.convert_cv_qt()
-            print("yo")
-        self.change_pixmap_signal.emit(result)
+            self.run()
 
     #vsakic updata helper_label
     def run(self):
-        #if self._run_flag and self._play_flag:
-            #self.music.run()
+        if self.song_name!="":
+            self.mid=ms.readSong(self.song_name)
         while self._run_flag and self._play_flag:
-            print("useless")
+            for msgA in self.mid.play():
+                if(self._run_flag!=True):
+                    break
+                self.msg.emit(str(msgA))
+        pass
 
 
     def pass_label(self,indeksi):
@@ -104,44 +88,8 @@ class HelperThread(QObject):
 
     def stop(self):
         """Sets run flag to False and waits for thread to finish"""
-        if(self._run_flag):
-            self._run_flag = False
-        else:
-            self._run_flag=True
-
-
-class MusicThread(QObject):
-    #play_signal = pyqtSignal(bool)
-    output_signal = pyqtSignal(str)
-    def __init__(self):
-        super(MusicThread, self).__init__()
-        self._run_flag = False
-        self.song_name = ""
-        self.mid= None
-
-    #vsakic updata helper_label
-    def run(self,pla,t):
-        print("running MusicThread Object")
-        self._run_flag = pla
-        self.song_name = t
-        self.mid = ms.readSong(self.song_name)
-        if self._run_flag:
-            for msg in self.mid.play():
-                # port.send(msg)
-                comm = []
-                if ('note' in str(msg).split()[0]):
-                    comm.append(str(msg).split()[0])
-                    comm.append(str(msg).split()[2][5:])
-                    comm.append(str(msg).split()[4][5:])
-                    # self.change_pixmap_signal_calib.emit(result,self.indeksi)
-                    result = ms.pretvori_v_noto(comm)
-                    self.output_signal.emit(result)
-
-    def stop(self):
-        if (self._run_flag):
-            self._run_flag = False
-        else:
-            self._run_flag = True
+        print("stopping run_flag")
+        self._run_flag=False
 
 
 #Main thread za cel video
@@ -174,7 +122,7 @@ class VideoThread(QObject): #QThread spremeni ce ne dela
             else:
                 ret, cv_img = cap.read()
                 if cv_img is None:
-                    break;
+                    break
                 cv_img = cv2.resize(cv_img, (960, 540))
                 h, w, _ = cv_img.shape
                 h1 = int(h / 3)
@@ -188,7 +136,7 @@ class VideoThread(QObject): #QThread spremeni ce ne dela
                 self.tmp_image = cv_img
 
         # shut down capture system
-        cap.release()
+        cap.release() 
 
     def change_calib(self,cal):
         self.calib = cal
@@ -231,17 +179,19 @@ class VideoThread(QObject): #QThread spremeni ce ne dela
 
     def stop(self):
         """Sets run flag to False and waits for thread to finish"""
+        
         if(self._run_flag):
             self._run_flag = False
         else:
             self._run_flag=True
+        print("Video run flag: ",self._run_flag)
 
 #Ko pritisne na play song, se nalozi pesem, ki jo je izbral preko dropdown menija
 
-class MainWindow(QMainWindow):
-    def __init__(self,surface,parent=None):
-        super(MainWindow,self).__init__(parent)
-        self.setCentralWidget(App(surface))
+#class MainWindow(QMainWindow):
+#    def __init__(self,surface,parent=None):
+#        super(MainWindow,self).__init__(parent)
+#        self.setCentralWidget(App(surface))
 
 
 class App(QWidget):#QWidget
@@ -311,8 +261,11 @@ class App(QWidget):#QWidget
         self.musicList = self.dropdownList()
         self.musicList.activated[str].connect(self.updateMusicChoice)
         self.playButton = QPushButton("Play")
+        
         self.playButton.setFixedWidth(100)
         self.playButton.clicked.connect(self.playFunc)
+        self.playButton.setDisabled(True)
+
         self.flo.addRow(self.musicList,self.playButton)
         self.setLayout(self.flo)
         self.b2.hide()
@@ -322,46 +275,52 @@ class App(QWidget):#QWidget
         self.b1.setText("Connect")
         self.video_stop_signal.emit()
         self.helper_stop_signal.emit()
-        self.thread.disconnect()
-        self.thread.quit()
-        self.thread.wait()
-        self.thread2.disconnect()
+        self.thread1.disconnect()
+        #self.thread2.disconnect()
+        self.thread1.quit()
+        self.thread1.wait()
+        self.thread1.terminate()
         self.thread2.quit()
         self.thread2.wait()
+        self.thread2.terminate()
 
         self.image_label.hide()
         self.b2.hide()
         self.b1.clicked.connect(self.setURL)
+    
 
     def calibrate(self):
-
         if self.b2.isHidden():
             self.b2.show()
 
         if self.b2.text() == "Stop calibration" :
             self.b2.setText("Calibrate")
             self.video_calib_signal.emit(True)
+            self.playButton.setEnabled(True)
             pass
             #self.calibrate_im()
             #self.calib = False
         else:
             self.b2.setText("Stop calibration")
             self.video_calib_signal.emit(False)
+            self.playButton.setEnabled(False)
 
             #print(helperLabel)
-            pass
+        
+
 
     def updateMusicChoice(self,text):
         return text
 
     def playFunc(self):
-
         if self.playButton.text()== "Play":
-            self.play_signal.emit(True,self.musicList.currentText());
+            self.play_signal.emit(True,self.musicList.currentText())
             print("playing ",self.musicList.currentText())
             self.playButton.setText("Stop")
         else:
-            self.play_signal.emit(False,self.musicList.currentText());
+            self.play_signal.emit(False,self.musicList.currentText())
+            self.helper.stop()
+            print("stopping current song")
             self.playButton.setText("Play")
         #lambda: ms.readSong(self.musicList.currentText())
 
@@ -380,45 +339,51 @@ class App(QWidget):#QWidget
         self.image_label.show()
 
         if len(match) != 0:
-            self.thread = QThread()
+
+            self.thread1 = QThread()
+            self.thread2 = QThread()
             self.video = VideoThread(self.url)
+            
             self.video_stop_signal.connect(self.video.stop)
             self.video_calib_signal.connect(self.video.change_calib)
-            self.video.moveToThread(self.thread)
+            self.video.moveToThread(self.thread1)
 
             self.video.change_pixmap_signal.connect(self.update_label)
             self.video.change_pixmap_signal_calib.connect(self.update_label_helper)
 
-            self.thread.started.connect(self.video.run)
-            self.thread.finished.connect(self.video.stop)
+            self.thread1.started.connect(self.video.run)
+            self.thread1.finished.connect(self.video.stop)
 
-            self.thread2 = QThread()
             self.helper = HelperThread()
+            self.helper.moveToThread(self.thread2)
+
             self.helper_stop_signal.connect(self.helper.stop)
             self.helper_send_signal.connect(self.helper.pass_label)
             self.play_signal.connect(self.helper.musicSetup)
-            self.helper.moveToThread(self.thread2)
 
             self.helper.change_pixmap_signal.connect(self.update_helper_pixmap)
+            self.helper.msg.connect(self.musicThreadOutput)
 
-            #run naj se klice, ko predvajamo glasbo(SPREMENI)
-            self.thread2.started.connect(self.helper.run)
-            self.thread2.finished.connect(self.helper.stop)
-
-            #self.thread3 = QThread()
-            #self.music = MusicThread()
-            #self.play_signal.connect(self.music.run)
-            #self.music.moveToThread(self.thread3)
-            #self.music.output_signal.connect(self.musicThreadOutput)
-
-            #self.thread3.started.connect(self.music.run)
-            #self.thread3.finished.connect(self.music.stop)
-
-            self.thread.start()
+            self.thread1.start()
             self.thread2.start()
-            #self.thread3.start()
+
         self.url = ""
         return None
+
+    '''def runLongTask(self):
+        
+        self.threadTest = QThread()
+        # Step 3: Create a worker object
+        self.worker = Worker()
+        # Step 4: Move worker to the thread
+        self.worker.moveToThread(self.threadTest)
+        # Step 5: Connect signals and slots
+        self.threadTest.started.connect(self.worker.run)
+        self.stop_music_signal.connect(self.worker.stopThread)
+        self.worker.msg.connect(self.reportProgress)
+        # Step 6: Start the thread
+        self.threadTest.start()
+    '''
 
     bot = None
     top = None
@@ -445,7 +410,6 @@ class App(QWidget):#QWidget
     @pyqtSlot(str)
     def musicThreadOutput(self, stri):
         print(stri)
-
 
     #Dobesedna povrsina tipke v helper label
     def tipkeCalib(self):
@@ -506,3 +470,40 @@ if __name__ == "__main__":
 
     #zalaufa application
     sys.exit(app.exec_())
+
+
+
+'''
+class MusicThread(QObject):
+    #play_signal = pyqtSignal(bool)
+    output_signal = pyqtSignal(str)
+    def __init__(self):
+        super(MusicThread, self).__init__()
+        self._run_flag = False
+        self.song_name = ""
+        self.mid= None
+
+    #vsakic updata helper_label
+    def run(self,pla,t):
+        print("running MusicThread Object")
+        self._run_flag = pla
+        self.song_name = t
+        self.mid = ms.readSong(self.song_name)
+        if self._run_flag:
+            for msg in self.mid.play():
+                # port.send(msg)
+                comm = []
+                if ('note' in str(msg).split()[0]):
+                    comm.append(str(msg).split()[0])
+                    comm.append(str(msg).split()[2][5:])
+                    comm.append(str(msg).split()[4][5:])
+                    # self.change_pixmap_signal_calib.emit(result,self.indeksi)
+                    result = ms.pretvori_v_noto(comm)
+                    self.output_signal.emit(result)
+
+    def stop(self):
+        if (self._run_flag):
+            self._run_flag = False
+        else:
+            self._run_flag = True
+'''
