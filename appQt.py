@@ -24,8 +24,14 @@ import time
 #Helper je image, ki posodablja glasbo (torej celotno crtovje s kvadratki), globalna spremenljivka, ki naj bi bla enostavna za manipulacijo not (upam, da je rezultat dovolj hiter)
 helperLabel = np.zeros((120,320,3), dtype=np.uint8)
 
+#HelperThread je nosilec tistih blockov, notri naj ima svoj event loop hkrati z glasbo, ki spremeni svoj pixmap glede na to, kaj se trenutno igra.
+#Ce loop v music scripti vrne sporocilo, ga more helperthread dekodirat in izrisati blocke na pravilno mesto
+#helper label je vbistvu ekran za blocke, ce je 0, ni note, drugace naj bo malce zelene barve?
+#torej dobim indeks note A3 npr. in potem spremenim barvo pixlov na helperLabel na indeksu A3 (npr. helperLabel[0:10, 135:140, :] = [0,200,100])
+
 class HelperThread(QObject):
     change_pixmap_signal = pyqtSignal(QPixmap) #vrne QPixmap za Helper_label
+    music_signal = pyqtSignal(bool,str)
 
     def __init__(self):
         super(HelperThread, self).__init__()
@@ -33,10 +39,45 @@ class HelperThread(QObject):
         self._play_flag = False
         self.time_start = 0
 
+        self.music = MusicThread()
+        self.threadSetup()
+
+    def threadSetup(self):
+        print("Thread setup")
+        self.thread3 = QThread()
+
+        self.music_signal.connect(self.music.run)
+        self.music.moveToThread(self.thread3)
+        self.music.output_signal.connect(self.music_function)
+        self.thread3.start()
+        #self.thread3.finished.connect(self.music.stop)
+        #self.thread3.run()
+    
+    def musicSetup(self,fl,nam):
+        print(fl,nam)
+        self.music.song_name=nam
+        self._play_flag=fl
+        if self._play_flag:
+            self.thread3.start()
+            self.music_signal.emit(fl,nam)
+
+
+
+    @pyqtSlot(str)
+    def music_function(self, stri):
+        print(stri)
+        if stri[0]=='A':
+            result = self.convert_cv_qt()
+            print("yo")
+        self.change_pixmap_signal.emit(result)
+
     #vsakic updata helper_label
     def run(self):
+        #if self._run_flag and self._play_flag:
+            #self.music.run()
         while self._run_flag and self._play_flag:
-            pass
+            print("useless")
+
 
     def pass_label(self,indeksi):
         #print(helperLabel)
@@ -79,28 +120,22 @@ class MusicThread(QObject):
         self.mid= None
 
     #vsakic updata helper_label
-    def run(self):
-        if self._run_flag:
-            self.send_signal_notes()
-            pass
-
-    def send_signal_notes(self):
-        for msg in self.mid.play():
-            # port.send(msg)
-            comm = []
-            if ('note' in str(msg).split()[0]):
-                comm.append(str(msg).split()[0])
-                comm.append(str(msg).split()[2][5:])
-                comm.append(str(msg).split()[4][5:])
-                #self.change_pixmap_signal_calib.emit(result,self.indeksi)
-                self.output_signal.emit(ms.pretvori_v_noto(comm))
-
-
-    def play(self,f,t):
-        self._run_flag=f
-        self.song_name=t
+    def run(self,pla,t):
+        print("running MusicThread Object")
+        self._run_flag = pla
+        self.song_name = t
         self.mid = ms.readSong(self.song_name)
-        self.run()
+        if self._run_flag:
+            for msg in self.mid.play():
+                # port.send(msg)
+                comm = []
+                if ('note' in str(msg).split()[0]):
+                    comm.append(str(msg).split()[0])
+                    comm.append(str(msg).split()[2][5:])
+                    comm.append(str(msg).split()[4][5:])
+                    # self.change_pixmap_signal_calib.emit(result,self.indeksi)
+                    result = ms.pretvori_v_noto(comm)
+                    self.output_signal.emit(result)
 
     def stop(self):
         if (self._run_flag):
@@ -290,12 +325,10 @@ class App(QWidget):#QWidget
         self.thread.disconnect()
         self.thread.quit()
         self.thread.wait()
-        #self.thread2.disconnect()
-        #self.thread2.quit()
-        #self.thread2.wait()
-        self.thread3.disconnect()
-        self.thread3.quit()
-        self.thread3.wait()
+        self.thread2.disconnect()
+        self.thread2.quit()
+        self.thread2.wait()
+
         self.image_label.hide()
         self.b2.hide()
         self.b1.clicked.connect(self.setURL)
@@ -363,6 +396,7 @@ class App(QWidget):#QWidget
             self.helper = HelperThread()
             self.helper_stop_signal.connect(self.helper.stop)
             self.helper_send_signal.connect(self.helper.pass_label)
+            self.play_signal.connect(self.helper.musicSetup)
             self.helper.moveToThread(self.thread2)
 
             self.helper.change_pixmap_signal.connect(self.update_helper_pixmap)
@@ -371,18 +405,18 @@ class App(QWidget):#QWidget
             self.thread2.started.connect(self.helper.run)
             self.thread2.finished.connect(self.helper.stop)
 
-            self.thread3 = QThread()
-            self.music = MusicThread()
-            self.play_signal.connect(self.music.play)
-            self.music.moveToThread(self.thread3)
-            self.music.output_signal.connect(self.musicThreadOutput)
+            #self.thread3 = QThread()
+            #self.music = MusicThread()
+            #self.play_signal.connect(self.music.run)
+            #self.music.moveToThread(self.thread3)
+            #self.music.output_signal.connect(self.musicThreadOutput)
 
             #self.thread3.started.connect(self.music.run)
-            self.thread3.finished.connect(self.music.stop)
+            #self.thread3.finished.connect(self.music.stop)
 
             self.thread.start()
             self.thread2.start()
-            self.thread3.start()
+            #self.thread3.start()
         self.url = ""
         return None
 
@@ -410,7 +444,8 @@ class App(QWidget):#QWidget
 
     @pyqtSlot(str)
     def musicThreadOutput(self, stri):
-        pass
+        print(stri)
+
 
     #Dobesedna povrsina tipke v helper label
     def tipkeCalib(self):
