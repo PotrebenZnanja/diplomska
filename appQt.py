@@ -47,7 +47,6 @@ class HelperThread(QObject):
         self.song_name=nam
         self._play_flag=fl
         self._run_flag=fl
-        print(self._play_flag,self._run_flag, "sedaj je play_flag")
         if self._play_flag:
             self.run()
 
@@ -59,7 +58,15 @@ class HelperThread(QObject):
             for msgA in self.mid.play():
                 if(self._run_flag!=True):
                     break
-                self.msg.emit(str(msgA))
+                comm = []
+                if ('note' in str(msgA).split()[0]):
+                    comm.append(str(msgA).split()[0])
+                    comm.append(str(msgA).split()[2][5:])
+                    comm.append(str(msgA).split()[4][5:])
+                    # self.change_pixmap_signal_calib.emit(result,self.indeksi)
+                    result = ms.pretvori_v_noto(comm)
+                    self.msg.emit(result)
+                #self.msg.emit(str(msgA))
         pass
 
 
@@ -283,7 +290,6 @@ class App(QWidget):#QWidget
         self.thread2.quit()
         self.thread2.wait()
         self.thread2.terminate()
-
         self.image_label.hide()
         self.b2.hide()
         self.b1.clicked.connect(self.setURL)

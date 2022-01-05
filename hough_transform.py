@@ -28,7 +28,7 @@ standard_layout_crne = ["b", "c#", "d#", "f#", "g#", "b", "c#", "d#", "f#", "g#"
 
 def houghTest(image):
     if image is None:
-        image = 'images/piano10.jpg'
+        image = 'images/piano9.jpg'
         orig = cv.imread(image, cv.IMREAD_COLOR)
 
     #src = cv.imread(image,cv.IMREAD_GRAYSCALE)
