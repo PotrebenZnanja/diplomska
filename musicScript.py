@@ -10,7 +10,7 @@ def readSong(text):
     mid = mido.MidiFile("music/"+text, clip=True)
     #port = mido.open_output()
     #print(mido.ports)
-    return mid;
+    return mid
     #velik cajta slo stran ker sem glupo sestavljal midi play omfg, mid.play() sam pretvarja cas med igranjem in ima prakticno timeout
     #print("Playing msg: ",pretvori_v_noto(msg))
     #extractSongInfo(mid)

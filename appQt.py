@@ -1,10 +1,9 @@
 from PyQt5 import QtGui
 from PyQt5.QtWidgets import QLabel, QComboBox,QMainWindow
-from PyQt5.QtGui import QPixmap
+from PyQt5.QtGui import QPixmap,QImage
 from PyQt5.QtWidgets import QApplication,QLineEdit,QWidget,QFormLayout, QPushButton
 from PyQt5.QtGui import QFont
 from PyQt5.QtCore import QObject
-
 import os
 import re
 import sys
@@ -14,6 +13,7 @@ import numpy as np
 import hough_transform as ht
 import musicScript as ms
 import time
+import pygame
 
 #TODO
 #- Label posebi za helper
@@ -59,6 +59,8 @@ class HelperThread(QObject):
                 if(self._run_flag!=True):
                     break
                 comm = []
+                print(msgA.dict().get('note'))
+                
                 if ('note' in str(msgA).split()[0]):
                     comm.append(str(msgA).split()[0])
                     comm.append(str(msgA).split()[2][5:])
@@ -73,10 +75,10 @@ class HelperThread(QObject):
     def pass_label(self,indeksi):
         #print(helperLabel)
         if len(indeksi)>0:
-            print(indeksi)
+            #print(indeksi)
             indeksi[:] = [int(x/3) for x in indeksi]
-            print(indeksi)
-            print(len(indeksi))
+            #print(indeksi)
+            #print(len(indeksi))
             helperLabel[:,indeksi,:] = [255,0,0]
 
             self.indeksi = indeksi
@@ -216,8 +218,9 @@ class App(QWidget):#QWidget
     helper_send_signal = pyqtSignal(np.ndarray)
     helper_stop_signal = pyqtSignal()
 
-    def __init__(self,parent=None):
+    def __init__(self,surface=None,parent=None):
         super(App,self).__init__(parent)
+
         self.setWindowTitle("Connection manager")
         self.display_width = 1440
         self.display_height = 1080
@@ -250,7 +253,7 @@ class App(QWidget):#QWidget
         self.flo.addRow(l1, self.e1)
         self.flo.addRow(l2, self.e2)
         self.flo.addRow(self.b1,self.b2)
-
+        
         ## create the label that holds the image
         self.image_label = QLabel(self)
         self.image_helper = QLabel(self)
@@ -422,7 +425,7 @@ class App(QWidget):#QWidget
 
         #polje_tipk predstavlja (zacetek, konec) tipke
         if self.indeksi is not None and len(self.indeksi)>1:
-            print(self.indeksi)
+            #print(self.indeksi)
             #print("dolzina", len(self.indeksi))
             #polje_tipk = np.zeros((52,2), dtype=np.uint16)
             #print(polje_tipk.shape,"que")
@@ -434,7 +437,7 @@ class App(QWidget):#QWidget
                 self.polje_tipk[i, 0] =(self.indeksi[i-1]+1)
                 self.polje_tipk[i, 1] = (self.indeksi[i])
                 helperLabel[:,self.polje_tipk[i,0]:self.polje_tipk[i,1]] = [112, 128, 144]
-            print(self.polje_tipk,len(self.indeksi))
+            #print(self.polje_tipk,len(self.indeksi))
         else:
             pass
 
@@ -464,15 +467,30 @@ class App(QWidget):#QWidget
         #print(tracks)
         return comboBox
 
+#to  je za pygame
+class MainWindow(QMainWindow):
+    def __init__(self,surface,parent=None):
+        super(MainWindow,self).__init__(parent)
+        self.setCentralWidget(App(surface))
+
 if __name__ == "__main__":
 
     #pygame test
+    pygame.init()
+
+    s=pygame.Surface((640,480))
+    s.fill((64,128,192,224))
+    pygame.draw.circle(s,(255,255,255,255),(100,100),50)
     #Ustvari QApplication
     app = QApplication(sys.argv)
 
-    a = App()
-    a.move(QApplication.desktop().availableGeometry().topLeft())
-    a.show()
+    w = MainWindow(s)
+    w.show()
+    #app.exec_()
+
+    #a = App()
+    #a.move(QApplication.desktop().availableGeometry().topLeft())
+    #a.show()
 
     #zalaufa application
     sys.exit(app.exec_())
