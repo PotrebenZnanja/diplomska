@@ -3,7 +3,7 @@ from PyQt5.QtWidgets import QLabel, QComboBox,QMainWindow
 from PyQt5.QtGui import QPixmap,QImage
 from PyQt5.QtWidgets import QApplication,QLineEdit,QWidget,QFormLayout, QPushButton
 from PyQt5.QtGui import QFont
-from PyQt5.QtCore import QObject
+from PyQt5.QtCore import QObject,QTimer
 import os
 import re
 import sys
@@ -34,6 +34,7 @@ helperLabel = np.zeros((120,320,3), dtype=np.uint8)
 class HelperThread(QObject):
     change_pixmap_signal = pyqtSignal(QPixmap) #vrne QPixmap za Helper_label
     msg = pyqtSignal(str)
+    i=0
 
     def __init__(self):
         super(HelperThread, self).__init__()
@@ -41,6 +42,10 @@ class HelperThread(QObject):
         self._play_flag = False
         self.time_start = 0
         self.song_name=""
+    
+    def sprmIndTest(self):
+        self.i = self.i+1
+        print(self.i)
 
     def musicSetup(self,fl,nam):
         print(fl,nam)
@@ -60,8 +65,7 @@ class HelperThread(QObject):
                     break
                 comm = []
                 print(msgA.dict().get('note'))
-                
-                if ('note' in str(msgA).split()[0]):
+                if (msgA.dict().get('note') is not None):
                     comm.append(str(msgA).split()[0])
                     comm.append(str(msgA).split()[2][5:])
                     comm.append(str(msgA).split()[4][5:])
@@ -100,6 +104,44 @@ class HelperThread(QObject):
         print("stopping run_flag")
         self._run_flag=False
 
+'''
+class Surface(QObject):
+    image_signal = pyqtSignal(QPixmap)
+    def __init__(self):
+        super(Surface, self).__init__()
+        self._run_flag = True
+        self.time_start = 0
+        # creating a timer object
+        timer = QTimer(self)
+		# adding action to timer
+        timer.timeout.connect(self.update_image)
+		# update the timer every tenth second
+        timer.start(1)
+    
+    def update_image(self):
+        self.image_signal.emit(result)
+
+        #print(indeksi)
+        indeksi[:] = [int(x/3) for x in indeksi]
+        #print(indeksi)
+        #print(len(indeksi))
+        helperLabel[:,indeksi,:] = [255,0,0]
+
+        self.indeksi = indeksi
+        result = self.convert_cv_qt()
+        self.change_pixmap_signal.emit(result)
+
+    def convert_cv_qt(self):
+        rgb_image = cv2.cvtColor(helperLabel, cv2.COLOR_BGR2RGB)
+        h, w, ch = rgb_image.shape
+        bytes_per_line = ch * w
+        #print(bytes_per_line)
+        convert_to_Qt_format = QtGui.QImage(rgb_image.data, w, h, bytes_per_line, QtGui.QImage.Format_RGB888)
+        p = convert_to_Qt_format.scaled(1440, 1080, Qt.KeepAspectRatio)
+
+        return QPixmap.fromImage(p)
+'''
+
 
 #Main thread za cel video
 class VideoThread(QObject): #QThread spremeni ce ne dela
@@ -117,7 +159,6 @@ class VideoThread(QObject): #QThread spremeni ce ne dela
         self.theta = 1.5707963268
         self.top = 0
         self.bot = 270
-
         print("Starting VideoThread")
 
     def run(self):
@@ -195,6 +236,8 @@ class VideoThread(QObject): #QThread spremeni ce ne dela
             self._run_flag=True
         print("Video run flag: ",self._run_flag)
 
+
+
 #Ko pritisne na play song, se nalozi pesem, ki jo je izbral preko dropdown menija
 
 #class MainWindow(QMainWindow):
@@ -217,9 +260,19 @@ class App(QWidget):#QWidget
     indeksi = None
     helper_send_signal = pyqtSignal(np.ndarray)
     helper_stop_signal = pyqtSignal()
+    fas = 0
+    def update_image(self):
+        self.fas+=1
+        print(self.fas)
 
     def __init__(self,surface=None,parent=None):
         super(App,self).__init__(parent)
+
+        timer = QTimer(self)
+		# adding action to timer
+        timer.timeout.connect(self.update_image)
+		# update the timer every tenth second
+        #timer.start(10)
 
         self.setWindowTitle("Connection manager")
         self.display_width = 1440
@@ -285,6 +338,7 @@ class App(QWidget):#QWidget
         self.b1.setText("Connect")
         self.video_stop_signal.emit()
         self.helper_stop_signal.emit()
+        self.helper.stop()
         self.thread1.disconnect()
         #self.thread2.disconnect()
         self.thread1.quit()
