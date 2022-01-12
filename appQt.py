@@ -1,8 +1,7 @@
 from PyQt5 import QtGui
 from PyQt5.QtWidgets import QLabel, QComboBox,QMainWindow
-from PyQt5.QtGui import QPixmap,QImage
+from PyQt5.QtGui import QPixmap,QImage, QFont,QColor, QPainter
 from PyQt5.QtWidgets import QApplication,QLineEdit,QWidget,QFormLayout, QPushButton
-from PyQt5.QtGui import QFont
 from PyQt5.QtCore import QObject,QTimer
 import os
 import re
@@ -12,8 +11,8 @@ from PyQt5.QtCore import pyqtSignal, pyqtSlot, Qt, QThread
 import numpy as np
 import hough_transform as ht
 import musicScript as ms
-import time
-import pygame
+import time,random
+#import pygame
 
 #TODO
 #- Label posebi za helper
@@ -29,7 +28,8 @@ helperLabel = np.zeros((120,320,3), dtype=np.uint8)
 #helper label je vbistvu ekran za blocke, ce je 0, ni note, drugace naj bo malce zelene barve?
 #torej dobim indeks note A3 npr. in potem spremenim barvo pixlov na helperLabel na indeksu A3 (npr. helperLabel[0:10, 135:140, :] = [0,200,100])
 
-
+WHITE = (255,255,255)
+BLACK = (0,0,0)
 #helper thread naj bo kar musicThread
 class HelperThread(QObject):
     change_pixmap_signal = pyqtSignal(QPixmap) #vrne QPixmap za Helper_label
@@ -94,8 +94,8 @@ class HelperThread(QObject):
         h, w, ch = rgb_image.shape
         bytes_per_line = ch * w
         #print(bytes_per_line)
-        convert_to_Qt_format = QtGui.QImage(rgb_image.data, w, h, bytes_per_line, QtGui.QImage.Format_RGB888)
-        p = convert_to_Qt_format.scaled(1440, 1080, Qt.KeepAspectRatio)
+        convert_to_Qt_format = QtGui.QImage(rgb_image.data, w, h, bytes_per_line, QtGui.QImage.Format_RGB888).scaled(1440, 540)
+        p = convert_to_Qt_format#.scaled(1440, 1080, Qt.KeepAspectRatio)
 
         return QPixmap.fromImage(p)
 
@@ -250,7 +250,7 @@ class App(QWidget):#QWidget
     url = ""
     cap = None
     calib = False
-    timer = 0
+
     tmp_image = None
     video_slot = pyqtSignal(np.ndarray)
     video_stop_signal = pyqtSignal()
@@ -260,19 +260,12 @@ class App(QWidget):#QWidget
     indeksi = None
     helper_send_signal = pyqtSignal(np.ndarray)
     helper_stop_signal = pyqtSignal()
-    fas = 0
-    def update_image(self):
-        self.fas+=1
-        print(self.fas)
 
     def __init__(self,surface=None,parent=None):
         super(App,self).__init__(parent)
-
-        timer = QTimer(self)
-		# adding action to timer
-        timer.timeout.connect(self.update_image)
-		# update the timer every tenth second
-        #timer.start(10)
+        self.hnj = 0
+        self.timer = QTimer(self)
+        self.timer.timeout.connect(self.update_image)
 
         self.setWindowTitle("Connection manager")
         self.display_width = 1440
@@ -333,6 +326,37 @@ class App(QWidget):#QWidget
         self.setLayout(self.flo)
         self.b2.hide()
 
+    k = 1
+
+    def draw(self):
+        pixmap = self.clock_pixmap.copy()
+        painter = QtGui.QPainter(pixmap)
+        painter.setRenderHints(
+            QtGui.QPainter.Antialiasing | QtGui.QPainter.SmoothPixmapTransform
+        )
+        painter.translate(pixmap.rect().center())
+        painter.translate(-pixmap.rect().center())
+        painter.end()
+        self.label.setPixmap(pixmap)
+
+    def update_image(self):
+
+        if self.image_helper.pixmap() is not None:
+            h_res = 64
+            if self.hnj >= h_res:
+                self.hnj = 0
+                self.k = 1 if self.k == 0 else 0
+            h = self.image_helper.pixmap().toImage().scaled(320,h_res)#.setPixelColor(20,20,QColor(255,255,255,255))
+
+            for ind in range(0,len(self.indeksi)-1):
+                for i in range(self.indeksi[ind]+1,self.indeksi[ind+1]-1):
+                    h.setPixelColor(int(i),self.hnj,QColor(255*self.k,255*self.k,255*self.k,255))
+                self.image_helper.setPixmap(QPixmap.fromImage(h).scaled(1440,540))
+            self.hnj +=1
+
+            print(len(self.indeksi))
+
+
     def disconnection(self):
         self.b1.clicked.disconnect()
         self.b1.setText("Connect")
@@ -357,6 +381,7 @@ class App(QWidget):#QWidget
             self.b2.show()
 
         if self.b2.text() == "Stop calibration" :
+            self.timer.start(125)
             self.b2.setText("Calibrate")
             self.video_calib_signal.emit(True)
             self.playButton.setEnabled(True)
@@ -364,6 +389,7 @@ class App(QWidget):#QWidget
             #self.calibrate_im()
             #self.calib = False
         else:
+            self.timer.stop()
             self.b2.setText("Stop calibration")
             self.video_calib_signal.emit(False)
             self.playButton.setEnabled(False)
@@ -530,21 +556,21 @@ class MainWindow(QMainWindow):
 if __name__ == "__main__":
 
     #pygame test
-    pygame.init()
+    #pygame.init()
 
-    s=pygame.Surface((640,480))
-    s.fill((64,128,192,224))
-    pygame.draw.circle(s,(255,255,255,255),(100,100),50)
+    #s=pygame.Surface((640,480))
+    #s.fill((64,128,192,224))
+    #pygame.draw.circle(s,(255,255,255,255),(100,100),50)
     #Ustvari QApplication
     app = QApplication(sys.argv)
 
-    w = MainWindow(s)
-    w.show()
+    #w = MainWindow(s)
+    #w.show()
     #app.exec_()
 
-    #a = App()
-    #a.move(QApplication.desktop().availableGeometry().topLeft())
-    #a.show()
+    a = App()
+    a.move(QApplication.desktop().availableGeometry().topLeft())
+    a.show()
 
     #zalaufa application
     sys.exit(app.exec_())
