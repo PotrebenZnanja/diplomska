@@ -1,3 +1,4 @@
+from queue import Empty
 from PyQt5 import QtGui
 from PyQt5.QtWidgets import QLabel, QComboBox,QMainWindow
 from PyQt5.QtGui import QPixmap,QImage, QFont,QColor, QPainter,QTransform
@@ -39,7 +40,7 @@ class HelperThread(QObject):
     #C8 na piano je najvisja nota, vrednost MIDI 108
     #sam kaj pa ce bi vracal samo vrednost note, pa se naj pretvori v main event loopu <- ta approach je nice
     #msg = pyqtSignal(str)
-    msg = pyqtSignal(int)
+    msg = pyqtSignal(list)
     i=0
 
     def __init__(self):
@@ -49,10 +50,6 @@ class HelperThread(QObject):
         self.time_start = 0
         self.song_name=""
     
-    def sprmIndTest(self):
-        self.i = self.i+1
-        print(self.i)
-
     def musicSetup(self,fl,nam):
         print(fl,nam)
         self.song_name=nam
@@ -63,34 +60,45 @@ class HelperThread(QObject):
 
     #vsakic updata helper_label
     def run(self):
+        
         if self.song_name!="":
             self.mid=ms.readSong(self.song_name)
+            print(self.mid)
         while self._run_flag and self._play_flag:
+            seznam_not = []
             for msgA in self.mid.play():
                 if(self._run_flag!=True):
                     break
                 comm = []
-                print(msgA.dict().get('note'), msgA)
+                #print(self.mid)
+                #print(msgA.dict().get('note'), msgA)
+                #print(msgA,msgA.dict())
+                #    print("yo Nig end this song")
                 if (msgA.dict().get('note') is not None):
+                    if msgA.dict().get('time')>0 and len(seznam_not)>0:
+                        self.msg.emit(seznam_not)
+                        seznam_not=[]
                     notaVrednost = msgA.dict().get('note')
+                    seznam_not.append(notaVrednost)
                     comm.append(str(msgA).split()[0])
                     comm.append(str(msgA).split()[2][5:])
                     comm.append(str(msgA).split()[4][5:])
+                    #result = ms.pretvori_v_noto(comm)
+                    #print(result)
+                    
                     # self.change_pixmap_signal_calib.emit(result,self.indeksi)
-                    result = ms.pretvori_v_noto(comm)
-                    print(result)
-                    self.msg.emit(notaVrednost,)
+
                 #self.msg.emit(str(msgA))
+            #if len(seznam_not)>0:
+            self.msg.emit(seznam_not)
+            self._play_flag=False
         pass
 
 
     def pass_label(self,indeksi):
-        #print(helperLabel)
         if len(indeksi)>0:
             #print(indeksi)
             indeksi[:] = [int(x/3) for x in indeksi]
-            #print(indeksi)
-            #print(len(indeksi))
             helperLabel[:,indeksi,:] = [255,0,0]
 
             self.indeksi = indeksi
@@ -101,7 +109,6 @@ class HelperThread(QObject):
         rgb_image = cv2.cvtColor(helperLabel, cv2.COLOR_BGR2RGB)
         h, w, ch = rgb_image.shape
         bytes_per_line = ch * w
-        #print(bytes_per_line)
         convert_to_Qt_format = QtGui.QImage(rgb_image.data, w, h, bytes_per_line, QtGui.QImage.Format_RGB888).scaled(1440, 540)
         p = convert_to_Qt_format#.scaled(1440, 1080, Qt.KeepAspectRatio)
 
@@ -112,43 +119,6 @@ class HelperThread(QObject):
         print("stopping run_flag")
         self._run_flag=False
 
-'''
-class Surface(QObject):
-    image_signal = pyqtSignal(QPixmap)
-    def __init__(self):
-        super(Surface, self).__init__()
-        self._run_flag = True
-        self.time_start = 0
-        # creating a timer object
-        timer = QTimer(self)
-		# adding action to timer
-        timer.timeout.connect(self.update_image)
-		# update the timer every tenth second
-        timer.start(1)
-    
-    def update_image(self):
-        self.image_signal.emit(result)
-
-        #print(indeksi)
-        indeksi[:] = [int(x/3) for x in indeksi]
-        #print(indeksi)
-        #print(len(indeksi))
-        helperLabel[:,indeksi,:] = [255,0,0]
-
-        self.indeksi = indeksi
-        result = self.convert_cv_qt()
-        self.change_pixmap_signal.emit(result)
-
-    def convert_cv_qt(self):
-        rgb_image = cv2.cvtColor(helperLabel, cv2.COLOR_BGR2RGB)
-        h, w, ch = rgb_image.shape
-        bytes_per_line = ch * w
-        #print(bytes_per_line)
-        convert_to_Qt_format = QtGui.QImage(rgb_image.data, w, h, bytes_per_line, QtGui.QImage.Format_RGB888)
-        p = convert_to_Qt_format.scaled(1440, 1080, Qt.KeepAspectRatio)
-
-        return QPixmap.fromImage(p)
-'''
 
 
 #Main thread za cel video
@@ -159,7 +129,6 @@ class VideoThread(QObject): #QThread spremeni ce ne dela
     def __init__(self, path):
         super(VideoThread, self).__init__()
         self.url = path
-        #print(path)
         self._run_flag = True
         self.calib = False
         self.tmp_image=None
@@ -171,22 +140,23 @@ class VideoThread(QObject): #QThread spremeni ce ne dela
 
     def run(self):
         #cap = cv2.VideoCapture(0)#self.url #this line
-        #cap = cv2.VideoCapture(self.url)
-        cap = cv2.imread('images/piano11.jpg', cv2.IMREAD_COLOR) #this line
+        cap = cv2.VideoCapture(self.url)
+        #cap = cv2.imread('images/piano10.jpg', cv2.IMREAD_COLOR) #this line
         while self._run_flag and cap is not None:
             if self.calib and self.tmp_image is not None:
                 result = self.convert_cv_qt(self.tmp_image)
                 self.change_pixmap_signal_calib.emit(result,self.indeksi)
             else:
-                #ret, cv_img = cap.read() #this line
-                ret = True #this line
-                cv_img=cap #this line
+                ret, cv_img = cap.read() #this line
+                #ret = True #this line
+                #cv_img=cap #this line
                 if cv_img is None:
                     break
                 cv_img = cv2.resize(cv_img, (960, 540))
                 h, w, _ = cv_img.shape
                 h1 = int(h / 3)
                 cv_img = cv_img[int(h1 * 2):h, 0:w, :]
+                cv_img = cv_img[self.top:self.bot, :, :]
                 if self.update_timer!=0:
                     self.update_timer-=1
                 elif ret and self.update_timer==0:
@@ -203,6 +173,8 @@ class VideoThread(QObject): #QThread spremeni ce ne dela
         if self.calib:
             self.calib = False
         else:
+            self.top = 0
+            self.bot = 270
             self.calib = True
 
     def convert_cv_qt(self, cv_img):
@@ -230,7 +202,6 @@ class VideoThread(QObject): #QThread spremeni ce ne dela
         rgb_image = cv2.cvtColor(cv_img, cv2.COLOR_BGR2RGB)
         h, w, ch = rgb_image.shape
         bytes_per_line = ch * w
-        #print(bytes_per_line)
         convert_to_Qt_format = QtGui.QImage(rgb_image.data, w, h, bytes_per_line, QtGui.QImage.Format_RGB888)
         p = convert_to_Qt_format.scaled(1440, 1080, Qt.KeepAspectRatio)
 
@@ -246,14 +217,6 @@ class VideoThread(QObject): #QThread spremeni ce ne dela
             self._run_flag=True
         print("Video run flag: ",self._run_flag)
 
-
-
-#Ko pritisne na play song, se nalozi pesem, ki jo je izbral preko dropdown menija
-
-#class MainWindow(QMainWindow):
-#    def __init__(self,surface,parent=None):
-#        super(MainWindow,self).__init__(parent)
-#        self.setCentralWidget(App(surface))
 
 
 class App(QWidget):#QWidget
@@ -307,7 +270,6 @@ class App(QWidget):#QWidget
         l2 = QLabel("Port address")
         l2.setFont(QFont("Arial", 16))
 
-
         self.flo.addRow(l1, self.e1)
         self.flo.addRow(l2, self.e2)
         self.flo.addRow(self.b1,self.b2)
@@ -335,6 +297,7 @@ class App(QWidget):#QWidget
         self.playButton.setDisabled(True)
 
         self.flo.addRow(self.musicList,self.playButton)
+        self.flo.addRow(self.musicList,self.playButton)
         self.setLayout(self.flo)
         self.b2.hide()
 
@@ -351,6 +314,9 @@ class App(QWidget):#QWidget
 
     def update_image(self):
  
+        if self.helper._run_flag==False:
+            self.trenutne_note[:]=0
+            pass
         if len(self.indeksi)<52:
             print(len(self.indeksi),"Niso bile najdene vse tipke! Potrebna ponovna kalibracija")
             pass
@@ -364,30 +330,24 @@ class App(QWidget):#QWidget
                 if self.trenutne_note[i]:
                     k = self.stevilo_crnih_pred_noto(i+21)
                     if i+21 in self.crne_tipke:
-                        j[0,self.indeksi[i-k]-3:self.indeksi[i-k]-1] = (100,0,255)
-                        print("najdu crno",i+21)
+                        j[0,self.indeksi[i-k]-1:self.indeksi[i-k]+2] = (100,0,255)
+                        #print("najdu crno",i+21)
                     else:
                         if i==0:
-                            j[0,0:self.indeksi[i-k]-1] = (100,255,0)
+                            #to je prva nota, k je vezana na levo stran
+                            j[0,(0 if 2*self.indeksi[i-k]-self.indeksi[i-k+1]<0 else 2*self.indeksi[i-k]-self.indeksi[i-k+1]):self.indeksi[i-k]] = (100,255,0)
                         else:
-                            print(i)
-                            j[0,(self.indeksi[i-k-1]+1):(self.indeksi[i-k]-1)] = (100,255,0)
+                            #to je da se rdeca pojavi nad zeleno
+                            for x in range(self.indeksi[i-k-1]+1,self.indeksi[i-k]):
+                                if j[0,x,2] != 255:
+                                    j[0,x]=(100,255,0)
+                            #j[0,(self.indeksi[i-k-1]+1):(self.indeksi[i-k])] = (100,255,0)
 
 
             #j[0,self.indeksi]=(255,255,255)
             helperLabel = j
             pix=self.convert_cv_qt(j)
             self.image_helper.setPixmap(pix.scaled(1440,540))
-            '''h_res = 64
-            if self.hnj >= h_res:
-                self.hnj = 0
-                self.k = 1 if self.k == 0 else 0
-            h = self.image_helper.pixmap().toImage().scaled(320,h_res)#.setPixelColor(20,20,QColor(255,255,255,255))
-            for ind in range(0,len(self.indeksi)-1):
-                for i in range(self.indeksi[ind]+1,self.indeksi[ind+1]-1):
-                    h.setPixelColor(int(i),self.hnj,QColor(255*self.k,255*self.k,255*self.k,255))
-                self.image_helper.setPixmap(QPixmap.fromImage(h).scaled(1440,540))
-            self.hnj +=1'''
 
             #print(len(self.indeksi))
 
@@ -398,6 +358,7 @@ class App(QWidget):#QWidget
         self.video_stop_signal.emit()
         self.helper_stop_signal.emit()
         self.helper.stop()
+        self.trenutne_note.fill(0)
         self.thread1.disconnect()
         #self.thread2.disconnect()
         self.thread1.quit()
@@ -416,27 +377,26 @@ class App(QWidget):#QWidget
             self.b2.show()
 
         if self.b2.text() == "Stop calibration" :
-            self.timer.start(33)
+            self.timer.start(20)
             self.b2.setText("Calibrate")
             self.video_calib_signal.emit(True)
             self.playButton.setEnabled(True)
             pass
-            #self.calibrate_im()
-            #self.calib = False
+
         else:
             self.timer.stop()
+            self.helper.stop()
             self.b2.setText("Stop calibration")
             self.video_calib_signal.emit(False)
             self.playButton.setEnabled(False)
-
-            #print(helperLabel)
-        
+            
 
 
     def updateMusicChoice(self,text):
         return text
 
     def playFunc(self):
+        
         if self.playButton.text()== "Play":
             self.play_signal.emit(True,self.musicList.currentText())
             print("playing ",self.musicList.currentText())
@@ -444,7 +404,8 @@ class App(QWidget):#QWidget
         else:
             self.play_signal.emit(False,self.musicList.currentText())
             self.helper.stop()
-            self.trenutne_note.fill(0)
+            #self.trenutne_note[:]=0
+            print(self.trenutne_note)
             print("stopping current song")
             self.playButton.setText("Play")
         #lambda: ms.readSong(self.musicList.currentText())
@@ -504,6 +465,7 @@ class App(QWidget):#QWidget
     @pyqtSlot(QPixmap,np.ndarray)
     def update_label_helper(self,helper,indeksi):
         self.indeksi = indeksi
+        print("stevilo najdenih indeksov: ",len(self.indeksi))
         self.helper_send_signal.emit(self.indeksi)
         #qt_img = self.convert_cv_qt(helper)
 
@@ -516,16 +478,18 @@ class App(QWidget):#QWidget
         # qt_img = self.convert_cv_qt(cv_img)
         self.image_label.setPixmap(QLabelPixmap)
 
-    polje_tipk=np.zeros((52,2), dtype=np.uint16)
-
     #play_signal funkcija, vsakic ko se izvede ukaz na play, se tukaj sporoci naprej
-    @pyqtSlot(int)
+    @pyqtSlot(list)
     def musicThreadOutput(self, stri):
-        self.trenutne_note[stri-21] = 1 if self.trenutne_note[stri-21]==0 else 0
-        print(self.trenutne_note.tolist())
+        for x in stri:
+            x-=21
+            self.trenutne_note[x] = 1 if self.trenutne_note[x]==0 else 0
+        #print(self.trenutne_note.tolist())
         
 
 
+    #USELESS FUNKCIJA ZAENKRAT
+    polje_tipk=np.zeros((52,2), dtype=np.uint16)
     #Dobesedna povrsina tipke v helper label
     def tipkeCalib(self):
 
@@ -546,7 +510,7 @@ class App(QWidget):#QWidget
             #print(self.polje_tipk,len(self.indeksi))
         else:
             pass
-
+        
 
     update_timer=0
 
@@ -572,12 +536,6 @@ class App(QWidget):#QWidget
         comboBox.addItems(tracks)
         #print(tracks)
         return comboBox
-
-#to  je za pygame
-class MainWindow(QMainWindow):
-    def __init__(self,surface,parent=None):
-        super(MainWindow,self).__init__(parent)
-        self.setCentralWidget(App(surface))
 
 if __name__ == "__main__":
 

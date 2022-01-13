@@ -1,3 +1,4 @@
+from audioop import avg
 import math
 import cv2 as cv
 import numpy as np
@@ -162,6 +163,8 @@ def houghTest(image):
                 k=k+1
         #print("Gap: ",max_gap, gap)
         crne = indeksi.copy()
+
+        #Na koncu doda tipke, ker ni vec crnih
         indeksi.append(indeksi[-1] + gap[-1] * 2)
         indeksi.append(indeksi[-1] + gap[-1] * 2)
 
@@ -340,6 +343,8 @@ def hough(orig):
     gray = cv.cvtColor(cut_image, cv.COLOR_BGR2GRAY)
     adapt = cv.adaptiveThreshold(gray, 255, cv.THRESH_BINARY, cv.ADAPTIVE_THRESH_GAUSSIAN_C, 13, 10)
     blur = cv.GaussianBlur(adapt, (9, 3), 0)
+    
+    #Tukaj naprej se mora odsekati nepotrebna jajca
     _, otsu = cv.threshold(blur, 127, 255, cv.THRESH_OTSU + cv.THRESH_BINARY)
 
     otsu[:20,:]=0
@@ -355,7 +360,7 @@ def hough(orig):
     if output is not None: #za vsak slucaj d se izognemo crashu
         img2 = np.zeros((output.shape))
         for i in range(1, nb_components): #za vsako komponento znotraj slike (crne tipke)
-            if stats[i][4] >= 300: #hardcode cifra, kajti crne tipke so ponavadi toliko velike (nekje med 300 in 800)
+            if stats[i][4] >= 330: #hardcode cifra, kajti crne tipke so ponavadi toliko velike (nekje med 300 in 800)
                 img2[output == i] = i #poimenovano za crno tipko
 
             if stats[i][2] < 6 or stats[i][3] < 10 or stats[i][3] > 80:
@@ -393,21 +398,28 @@ def hough(orig):
             crne = indeksi.copy()
             indeksi.append(indeksi[-1] + gap[-1] * 2)
             indeksi.append(indeksi[-1] + gap[-1] * 2)
-
+            avg_gap= int(sum(gap)/len(gap))
             for i in range(0, len(gap) + k):
                 if gap[i] > (max_gap / 1.6):
                     gap[i] = int(gap[i] / 2)
                     gap.insert(i + 1, gap[i])
                     indeksi[i] = indeksi[i] - gap[i]
-                    indeksi.insert(i + 1, indeksi[i] + gap[i])
+                    indeksi.insert(i + 1, indeksi[i] + avg_gap)#gap[i])
                 else:
-                    indeksi[i] = indeksi[i] + int(gap[i] / 2 + 2)
+                    indeksi[i] = indeksi[i] + int(gap[i] / 2 )
 
             indeksi= [x for x in indeksi if x < cut_image.shape[1]]
             #odrezek = cut_image[20:, :]
             #print(indeksi)
+            if abs(gap[0]-gap[1])<2:
+                indeksi.pop(0)
+                indeksi.pop(0)
+            print(indeksi)
+            if indeksi[-1]-indeksi[-2] > 20:
+                indeksi.pop()
             cut_image[:, indeksi, :] = (255, 0, 0)
             cut_image[img2 > 0] = (0, 155, 255)
+            
             #cut_image[20:, :] = odrezek
             #cv.imshow("odrezek",odrezek)
             #cv.imshow("cut_image",cut_image)
