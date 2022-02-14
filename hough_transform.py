@@ -426,6 +426,16 @@ def hough(orig):
             #cv.imshow("cut_image",cut_image)
         #vraca image kalibracije in na koncu roza kvadrat, ki pokaze klaviaturo, vracati mora tudi theto rotacije, da popravi kamero, da je nacentriran ce je slucajno slika pod kotom
 
+    #za popravljanje sosedov
+    if len(indeksi)>3:
+        gnj = []
+        for i in range(3,len(indeksi)):
+            gnj = [indeksi[i-2]-indeksi[i-3],indeksi[i-1]-indeksi[i-2],indeksi[i]-indeksi[i-1]]
+            if gnj[0]<gnj[1]-2 and gnj[2]<gnj[1]-2:
+                indeksi[i-2]+=2
+                indeksi[i-1]-=1
+                
+
 
     indeksi = np.array(indeksi)
     indeksi.sort()

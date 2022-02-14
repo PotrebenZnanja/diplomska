@@ -22,10 +22,8 @@ import time,random
 #Helper label je image, ki vzame modre crte kot prostor za note
 
 #Helper je image, ki posodablja glasbo (torej celotno crtovje s kvadratki), globalna spremenljivka, ki naj bi bla enostavna za manipulacijo not (upam, da je rezultat dovolj hiter)
+helperLabel = np.zeros((90,320,3), dtype=np.uint8)
 
-
-RESIZE_WIDTH = 1920
-helperLabel = np.zeros((120,int(RESIZE_WIDTH/3),3), dtype=np.uint8)
 #HelperThread je nosilec tistih blockov, notri naj ima svoj event loop hkrati z glasbo, ki spremeni svoj pixmap glede na to, kaj se trenutno igra.
 #Ce loop v music scripti vrne sporocilo, ga more helperthread dekodirat in izrisati blocke na pravilno mesto
 #helper label je vbistvu ekran za blocke, ce je 0, ni note, drugace naj bo malce zelene barve?
@@ -33,6 +31,7 @@ helperLabel = np.zeros((120,int(RESIZE_WIDTH/3),3), dtype=np.uint8)
 
 WHITE = (255,255,255)
 BLACK = (0,0,0)
+
 #helper thread naj bo kar musicThread
 class HelperThread(QObject):
     change_pixmap_signal = pyqtSignal(QPixmap) #vrne QPixmap za Helper_label
@@ -78,6 +77,7 @@ class HelperThread(QObject):
                 #    print("yo Nig end this song")
                 if (msgA.dict().get('note') is not None):
                     if msgA.dict().get('time')>0 and len(seznam_not)>0:
+                        #tukaj sam spremeni celotno tabelo, right?, zakaj bi sploh emital lol
                         self.msg.emit(seznam_not)
                         seznam_not=[]
                     notaVrednost = msgA.dict().get('note')
@@ -85,13 +85,14 @@ class HelperThread(QObject):
                     comm.append(str(msgA).split()[0])
                     comm.append(str(msgA).split()[2][5:])
                     comm.append(str(msgA).split()[4][5:])
+                    
                     #result = ms.pretvori_v_noto(comm)
                     #print(result)
-                    
                     # self.change_pixmap_signal_calib.emit(result,self.indeksi)
 
                 #self.msg.emit(str(msgA))
             #if len(seznam_not)>0:
+            
             self.msg.emit(seznam_not)
             self._play_flag=False
         pass
@@ -111,7 +112,7 @@ class HelperThread(QObject):
         rgb_image = cv2.cvtColor(helperLabel, cv2.COLOR_BGR2RGB)
         h, w, ch = rgb_image.shape
         bytes_per_line = ch * w
-        convert_to_Qt_format = QtGui.QImage(rgb_image.data, w, h, bytes_per_line, QtGui.QImage.Format_RGB888).scaled(1440, 540)
+        convert_to_Qt_format = QtGui.QImage(rgb_image.data, w, h, bytes_per_line, QtGui.QImage.Format_RGB888).scaled(WIDTH, int(HEIGHT/2))
         p = convert_to_Qt_format#.scaled(1440, 1080, Qt.KeepAspectRatio)
 
         return QPixmap.fromImage(p)
@@ -143,20 +144,19 @@ class VideoThread(QObject): #QThread spremeni ce ne dela
     def run(self):
         #cap = cv2.VideoCapture(0)#self.url #this line
         #cap = cv2.VideoCapture(self.url)
-        #cap = cv2.imread('images/piano10.jpg', cv2.IMREAD_COLOR) #this line
+        cap = cv2.imread('images/piano10.jpg', cv2.IMREAD_COLOR) #this line
         while self._run_flag and cap is not None:
             if self.calib and self.tmp_image is not None:
                 result = self.convert_cv_qt(self.tmp_image)
                 self.change_pixmap_signal_calib.emit(result,self.indeksi)
             else:
-                ret, cv_img = cap.read() #this line
-                #ret = True #this line
-                #cv_img=cap #this line
+                #ret, cv_img = cap.read() #this line
+                ret = True #this line
+                cv_img=cap #this line
                 if cv_img is None:
                     break
-                cv_img = cv2.resize(cv_img, (RESIZE_WIDTH, 540))
+                cv_img = cv2.resize(cv_img, (960, 540))
                 h, w, _ = cv_img.shape
-                print(h,w, " size h, w")
                 h1 = int(h / 3)
                 cv_img = cv_img[int(h1 * 2):h, 0:w, :]
                 cv_img = cv_img[self.top:self.bot, :, :]
@@ -206,7 +206,8 @@ class VideoThread(QObject): #QThread spremeni ce ne dela
         h, w, ch = rgb_image.shape
         bytes_per_line = ch * w
         convert_to_Qt_format = QtGui.QImage(rgb_image.data, w, h, bytes_per_line, QtGui.QImage.Format_RGB888)
-        p = convert_to_Qt_format.scaled(1440, 1080, Qt.KeepAspectRatio)
+        #p = convert_to_Qt_format.scaled(1440, 1080, Qt.KeepAspectRatio)
+        p = convert_to_Qt_format.scaled(WIDTH, HEIGHT, Qt.KeepAspectRatio)
 
         return QPixmap.fromImage(p)
 
@@ -238,7 +239,7 @@ class App(QWidget):#QWidget
     indeksi = None
     helper_send_signal = pyqtSignal(np.ndarray)
     helper_stop_signal = pyqtSignal()
-
+    
     def __init__(self,surface=None,parent=None):
         super(App,self).__init__(parent)
         self.hnj = 0
@@ -246,8 +247,8 @@ class App(QWidget):#QWidget
         self.timer.timeout.connect(self.update_image)
 
         self.setWindowTitle("Connection manager")
-        self.display_width = 1920
-        self.display_height = 1080
+        #self.display_width = 1440
+        #self.display_height = 1080
         #----------
         self.e1 = QLineEdit()
         self.e1.setAlignment(Qt.AlignCenter)
@@ -281,11 +282,10 @@ class App(QWidget):#QWidget
         self.image_label = QLabel(self)
         self.image_helper = QLabel(self)
         #size image je 960x180, od tega bo ostalega 720-koncni_odrez crno/sivo polje s tipkami
-        self.image_label.resize(RESIZE_WIDTH, 180)
-        self.image_helper.resize(RESIZE_WIDTH, 360)
+        self.image_label.resize(960, 180)
+        self.image_helper.resize(960, 360)
 
         self.flo.addRow(self.image_helper)
-        print(self.flo.itemAt(2).geometry().size())
         self.flo.addRow(self.image_label)
 
         #---------
@@ -317,8 +317,7 @@ class App(QWidget):#QWidget
         return k
 
     def update_image(self):
-        if self.indeksi is None:
-            return
+ 
         if self.helper._run_flag==False:
             self.trenutne_note[:]=0
             pass
@@ -327,10 +326,9 @@ class App(QWidget):#QWidget
             pass
         if self.image_helper.pixmap() is not None:
             global helperLabel
-            if len(self.indeksi)>0:
-                j = np.roll(helperLabel,1,axis=0)
-                j[0,:]=(0,0,0)
-                j[0,self.indeksi]=(255,0,0)
+            j = np.roll(helperLabel,1,axis=0)
+            j[0,:]=(0,0,0)
+            j[0,self.indeksi]=(255,0,0)
 
             for i in range(0,len(self.trenutne_note)):
                 if self.trenutne_note[i]:
@@ -349,11 +347,13 @@ class App(QWidget):#QWidget
                                     j[0,x]=(100,255,0)
                             #j[0,(self.indeksi[i-k-1]+1):(self.indeksi[i-k])] = (100,255,0)
 
-
+ 
             #j[0,self.indeksi]=(255,255,255)
             helperLabel = j
             pix=self.convert_cv_qt(j)
-            self.image_helper.setPixmap(pix.scaled(1440,540))
+            #self.image_helper.setPixmap(pix.scaled(1440,540))
+            #print(self.display_width)
+            self.image_helper.setPixmap(pix.scaled(WIDTH,int(HEIGHT/2)))
 
             #print(len(self.indeksi))
 
@@ -487,6 +487,7 @@ class App(QWidget):#QWidget
     #play_signal funkcija, vsakic ko se izvede ukaz na play, se tukaj sporoci naprej
     @pyqtSlot(list)
     def musicThreadOutput(self, stri):
+        #self.trenutne_note=self.trenutne_note[(int(x)-21 for x in stri)]
         for x in stri:
             x-=21
             self.trenutne_note[x] = 1 if self.trenutne_note[x]==0 else 0
@@ -533,7 +534,8 @@ class App(QWidget):#QWidget
         h, w, ch = rgb_image.shape
         bytes_per_line = ch * w
         convert_to_Qt_format = QtGui.QImage(rgb_image.data, w, h, bytes_per_line, QtGui.QImage.Format_RGB888)
-        p = convert_to_Qt_format.scaled(self.display_width, self.display_height, Qt.KeepAspectRatio)
+        #p = convert_to_Qt_format.scaled(self.display_width, self.display_height, Qt.KeepAspectRatio)
+        p = convert_to_Qt_format.scaled(WIDTH,HEIGHT, Qt.KeepAspectRatio)
         return QPixmap.fromImage(p)
 
     def dropdownList(self):
@@ -547,10 +549,14 @@ if __name__ == "__main__":
 
 
     app = QApplication(sys.argv)
+    screen = app.primaryScreen()
+    WIDTH = screen.size().width()
+    HEIGHT = screen.size().height()
+
+    print(WIDTH,HEIGHT)
 
     a = App()
     a.move(QApplication.desktop().availableGeometry().topLeft())
-    a.resize(1920,1080)
     a.show()
 
     #zalaufa application
