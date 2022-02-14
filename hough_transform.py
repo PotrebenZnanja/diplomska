@@ -40,8 +40,9 @@ def houghTest(image):
     if h>w:
         orig = cv.rotate(orig,cv.ROTATE_90_COUNTERCLOCKWISE)
 
-    orig = cv.resize(orig,(960,540))
+    orig = cv.resize(orig,(1280,540))
     h, w, _ = orig.shape
+    print(h,w)
     orig = orig[int(int(h/3) * 2):h, 0:w]
     cv.imshow("orig",orig)
     src = cv.cvtColor(orig, cv.COLOR_BGR2GRAY)
@@ -72,8 +73,8 @@ def houghTest(image):
             y0 = b * rho
             #pt1 = (int(x0 + 1000 * (-b)), int(y0 + 1000 * (a)))
             #pt2 = (int(x0 - 1000 * (-b)), int(y0 - 1000 * (a)))
-            pt1 = (int(x0-b*960), int(y0+a*180))
-            pt2 = (int(x0+b*960), int(y0-a*180))
+            pt1 = (int(x0-b*w), int(y0+a*180))
+            pt2 = (int(x0+b*w), int(y0-a*180))
             #print(pt1,pt2)
             if(pt1[1]<70 and pt2[1]<70 and (pt1[1]-pt2[1]<5)): #Top
                 cv.line(cdst, pt1, pt2, (0, 255, 0), 2)
@@ -150,9 +151,7 @@ def houghTest(image):
     if len(gap)>2:
 
         #fix za gap ko ni crnih
-
         k=0
-
         gap[0]=gap[2]
         gap.append(gap[-1])
         gap.append(gap[-1])
@@ -279,6 +278,8 @@ def hough(orig):
 
     src = cv.cvtColor(orig, cv.COLOR_BGR2GRAY)
     h1, w1 = src.shape
+
+    print(h1,w1, " JE V HOUGH")
     # cv.imshow("src",src)
 
     src = cv.GaussianBlur(src, (3, 1), sigmaX=0, sigmaY=4)  # dont ask, magic numbers
@@ -302,8 +303,8 @@ def hough(orig):
             y0 = b * rho
             # pt1 = (int(x0 + 1000 * (-b)), int(y0 + 1000 * (a)))
             # pt2 = (int(x0 - 1000 * (-b)), int(y0 - 1000 * (a)))
-            pt1 = (int(x0 - b * 960), int(y0 + a * 180))
-            pt2 = (int(x0 + b * 960), int(y0 - a * 180))
+            pt1 = (int(x0 - b * w1), int(y0 + a * 180))
+            pt2 = (int(x0 + b * w1), int(y0 - a * 180))
             # print(pt1,pt2)
             if (pt1[1] < 70 and pt2[1] < 70 and (pt1[1] - pt2[1] < 5)):  # Top
                 cv.line(cdst, pt1, pt2, (0, 255, 0), 2)

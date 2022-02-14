@@ -22,8 +22,10 @@ import time,random
 #Helper label je image, ki vzame modre crte kot prostor za note
 
 #Helper je image, ki posodablja glasbo (torej celotno crtovje s kvadratki), globalna spremenljivka, ki naj bi bla enostavna za manipulacijo not (upam, da je rezultat dovolj hiter)
-helperLabel = np.zeros((120,320,3), dtype=np.uint8)
 
+
+RESIZE_WIDTH = 1920
+helperLabel = np.zeros((120,int(RESIZE_WIDTH/3),3), dtype=np.uint8)
 #HelperThread je nosilec tistih blockov, notri naj ima svoj event loop hkrati z glasbo, ki spremeni svoj pixmap glede na to, kaj se trenutno igra.
 #Ce loop v music scripti vrne sporocilo, ga more helperthread dekodirat in izrisati blocke na pravilno mesto
 #helper label je vbistvu ekran za blocke, ce je 0, ni note, drugace naj bo malce zelene barve?
@@ -140,7 +142,7 @@ class VideoThread(QObject): #QThread spremeni ce ne dela
 
     def run(self):
         #cap = cv2.VideoCapture(0)#self.url #this line
-        cap = cv2.VideoCapture(self.url)
+        #cap = cv2.VideoCapture(self.url)
         #cap = cv2.imread('images/piano10.jpg', cv2.IMREAD_COLOR) #this line
         while self._run_flag and cap is not None:
             if self.calib and self.tmp_image is not None:
@@ -152,8 +154,9 @@ class VideoThread(QObject): #QThread spremeni ce ne dela
                 #cv_img=cap #this line
                 if cv_img is None:
                     break
-                cv_img = cv2.resize(cv_img, (960, 540))
+                cv_img = cv2.resize(cv_img, (RESIZE_WIDTH, 540))
                 h, w, _ = cv_img.shape
+                print(h,w, " size h, w")
                 h1 = int(h / 3)
                 cv_img = cv_img[int(h1 * 2):h, 0:w, :]
                 cv_img = cv_img[self.top:self.bot, :, :]
@@ -243,7 +246,7 @@ class App(QWidget):#QWidget
         self.timer.timeout.connect(self.update_image)
 
         self.setWindowTitle("Connection manager")
-        self.display_width = 1440
+        self.display_width = 1920
         self.display_height = 1080
         #----------
         self.e1 = QLineEdit()
@@ -278,10 +281,11 @@ class App(QWidget):#QWidget
         self.image_label = QLabel(self)
         self.image_helper = QLabel(self)
         #size image je 960x180, od tega bo ostalega 720-koncni_odrez crno/sivo polje s tipkami
-        self.image_label.resize(960, 180)
-        self.image_helper.resize(960, 360)
+        self.image_label.resize(RESIZE_WIDTH, 180)
+        self.image_helper.resize(RESIZE_WIDTH, 360)
 
         self.flo.addRow(self.image_helper)
+        print(self.flo.itemAt(2).geometry().size())
         self.flo.addRow(self.image_label)
 
         #---------
@@ -313,7 +317,8 @@ class App(QWidget):#QWidget
         return k
 
     def update_image(self):
- 
+        if self.indeksi is None:
+            return
         if self.helper._run_flag==False:
             self.trenutne_note[:]=0
             pass
@@ -322,9 +327,10 @@ class App(QWidget):#QWidget
             pass
         if self.image_helper.pixmap() is not None:
             global helperLabel
-            j = np.roll(helperLabel,1,axis=0)
-            j[0,:]=(0,0,0)
-            j[0,self.indeksi]=(255,0,0)
+            if len(self.indeksi)>0:
+                j = np.roll(helperLabel,1,axis=0)
+                j[0,:]=(0,0,0)
+                j[0,self.indeksi]=(255,0,0)
 
             for i in range(0,len(self.trenutne_note)):
                 if self.trenutne_note[i]:
@@ -544,6 +550,7 @@ if __name__ == "__main__":
 
     a = App()
     a.move(QApplication.desktop().availableGeometry().topLeft())
+    a.resize(1920,1080)
     a.show()
 
     #zalaufa application
