@@ -374,7 +374,8 @@ def hough(orig):
         indeksi = []
         #cv.imshow("img2", img2)
         l = 0
-        for k in range(0, img2.shape[1]): #gleda le prvo vrsto od 20 ineksa naprej
+        for k in range(0, img2.shape[1]): #gleda le prvo vrsto od 20 indeksa naprej
+            #for k, num in enumerate(img2.shape[1]):
             if img2[20, k] > 0:
                 if l > 5:
                     gap.append(l)

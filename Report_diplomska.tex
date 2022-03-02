@@ -1,0 +1,485 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% datoteka diploma-FRI-vzorec.tex
+%
+%POZOR: ta verzija ne producira pdf datoteke v pdf/A formatu!!!
+%namenjena je le za nalogo pri Diplomskem seminarju!
+%
+% vzorčna datoteka za pisanje diplomskega dela v formatu LaTeX
+% na UL Fakulteti za računalništvo in informatiko
+%
+% na osnovi starejših verzij vkup spravil Franc Solina, maj 2021
+% prvo verzijo je leta 2010 pripravil Gašper Fijavž
+%
+% za upravljanje z literaturo ta vezija uporablja BibLaTeX
+%
+% svetujemo uporabo Overleaf.com - na tej spletni implementaciji LaTeXa ta vzorec zagotovo pravilno deluje
+%
+
+\documentclass[a4paper,12pt,openright]{book}
+%\documentclass[a4paper, 12pt, openright, draft]{book}  Nalogo preverite tudi z opcijo draft, ki pokaže, katere vrstice so predolge! Pozor, v draft opciji, se slike ne pokažejo!
+ 
+\usepackage[utf8]{inputenc}   % omogoča uporabo slovenskih črk kodiranih v formatu UTF-8
+\usepackage[slovene,english]{babel}    % naloži, med drugim, slovenske delilne vzorce
+\usepackage[pdftex]{graphicx}  % omogoča vlaganje slik različnih formatov
+\usepackage{fancyhdr}          % poskrbi, na primer, za glave strani
+\usepackage{amssymb}           % dodatni matematični simboli
+\usepackage{amsmath}           % eqref, npr.
+\usepackage{hyperxmp}
+\usepackage[hyphens]{url}
+\usepackage{csquotes}
+\usepackage[pdftex, colorlinks=true,
+						citecolor=black, filecolor=black, 
+						linkcolor=black, urlcolor=black,
+						pdfproducer={LaTeX}, pdfcreator={LaTeX}]{hyperref}
+
+\usepackage{color}
+\usepackage{soul}
+
+\usepackage[
+backend=biber,
+style=numeric,
+sorting=nty,
+]{biblatex}
+
+
+\addbibresource{literatura5.bib} %Imports bibliography file
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%	DIPLOMA INFO
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\ttitle}{Uporaba globinske kamere za učenje igranja klavirja}
+\newcommand{\ttitleEn}{Diploma thesis template}
+\newcommand{\tsubject}{\ttitle}
+\newcommand{\tsubjectEn}{\ttitleEn}
+\newcommand{\tauthor}{Jernej Ulčakar}
+\newcommand{\tkeywords}{računalnik, kamera, klavir}
+\newcommand{\tkeywordsEn}{computer, camera, piano}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%	HYPERREF SETUP
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\hypersetup{pdftitle={\ttitle}}
+\hypersetup{pdfsubject=\ttitleEn}
+\hypersetup{pdfauthor={\tauthor}}
+\hypersetup{pdfkeywords=\tkeywordsEn}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% postavitev strani
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
+
+\addtolength{\marginparwidth}{-20pt} % robovi za tisk
+\addtolength{\oddsidemargin}{40pt}
+\addtolength{\evensidemargin}{-40pt}
+
+\renewcommand{\baselinestretch}{1.3} % ustrezen razmik med vrsticami
+\setlength{\headheight}{15pt}        % potreben prostor na vrhu
+\renewcommand{\chaptermark}[1]%
+{\markboth{\MakeUppercase{\thechapter.\ #1}}{}} \renewcommand{\sectionmark}[1]%
+{\markright{\MakeUppercase{\thesection.\ #1}}} \renewcommand{\headrulewidth}{0.5pt} \renewcommand{\footrulewidth}{0pt}
+\fancyhf{}
+\fancyhead[LE,RO]{\sl \thepage} 
+%\fancyhead[LO]{\sl \rightmark} \fancyhead[RE]{\sl \leftmark}
+\fancyhead[RE]{\sc \tauthor}              % dodal Solina
+\fancyhead[LO]{\sc Diplomska naloga}     % dodal Solina
+
+
+\newcommand{\BibLaTeX}{{\sc Bib}\LaTeX}
+\newcommand{\BibTeX}{{\sc Bib}\TeX}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% naslovi
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
+
+\newcommand{\autfont}{\Large}
+\newcommand{\titfont}{\LARGE\bf}
+\newcommand{\clearemptydoublepage}{\newpage{\pagestyle{empty}\cleardoublepage}}
+\setcounter{tocdepth}{1}	      % globina kazala
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% konstrukti
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
+\newtheorem{izrek}{Izrek}[chapter]
+\newtheorem{algoritem}{Algoritem}[chapter]
+\newtheorem{trditev}{Trditev}[izrek]
+\newenvironment{dokaz}{\emph{Dokaz.}\ }{\hspace{\fill}{$\Box$}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% PDF-A
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+% define medatata
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\def\Title{\ttitle}
+\def\Author{\tauthor,ju7857@student.uni-lj.si}
+\def\Subject{\ttitleEn}
+\def\Keywords{\tkeywordsEn}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+% \convertDate converts D:20080419103507+02'00' to 2008-04-19T10:35:07+02:00
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\def\convertDate{%
+    \getYear
+}
+
+{\catcode`\D=12
+ \gdef\getYear D:#1#2#3#4{\edef\xYear{#1#2#3#4}\getMonth}
+}
+\def\getMonth#1#2{\edef\xMonth{#1#2}\getDay}
+\def\getDay#1#2{\edef\xDay{#1#2}\getHour}
+\def\getHour#1#2{\edef\xHour{#1#2}\getMin}
+\def\getMin#1#2{\edef\xMin{#1#2}\getSec}
+\def\getSec#1#2{\edef\xSec{#1#2}\getTZh}
+\def\getTZh +#1#2{\edef\xTZh{#1#2}\getTZm}
+\def\getTZm '#1#2'{%
+    \edef\xTZm{#1#2}%
+    \edef\convDate{\xYear-\xMonth-\xDay T\xHour:\xMin:\xSec+\xTZh:\xTZm}%
+}
+
+%\expandafter\convertDate\pdfcreationdate 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% get pdftex version string
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\newcount\countA
+\countA=\pdftexversion
+\advance \countA by -100
+\def\pdftexVersionStr{pdfTeX-1.\the\countA.\pdftexrevision}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% XMP data
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
+\usepackage{xmpincl}
+%\includexmp{pdfa-1b}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% pdfInfo
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
+\pdfinfo{%
+    /Title    (\ttitle)
+    /Author   (\tauthor, jernejul@gmail.com)
+    /Subject  (\ttitleEn)
+    /Keywords (\tkeywordsEn)
+    /ModDate  (\pdfcreationdate)
+    /Trapped  /False
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% znaki za copyright stran
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
+
+\newcommand{\CcImageCc}[1]{%
+	\includegraphics[scale=#1]{cc_cc_30.pdf}%
+}
+\newcommand{\CcImageBy}[1]{%
+	\includegraphics[scale=#1]{cc_by_30.pdf}%
+}
+\newcommand{\CcImageSa}[1]{%
+	\includegraphics[scale=#1]{cc_sa_30.pdf}%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+\selectlanguage{slovene}
+\frontmatter
+\setcounter{page}{1} %
+\renewcommand{\thepage}{}       % preprečimo težave s številkami strani v kazalu
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%naslovnica
+ \thispagestyle{empty}%
+   \begin{center}
+    {\large\sc Univerza v Ljubljani\\%
+%      Fakulteta za elektrotehniko\\% za študijski program Multimedija
+%      Fakulteta za upravo\\% za študijski program Upravna informatika
+      Fakulteta za računalništvo in informatiko\\%
+%      Fakulteta za matematiko in fiziko\\% za študijski program Računalništvo in matematika
+     }
+    \vskip 10em%
+    {\autfont \tauthor\par}%
+    {\titfont \ttitle \par}%
+    {\vskip 3em \textsc{DIPLOMSKO DELO\\[5mm]         % dodal Solina za ostale študijske programe
+%    VISOKOŠOLSKI STROKOVNI ŠTUDIJSKI PROGRAM\\ PRVE STOPNJE\\ RAČUNALNIŠTVO IN INFORMATIKA}\par}%
+     UNIVERZITETNI  ŠTUDIJSKI PROGRAM\\ PRVE STOPNJE\\ RAČUNALNIŠTVO IN INFORMATIKA}\par}%
+%    INTERDISCIPLINARNI UNIVERZITETNI\\ ŠTUDIJSKI PROGRAM PRVE STOPNJE\\ MULTIMEDIJA}\par}%
+%    INTERDISCIPLINARNI UNIVERZITETNI\\ ŠTUDIJSKI PROGRAM PRVE STOPNJE\\ UPRAVNA INFORMATIKA}\par}%
+%    INTERDISCIPLINARNI UNIVERZITETNI\\ ŠTUDIJSKI PROGRAM PRVE STOPNJE\\ RAČUNALNIŠTVO IN MATEMATIKA}\par}%
+    \vfill\null%
+% izberite pravi habilitacijski naziv mentorja!
+    {\large \textsc{Mentor}: doc. dr. Luka Čehovin Zajc\par}%
+    {\vskip 2em \large Ljubljana, \the\year \par}%
+\end{center}
+% prazna stran
+%\clearemptydoublepage      
+% izjava o licencah itd. se izpiše na hrbtni strani naslovnice
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%copyright stran
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\thispagestyle{empty}
+
+\vspace*{5cm}
+{\small \noindent
+To delo je ponujeno pod licenco \textit{Creative Commons Priznanje avtorstva-Deljenje pod enakimi pogoji 2.5 Slovenija} (ali novej\v so razli\v cico).
+To pomeni, da se tako besedilo, slike, grafi in druge sestavine dela kot tudi rezultati diplomskega dela lahko prosto distribuirajo,
+reproducirajo, uporabljajo, priobčujejo javnosti in predelujejo, pod pogojem, da se jasno in vidno navede avtorja in naslov tega
+dela in da se v primeru spremembe, preoblikovanja ali uporabe tega dela v svojem delu, lahko distribuira predelava le pod
+licenco, ki je enaka tej.
+Podrobnosti licence so dostopne na spletni strani \href{http://creativecommons.si}{creativecommons.si} ali na Inštitutu za
+intelektualno lastnino, Streliška 1, 1000 Ljubljana.
+
+\vspace*{1cm}
+\begin{center}% 0.66 / 0.89 = 0.741573033707865
+\CcImageCc{0.741573033707865}\hspace*{1ex}\CcImageBy{1}\hspace*{1ex}\CcImageSa{1}%
+\end{center}
+}
+
+\vspace*{1cm}
+{\small \noindent
+Izvorna koda diplomskega dela, njeni rezultati in v ta namen razvita programska oprema je ponujena pod licenco GNU General Public License,
+različica 3 (ali novejša). To pomeni, da se lahko prosto distribuira in/ali predeluje pod njenimi pogoji.
+Podrobnosti licence so dostopne na spletni strani \url{http://www.gnu.org/licenses/}.
+}
+
+\vfill
+\begin{center} 
+\ \\ \vfill
+{\em
+Besedilo je oblikovano z urejevalnikom besedil \LaTeX.}
+\end{center}
+
+% prazna stran
+\clearemptydoublepage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% stran 3 med uvodnimi listi
+\thispagestyle{empty}
+\
+\vfill
+
+\bigskip
+\noindent\textbf{Kandidat:} Jernej Ulčakar\\
+\noindent\textbf{Naslov:} Uporaba globinske kamere za učenje igranja klavirja\\
+% vstavite ustrezen naziv študijskega programa!
+\noindent\textbf{Vrsta naloge:} Diplomska naloga na univerzitetnem programu prve stopnje Računalništvo in informatika \\
+% izberite pravi habilitacijski naziv mentorja!
+\noindent\textbf{Mentor:} doc. dr. Luka Čehovin Zajc\\
+
+\bigskip
+\noindent\textbf{Opis:}\\
+Cilj naloge je izdelava interaktivnega sistema, ki sestoji iz projektorja in globinske/navadne kamere. Sistem zazna klaviaturo ter nanjo projecira informacije, ki omogočajo lažje učenje igranja skladb (npr. projecira pritiske tipk v časovnem zaporedju). V nadaljevanju se lahko sistem nadgradi tudi z detekcijo rok.
+
+\bigskip
+\noindent\textbf{Title:} Using depth camera to learn piano
+
+\bigskip
+\noindent\textbf{Description:}\\
+The aim of the task is to build an interactive system that includes a projector and a depth or a normal camera. The system detects the piano keyboard and projects information onto it, which enable easier learning of playing music (for example press of a button in a time order). In the future the system can be upgraded with hand detection.
+
+\vfill
+
+
+
+\vspace{2cm}
+
+% prazna stran
+\clearemptydoublepage
+
+% zahvala
+%\thispagestyle{empty}\mbox{}\vfill\null\it%
+%\noindent
+%Na tem mestu zapišite, komu se zahvaljujete za pomoč pri izdelavi diplomske naloge oziroma pri vašem študiju %nasploh. Pazite, da ne boste koga pozabili. Utegnil vam bo zameriti. Temu se da izogniti tako, da celotno zahvalo %izpustite.
+%\rm\normalfont
+
+% prazna stran
+%\clearemptydoublepage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% posvetilo, če sama zahvala ne zadošča :-)
+%\thispagestyle{empty}\mbox{}{\vskip0.20\textheight}\mbox{}\hfill\begin{minipage}{0.55\textwidth}%
+%Svoji dragi Alenčici.
+%\normalfont\end{minipage}
+
+% prazna stran
+\clearemptydoublepage
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% kazalo
+\pagestyle{empty}
+\def\thepage{}% preprečimo težave s številkami strani v kazalu
+\tableofcontents{}
+
+
+% prazna stran
+\clearemptydoublepage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% seznam kratic
+
+\chapter*{Seznam uporabljenih kratic}
+
+\noindent\begin{tabular}{p{0.11\textwidth}|p{.39\textwidth}|p{.39\textwidth}}    % po potrebi razširi prvo kolono tabele na račun drugih dveh!
+  {\bf kratica} & {\bf angleško}                              & {\bf slovensko} \\ \hline
+  {\bf MIDI}   & Musical Instrument Digital Interface            &Digitalni vmesnik glasbenega inštrumenta \\
+%  \dots & \dots & \dots \\
+\end{tabular}
+
+
+% prazna stran
+\clearemptydoublepage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% povzetek
+\addcontentsline{toc}{chapter}{Povzetek}
+\chapter*{Povzetek}
+
+\noindent\textbf{Naslov:} \ttitle
+\bigskip
+
+\noindent\textbf{Avtor:} \tauthor
+\bigskip
+
+%\noindent\textbf{Povzetek:} 
+\noindent Diplomska naloga je namenjena za igralce klavirja, ki si upajo in želijo poskusiti nov način učenja skladb. Prav tako je veliko bolj zabavna varianta igranja, če je oseba vešča o arkadnih igrah. 
+Sistem je sestavljen iz kamere, projektorja in klavirja (oz. klaviature). Kamera se uporablja za snemanje igranja in kalibracijo za interaktivno aplikacijo, medtem ko projektor projecira zaslon na klaviaturo. V nalogi predstavim uporabljeno metodologijo za detekcijo tipk in predstavitev pesmi za igranje.
+
+
+\bigskip
+
+\noindent\textbf{Ključne besede:} \tkeywords.
+% prazna stran
+\clearemptydoublepage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% abstract
+\selectlanguage{english}
+\addcontentsline{toc}{chapter}{Abstract}
+\chapter*{Abstract}
+
+\noindent\textbf{Title:} \ttitleEn
+\bigskip
+
+\noindent\textbf{Author:} \tauthor
+\bigskip
+
+%\noindent\textbf{Abstract:} 
+\noindent Thesis is meant for piano users, who wish to try out new ways of learning piano music. It is a more fun way of playing if the person likes arcade video games.
+The final product should use algorithms to detect hands and piano keyboard using edge detection and blob detection algorithms. The user should have a standard camera and a monitor or a projector to project the whole application .
+\bigskip
+
+\noindent\textbf{Keywords:} \tkeywordsEn.
+\selectlanguage{slovene}
+% prazna stran
+\clearemptydoublepage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\mainmatter
+\setcounter{page}{1}
+\pagestyle{fancy}
+
+\chapter{Uvod}
+
+Namen diplomske naloge je ustvariti neko delujočo aplikacijo, ki pripomore uporabniku, da se nauči igrati klavir brez poznavanja not in glasbene teroije. Končni uporabnik je lahko kdorkoli, ki ima doma ali nekje drugje dostop do klavirja. Možno je tudi preko naprintane klaviature, ki naj bi ustrezala standardnem formatu klavirja.
+
+Za prepoznavanje klaviature bom uporabil algoritme za detekcijo robov ter nato na robusten način odrezal kos slike, ki nosi klaviaturo. Potlej se pripravi scena, ki zavzema približno četrtino zaslona po krajši dolžini zaslona skozi celotno dolžino klaviatura, ostali zaslon pa stolpci, ki padajo proti klaviaturi, in mogoče kakšni dodatni gumbi za opcije in podobno.
+
+V prihodnjih poglavjih je podrobnejša razlaga o posameznih delih razvoja te aplikacije.
+V \ref{ch0}.~poglavju povem o motivu projekta.
+V \ref{ch1}.~poglavju povem o uporabi algoritmov .
+V \ref{ch2}.~poglavju povem o celotni integraciji, torej celotna aplikacija.
+V \ref{ch3}.~poglavju bom povedal še o rezultatih testiranja, ki jih trenutno še ni.
+Sledil bo samo še zaključek \ref{zaklj}.
+
+
+\chapter{Motiv aplikacije}
+\label{ch0}
+
+Temo sem si izbral, ker sem že od otroštva igral klavir in hkrati študiral na fakulteti umetno inteligenco. Rad bi ustvaril lahek pripomoček za igranje klavirja brez poznavanja not in drugih pravil na notnem črtovju.
+
+Rezultati diplomske naloge bodo koristili vsem, ki bi si želeli igrati klavir brez not in na malo drugačen način. Z uporabo umetne inteligence bomo opazovali klaviaturo in na steno projecirali katero tipko naj uporabnik pritisne ob določenem času. Celoten izdelek spominja na arkadne igre, saj mora uporabnik upoštevati tempo glasbe in opazovati projekcijo, kar tudi vpliva na motivacijo izdelave aplikacije.
+
+
+\chapter{Algoritmi za detekcijo}
+\label{ch1}
+\section{Hough Transform}
+Za detekcijo klaviature se bo uporabil Hough transform algoritem, ki bo vzel tiste črte, ki so najbolj \enquote{vodoravne}  zaslonu oz. tisti, ki so najboljši kandidati. \cite{hough}
+\begin{algoritem}
+\label{iz:1}
+Hough Transform
+\end{algoritem}
+
+Hough transform je vrsta tehnike \endquote{feature extraction}, ki se uporablja v analizi slik in računalniškemu vidu ter v procesiranju slik. Deluje na principu volitev, ki se izvajajo v parametričnem prostoru, kjer so kandidatni objekti pridobljeni kot lokalni maksimum v tako rekočem \enquote{Accumulator} prostoru, ki je eksplicitno ustvarjen pri Hough transform algoritmu, da se lahko izvede in izračuna.
+\clearpage
+\section{SIFT}
+\noindent Za detekcijo rok se bo uporabil SIFT algoritem s pomočjo ključnih točk.
+\begin{algoritem}
+\label{iz:2}
+SIFT
+\end{algoritem}
+SIFT oz. \textit{Scale-invariant feature transform} je \enquote{feature extraction} algoritem, ki se uporablja za računalniški vid za detekcijo in opis lokalnih značilnosti znotraj slik. 
+
+SIFT-ove ključne točke objektov oz. \enquote{keypoints} so najprej vzete iz množice referenčnih slik in shranjene v neko podatkovno bazo. Objekt v novi sliki je prepoznan s primerjanjem ključnih točk znotraj podatkovne baze, kjer se nato vzame najboljši kandidat z uporabo evklidske razdalje na njegove značilnostne vektorje. Iz celotnega nabora zadetkov so opredeljeni podnabori ključnih točk, ki se strinjajo glede predmeta in njegove lokacije, obsega in usmeritve na novi sliki, da se filtrirajo dobra ujemanja. Določitev doslednih grozdov se hitro izvede z uporabo učinkovite izvedbe zgoščene tabele generalizirane Hough-ove transformacije [\ref{iz:1}]. Vsaka skupina treh ali več lastnosti, ki se strinjajo glede predmeta in njegovega položaja, je nato predmet modela nadaljnjega podrobnega preverjanja, nato pa se odstopanja zavržejo. Končno se izračuna verjetnost, da določen nabor lastnosti kaže na prisotnost predmeta, glede na natančnost prileganja in število verjetnih napačnih ujemanj. Ujemanja predmetov, ki so prestala vse te teste, lahko z veliko zaupanjem prepoznamo kot pravilna.
+
+
+\chapter{Celotna integracija}
+\label{ch2}
+
+Ko so deli naloge napisane v celoti, se vse skupaj združi in prilagodi. Na začetku aplikacije je zahtevano polje za IP naslov kamere in njen naslov vrat (port). Potlej se ob ustrezni povezavi preklopi na sliko kamere, kjer bo zahtevano, da se kamera pravilno postavi, da lahko algoritmi za zaznavanje klaviature delujejo zaželjeno. 
+Ko je vse urejeno, se prikaže gumb ali kaj podobnega za pričetek igranja skladbe ali snemanje. Tu se bodo na zaslonu prikazali razni stolpci, ki gladko tečejo proti ustrezni tipki na klaviaturi.
+
+
+
+\section{Problemi}
+Pri celotni aplikaciji obstajajo različni problemi, ki niso tako enostavno rešljivi, saj so odvisni od računalnikov in kamer ter stabilnostjo povezave.
+\subsection{Latenca}
+Problem je latenca kamere in latenca povezave ter hitrostjo procesorja zaradi algoritmov za zaznavanje. Celotna latenca traja nekje med 50ms in 200ms. Ta je zelo opazna med igranjem klavirja, če gledamo naše prste. Vendar zadeva ni tako težavna, če se prilagodimo tako, da ignoriramo naše prste na klaviaturi in opazujemo zgolj stolpce ter pripadajoče tipke.
+\subsection{Postavitev}
+Do težav pride, ko skušamo celoten sistem vzpostaviti tako, da je kamera lepo postavljena točno nad klavirjem, ki gleda v klaviaturo. Če nimamo pri sebi pripomočkov za držo kamere, lahko postane postavljanje celotnega sistema zelo zahtevno ali pa nemogoče. 
+\subsection{Projektor}
+Če oseba ne želi uporabljati zaslona, lahko to reši z uporabo projektorja, ki naj bi kazal na steno ali na prostor za note. Tu je kvaliteta slike odvisna ne le od projektorja, temveč tudi od stene na katero bo projeciral.
+
+
+
+\chapter{Rezultati}
+\label{ch3}
+Rezultati testiranja bodo tukaj še zapisani. Trenutna pričakovanja niso dobra, saj med ustvarjanjem in razvijanjem aplikacije se rezultati spreminjajo. 
+\section{Detekcija klaviature}
+Tukaj bodo zapisani rezultati detekcije klaviature ob postavitvi kamere.
+\section{Detekcija rok}
+Tukaj bodo zapisani rezultati detekcije rok ob igranju klavirja
+\section{Notni stolpci}
+Tukaj bodo zapisani rezultati notninh stolpcev, ki se premikajo proti tipkam na klaviaturi.
+
+\chapter{Zaključek}
+\label{zaklj}
+Celoten projekt je zelo zanimiv za implementirati in za testirati, saj lahko poleg testiranja tudi igraš klavir in se s tem sproščaš. Največ časa bo trajala implementacija celotne zaznave, nato pa implementacija skladb.
+\section{Nadgradnja}
+Nadgradnje sistema so lahko drugačni in bolj robustni algoritmi, ki naj bi zanemarili težavnost pri postavitvi kamere (npr. kamera s strani). Druge nadgradnje so zmanjševanje latence s hitrejšimi algoritmi.
+
+
+
+
+
+
+
+%\cleardoublepage
+%\addcontentsline{toc}{chapter}{Literatura}
+
+\printbibliography[heading=bibintoc,type=article,title={Članki v revijah}]
+
+\printbibliography[heading=bibintoc,type=inproceedings,title={Članki v zbornikih}]
+
+\printbibliography[heading=bibintoc,type=incollection,title={Poglavja v knjigah}]
+
+\printbibliography[heading=bibintoc,title={Celotna literatura}]
+
+
+\end{document}
+

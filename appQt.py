@@ -12,8 +12,6 @@ from PyQt5.QtCore import pyqtSignal, pyqtSlot, Qt, QThread
 import numpy as np
 import hough_transform as ht
 import musicScript as ms
-import time,random
-#import pygame
 
 #TODO
 #- Label posebi za helper
@@ -68,7 +66,7 @@ class HelperThread(QObject):
         while self._run_flag and self._play_flag:
             seznam_not = []
             for msgA in self.mid.play():
-                if(self._run_flag!=True):
+                if not self._run_flag:
                     break
                 comm = []
                 #print(self.mid)
@@ -202,6 +200,22 @@ class VideoThread(QObject): #QThread spremeni ce ne dela
                 cv_img = cv2.warpAffine(cv_img, rot_mat, cv_img.shape[1::-1], flags=cv2.INTER_LINEAR)
                 cv_img = cv_img[self.top:self.bot, :, :]
 
+        for i, number in enumerate(helperLabel[-1,:]):
+            #print(i)
+            #print(number)
+            if number[2] == 255:
+                cv_img[:, i * 3:(i * 3 + 3)] = [255, 255, 0]
+            elif number[0] == 100:
+                cv_img[:, i * 3:(i * 3 + 3)] = [0, 0, 255]
+
+        #for i in range(0, 320):
+        #    #bele
+        #    if helperLabel[-1, i, 2] == 255:
+        #        cv_img[:, i * 3:(i * 3 + 3)] = [255, 255, 0]
+        #    elif helperLabel[-1, i, 0] == 100:
+        #        cv_img[:, i * 3:(i * 3 + 3)] = [0, 0, 255]
+
+
         rgb_image = cv2.cvtColor(cv_img, cv2.COLOR_BGR2RGB)
         h, w, ch = rgb_image.shape
         bytes_per_line = ch * w
@@ -254,11 +268,13 @@ class App(QWidget):#QWidget
         self.e1.setAlignment(Qt.AlignCenter)
         self.e1.setFont(QFont("Arial", 20))
         self.e1.setText("10.1.0.202")
+        self.e1.setStyleSheet("margin-right:10px")
 
         self.e2 = QLineEdit()
         self.e2.setAlignment(Qt.AlignCenter)
         self.e2.setFont(QFont("Arial", 20))
         self.e2.setText("8080")
+        self.e2.setStyleSheet("margin-right:10px")
 
         self.b1 = QPushButton("Connect")
         self.b1.clicked.connect(self.setURL)
@@ -270,9 +286,11 @@ class App(QWidget):#QWidget
 
         l1 = QLabel("IP address")
         l1.setFont(QFont("Arial", 16))
+        l1.setStyleSheet("padding-left:10px")
 
         l2 = QLabel("Port address")
         l2.setFont(QFont("Arial", 16))
+        l2.setStyleSheet("padding-left:10px")
 
         self.flo.addRow(l1, self.e1)
         self.flo.addRow(l2, self.e2)
@@ -300,8 +318,10 @@ class App(QWidget):#QWidget
         self.playButton.clicked.connect(self.playFunc)
         self.playButton.setDisabled(True)
 
+
         self.flo.addRow(self.musicList,self.playButton)
         self.flo.addRow(self.musicList,self.playButton)
+        self.flo.setContentsMargins(0, 0, 0, 0)
         self.setLayout(self.flo)
         self.b2.hide()
 
@@ -316,22 +336,28 @@ class App(QWidget):#QWidget
                 break
         return k
 
+
+
     def update_image(self):
- 
+
         if self.helper._run_flag==False:
             self.trenutne_note[:]=0
             pass
         if len(self.indeksi)<52:
             print(len(self.indeksi),"Niso bile najdene vse tipke! Potrebna ponovna kalibracija")
             pass
-        if self.image_helper.pixmap() is not None:
+
+        elif self.image_helper.pixmap() is not None:
             global helperLabel
             j = np.roll(helperLabel,1,axis=0)
+
             j[0,:]=(0,0,0)
             j[0,self.indeksi]=(255,0,0)
 
-            for i in range(0,len(self.trenutne_note)):
-                if self.trenutne_note[i]:
+            #for i in range(0,len(self.trenutne_note)):
+            #    if self.trenutne_note[i]:
+            for i,num in enumerate(self.trenutne_note):
+                if num:
                     k = self.stevilo_crnih_pred_noto(i+21)
                     if i+21 in self.crne_tipke:
                         j[0,self.indeksi[i-k]-1:self.indeksi[i-k]+2] = (100,0,255)
@@ -345,9 +371,7 @@ class App(QWidget):#QWidget
                             for x in range(self.indeksi[i-k-1]+1,self.indeksi[i-k]):
                                 if j[0,x,2] != 255:
                                     j[0,x]=(100,255,0)
-                            #j[0,(self.indeksi[i-k-1]+1):(self.indeksi[i-k])] = (100,255,0)
 
- 
             #j[0,self.indeksi]=(255,255,255)
             helperLabel = j
             pix=self.convert_cv_qt(j)
@@ -383,7 +407,7 @@ class App(QWidget):#QWidget
             self.b2.show()
 
         if self.b2.text() == "Stop calibration" :
-            self.timer.start(20)
+            self.timer.start(35)
             self.b2.setText("Calibrate")
             self.video_calib_signal.emit(True)
             self.playButton.setEnabled(True)
@@ -537,6 +561,15 @@ class App(QWidget):#QWidget
         #p = convert_to_Qt_format.scaled(self.display_width, self.display_height, Qt.KeepAspectRatio)
         p = convert_to_Qt_format.scaled(WIDTH,HEIGHT, Qt.KeepAspectRatio)
         return QPixmap.fromImage(p)
+
+    def convert_to_array(self,x):
+        self.im = self.image_label.pixmap()
+        self.painter = QPainter(self.im)
+        self.penRectangle = QtGui.QPen(Qt.red)
+        self.penRectangle.setWidth(3)
+        self.painter.setPen(self.penRectangle)
+        self.painter.drawRect(x,0,x,540)
+        self.image_label.setPixmap(self.im)
 
     def dropdownList(self):
         comboBox = QComboBox(self)
