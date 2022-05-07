@@ -68,11 +68,8 @@ class HelperThread(QObject):
             for msgA in self.mid.play():
                 if not self._run_flag:
                     break
-                comm = []
-                #print(self.mid)
-                #print(msgA.dict().get('note'), msgA)
-                #print(msgA,msgA.dict())
-                #    print("yo Nig end this song")
+
+
                 if (msgA.dict().get('note') is not None):
                     if msgA.dict().get('time')>0 and len(seznam_not)>0:
                         #tukaj sam spremeni celotno tabelo, right?, zakaj bi sploh emital lol
@@ -80,9 +77,12 @@ class HelperThread(QObject):
                         seznam_not=[]
                     notaVrednost = msgA.dict().get('note')
                     seznam_not.append(notaVrednost)
-                    comm.append(str(msgA).split()[0])
-                    comm.append(str(msgA).split()[2][5:])
-                    comm.append(str(msgA).split()[4][5:])
+                    #comm = []
+                    #comm.append(str(msgA).split()[0])
+                    #comm.append(str(msgA).split()[2][5:])
+                    #comm.append(str(msgA).split()[4][5:])
+
+                    #print(comm)
                     
                     #result = ms.pretvori_v_noto(comm)
                     #print(result)

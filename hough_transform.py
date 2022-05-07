@@ -1,10 +1,11 @@
 from audioop import avg
 import math
 import cv2 as cv
+
 import numpy as np
 from matplotlib import pyplot as plt
 from scipy import ndimage
-
+from math import sqrt
 #TODO
 #FIX za normalno live kamero, gleda vzporedno namest d gleda navpično
 #Ko je kalibriran, se uporablja transform theta za rotacijo, da je bolj "robustno"
@@ -27,9 +28,250 @@ standard_layout_crne = ["b", "c#", "d#", "f#", "g#", "b", "c#", "d#", "f#", "g#"
                         "B", "C#", "D#", "F#", "G#", "B", "C#", "D#", "F#", "G#", "B", "C#", "D#", "F#", "G#",
                         "B", "C#", "D#", "F#", "G#", "B"]
 
+#za homografijo sta sliki 7 za source, 10 za destination
+
+def SIFT_metoda(img1,img2,rotate=False):
+    # ---------------SIFT
+    # Initiate SIFT detector
+    sift = cv.SIFT_create()
+    if rotate:
+        img1 = cv.rotate(img1, cv.ROTATE_90_COUNTERCLOCKWISE)
+        img2 = cv.rotate(img2, cv.ROTATE_90_COUNTERCLOCKWISE)
+    # find the keypoints and descriptors with SIFT
+    kp1, des1 = sift.detectAndCompute(img1, None)
+    kp2, des2 = sift.detectAndCompute(img2, None)
+
+    FLANN_INDEX_KDTREE = 1
+    index_params = dict(algorithm=FLANN_INDEX_KDTREE, trees=5)
+    search_params = dict(checks=50)
+    flann = cv.FlannBasedMatcher(index_params, search_params)
+    matches = flann.knnMatch(des1, des2, k=2)
+
+    # store all the good matches as per Lowe's ratio test.
+    good = []
+    MIN_MATCH = 8
+    for m, n in matches:
+        if m.distance < 0.7 * n.distance:
+            good.append(m)
+    if len(good) >= MIN_MATCH:
+        src_pts = np.float32([kp1[m.queryIdx].pt for m in good]).reshape(-1, 1, 2)
+        dst_pts = np.float32([kp2[m.trainIdx].pt for m in good]).reshape(-1, 1, 2)
+        M, mask = cv.findHomography(src_pts, dst_pts, cv.RANSAC, 5.0)
+        matchesMask = mask.ravel().tolist()
+        h, w, _ = img1.shape
+        pts = np.float32([[0, 0], [0, h - 1], [w - 1, h - 1], [w - 1, 0]]).reshape(-1, 1, 2)
+        dst = cv.perspectiveTransform(pts, M)
+        img2 = cv.polylines(img2, [np.int32(dst)], True, 255, 3, cv.LINE_AA)
+    else:
+        print("Ni dovolj najdenih tock - {}/{}".format(len(good), MIN_MATCH))
+        matchesMask = None
+    draw_params = dict(matchColor=(0, 255, 0),  # draw matches in green color
+                       singlePointColor=None,
+                       matchesMask=matchesMask,  # draw only inliers
+                       flags=2)
+    img3 = cv.drawMatches(img1, kp1, img2, kp2, good, None, **draw_params)
+    if rotate:
+        img3 = cv.rotate(img3, cv.ROTATE_90_CLOCKWISE)
+        img2 = cv.rotate(img2, cv.ROTATE_90_CLOCKWISE)
+    cv.imshow('SIFT', img3)
+    cv.imshow('SIFT region', img2)
+
+def ORB_metoda(img1,img2,rotate=False):
+    # ------------ORB
+    ## Create ORB object and BF object(using HAMMING)
+    orb = cv.ORB_create()
+    if rotate:
+        img1 = cv.rotate(img1, cv.ROTATE_90_COUNTERCLOCKWISE)
+        img2 = cv.rotate(img2, cv.ROTATE_90_COUNTERCLOCKWISE)
+    gray2 = cv.cvtColor(img2, cv.COLOR_BGR2GRAY)
+    gray1 = cv.cvtColor(img1, cv.COLOR_BGR2GRAY)
+
+    ## Find the keypoints and descriptors with ORB
+    kpts1, descs1 = orb.detectAndCompute(gray1, None)
+    kpts2, descs2 = orb.detectAndCompute(gray2, None)
+
+    ## match descriptors and sort them in the order of their distance
+    bf = cv.BFMatcher(cv.NORM_HAMMING, crossCheck=True)
+    matches = bf.match(descs1, descs2)
+    dmatches = sorted(matches, key=lambda x: x.distance)
+
+    ## extract the matched keypoints
+    src_pts = np.float32([kpts1[m.queryIdx].pt for m in dmatches]).reshape(-1, 1, 2)
+    dst_pts = np.float32([kpts2[m.trainIdx].pt for m in dmatches]).reshape(-1, 1, 2)
+
+    ## find homography matrix and do perspective transform
+    M, mask = cv.findHomography(src_pts, dst_pts, cv.RANSAC, 5.0)
+    h, w = img1.shape[:2]
+    pts = np.float32([[0, 0], [0, h - 1], [w - 1, h - 1], [w - 1, 0]]).reshape(-1, 1, 2)
+    dst = cv.perspectiveTransform(pts, M)
+
+    ## draw found regions
+    img2 = cv.polylines(img2, [np.int32(dst)], True, (0, 0, 255), 1, cv.LINE_AA)
+
+
+    ## draw match lines
+    res = cv.drawMatches(img1, kpts1, img2, kpts2, dmatches[:20], None, flags=2)
+    res = cv.drawKeypoints(res, kpts1, img2, None, flags=2)
+    if rotate:
+        res = cv.rotate(res, cv.ROTATE_90_CLOCKWISE)
+        img2 = cv.rotate(img2, cv.ROTATE_90_CLOCKWISE)
+    cv.imshow("ORB region found", img2)
+    cv.imshow("orb_match", res);
+
+
+def FLANN_metoda(img1,img2,rotate=False):
+    # ------- FLANN
+    # Initiate SIFT detector
+    sift = cv.SIFT_create()
+    if rotate:
+        img1 = cv.rotate(img1, cv.ROTATE_90_COUNTERCLOCKWISE)
+        img2 = cv.rotate(img2, cv.ROTATE_90_COUNTERCLOCKWISE)
+    # find the keypoints and descriptors with SIFT
+    kp1, des1 = sift.detectAndCompute(img1, None)
+    kp2, des2 = sift.detectAndCompute(img2, None)
+    # FLANN parameters
+    FLANN_INDEX_KDTREE = 1
+    index_params = dict(algorithm=FLANN_INDEX_KDTREE, trees=5)
+    search_params = dict(checks=50)  # or pass empty dictionary
+    flann = cv.FlannBasedMatcher(index_params, search_params)
+    matches = flann.knnMatch(des1, des2, k=2)
+    # Need to draw only good matches, so create a mask
+    matchesMask = [[0, 0] for i in range(len(matches))]
+    # ratio test as per Lowe's paper
+    for i, (m, n) in enumerate(matches):
+        if m.distance < 0.7 * n.distance:
+            matchesMask[i] = [1, 0]
+    draw_params = dict(matchColor=(0, 255, 0),
+                       singlePointColor=(255, 0, 0),
+                       matchesMask=matchesMask,
+                       flags=cv.DrawMatchesFlags_DEFAULT)
+    img3 = cv.drawMatchesKnn(img1, kp1, img2, kp2, matches, None, **draw_params)
+    if rotate:
+        img3 = cv.rotate(img3, cv.ROTATE_90_CLOCKWISE)
+    cv.imshow("FLANN", img3)
+
+def BFSIFT_metoda(img1,img2,rotate=False):
+    # ----------- BF-SIFT-R
+    sift = cv.SIFT_create()
+    # find the keypoints and descriptors with SIFT
+    if rotate:
+        img1 = cv.rotate(img1, cv.ROTATE_90_COUNTERCLOCKWISE)
+        img2 = cv.rotate(img2, cv.ROTATE_90_COUNTERCLOCKWISE)
+
+    kp1, des1 = sift.detectAndCompute(img1, None)
+    kp2, des2 = sift.detectAndCompute(img2, None)
+    # BFMatcher with default params
+    bf = cv.BFMatcher()
+    matches = bf.knnMatch(des1, des2, k=2)
+
+    # Apply ratio test
+    good = []
+    good_without_list = []
+    for m, n in matches:
+        if m.distance < 0.70 * n.distance:
+            good.append([m])
+            good_without_list.append(m)
+
+    # cv.drawMatchesKnn expects list of lists as matches.
+    img3 = cv.drawMatchesKnn(img1, kp1, img2, kp2, good, None, flags=cv.DrawMatchesFlags_NOT_DRAW_SINGLE_POINTS)
+    img33 = cv.drawMatches(img1, kp1, img2, kp2, good_without_list, None)
+    if rotate:
+        img3 = cv.rotate(img3, cv.ROTATE_90_CLOCKWISE)
+        img2 = cv.rotate(img2, cv.ROTATE_90_CLOCKWISE)
+        img33 = cv.rotate(img33, cv.ROTATE_90_CLOCKWISE)
+    cv.imshow("BF-SIFT-R", img3)
+    cv.imshow("BF-SIFT-R region", img2)
+    cv.imshow("BF-SIFT-R region img33", img33)
+
+def point_detec(img_s,img_d):
+
+    scale=0.3
+    img1 = img_s
+    img2 = img_d
+
+
+    img_1 = cv.resize(img1, (int(img1.shape[1] * scale), int(img1.shape[0] * scale)))
+    img_2 = cv.resize(img2, (int(img2.shape[1] * scale), int(img2.shape[0] * scale)))
+    SIFT_metoda(img_1,img_2,True)
+
+    img2 = img_d
+    img_1 = cv.resize(img1, (int(img1.shape[1] * scale), int(img1.shape[0] * scale)))
+    img_2 = cv.resize(img2, (int(img2.shape[1] * scale), int(img2.shape[0] * scale)))
+    BFSIFT_metoda(img_1,img_2,True)
+
+    #img2 = img_d
+    #img_1 = cv.resize(img1, (int(img1.shape[1] * scale), int(img1.shape[0] * scale)))
+    #img_2 = cv.resize(img2, (int(img2.shape[1] * scale), int(img2.shape[0] * scale)))
+    #FLANN_metoda(img_1,img_2,True)
+
+    img2 = img_d
+    img_1 = cv.resize(img1, (int(img1.shape[1] * scale), int(img1.shape[0] * scale)))
+    img_2 = cv.resize(img2, (int(img2.shape[1] * scale), int(img2.shape[0] * scale)))
+    ORB_metoda(img_1,img_2,True)
+
+
+
+def custom_point_detec(im_src,im_dst):
+    #im_src = cv.imread('images/piano_object2.jpg')
+    pts_src = np.array([[66, 72], [66, 574], [4229, 83],[4240, 583]])
+    #im_dst = cv.imread('images/piano2.jpg')
+    pts_dst = np.array([[330, 573], [213, 1064], [4515, 596],[4800, 1094]])
+
+    point_detec(im_src, im_dst)
+    h, status = cv.findHomography(pts_src, pts_dst)
+    # Warp source image to destination based on homography
+    im_out = cv.warpPerspective(im_src, h, (im_dst.shape[1], im_dst.shape[0]))
+    # Display images
+    scale=0.2
+    dim = cv.resize(im_out,(int(im_out.shape[1]*scale),int(im_out.shape[0]*scale)))
+    dim1 = cv.resize(im_src,(int(im_src.shape[1]*scale),int(im_src.shape[0]*scale)))
+    dim2 = cv.resize(im_dst,(int(im_dst.shape[1]*scale),int(im_dst.shape[0]*scale)))
+    #cv.imshow("Source Image", dim1)
+    #cv.imshow("Destination Image", dim2)
+    #cv.imshow("Warped Source Image", dim)
+
+
+def click_event(event, x, y, flags, params):
+    # checking for left mouse clicks
+    if event == cv.EVENT_LBUTTONDOWN:
+        # displaying the coordinates
+        # on the Shell
+        print(x, ' ', y)
+        keypoint_click.append((x, y))
+        print(keypoint_click)
+
+        # displaying the coordinates
+        # on the image window
+        font = cv.FONT_HERSHEY_SIMPLEX
+        cv.putText(img, str(x) + ',' +
+                    str(y), (x, y), font,
+                    0.4, (255, 0, 0), 1)
+        cv.circle(img,(x,y),4,(0,255,255),2)
+        cv.imshow('Frame', img)
+
+    # checking for right mouse clicks
+    if event == cv.EVENT_RBUTTONDOWN:
+        # displaying the coordinates
+        # on the Shell
+        print(x, ' ', y)
+        keypoint_click.append((x,y))
+        print(keypoint_click)
+
+        # displaying the coordinates
+        # on the image window
+        font = cv.FONT_HERSHEY_SIMPLEX
+        b = img[y, x, 0]
+        g = img[y, x, 1]
+        r = img[y, x, 2]
+        cv.putText(img, str(b) + ',' +
+                    str(g) + ',' + str(r),
+                    (x, y), font, 0.4,
+                    (255, 255, 0), 1)
+        cv.imshow('Frame', img)
+
 def houghTest(image):
     if image is None:
-        image = 'images/piano9.jpg'
+        image = 'images/piano11.jpg'
         orig = cv.imread(image, cv.IMREAD_COLOR)
 
     #src = cv.imread(image,cv.IMREAD_GRAYSCALE)
@@ -39,21 +281,23 @@ def houghTest(image):
         h,w,_=image.shape
     if h>w:
         orig = cv.rotate(orig,cv.ROTATE_90_COUNTERCLOCKWISE)
-
     orig = cv.resize(orig,(1280,540))
+    #cv.imshow("Zajeta slika", orig)
     h, w, _ = orig.shape
     print(h,w)
     orig = orig[int(int(h/3) * 2):h, 0:w]
-    cv.imshow("orig",orig)
+    cv.imshow("orig_pred_rotacijo",orig)
     src = cv.cvtColor(orig, cv.COLOR_BGR2GRAY)
     h1, w1 = src.shape
     #src = src[int(2*h1/3):h1,0:w1]
     #cv.imshow("src",src)
 
+    #cv.imshow("graySc",src)
     src = cv.GaussianBlur(src,(3,1),sigmaX=0,sigmaY=4) #dont ask, magic numbers
     dst = cv.Canny(src,50,150,apertureSize=3) #dont ask, magic numbers
     #dst =  cv.GaussianBlur(dst,(3,1),sigmaX=0,sigmaY=4) #dont ask, magic numbers
-    cv.imshow("dst",dst)
+    #cv.imshow("Gaussian", src)
+    #cv.imshow("dst",dst)
     #Image iz canny v color
     cdst = cv.cvtColor(dst,cv.COLOR_GRAY2BGR)
 
@@ -105,6 +349,7 @@ def houghTest(image):
     #tukaj lahko sedaj narisem kvadrat in odrezemo sliko
     cut_image = result[top:avg_bot, :,:]#[(int(2*h1/3)+top):(int(2*h1/3)+bot), :,:]
     cv.imshow("wtf",cdst)
+    cv.imshow("odrez",cut_image)
 
     #cut_image = orig[(int(2*h1/3)+top):(int(2*h1/3)+avg_bot), :,:]
     #cv.rectangle(cdst,(0,top),(960,bot),(255,0,255),2)
@@ -113,8 +358,11 @@ def houghTest(image):
         gray = cv.cvtColor(cut_image,cv.COLOR_BGR2GRAY)
     except:
         pass
+
     adapt = cv.adaptiveThreshold(gray, 255, cv.THRESH_BINARY,cv.ADAPTIVE_THRESH_GAUSSIAN_C, 13 , 10)
     blur = cv.GaussianBlur(adapt, (9, 3), 0)
+    cv.imshow("adapt", adapt)
+    cv.imshow("blur",blur)
     _,otsu = cv.threshold(blur, 127, 255, cv.THRESH_OTSU+cv.THRESH_BINARY)
 
     cv.imshow("otsu",otsu)
@@ -122,7 +370,7 @@ def houghTest(image):
     odrez=int(cut_image.shape[0]/4)
     #print(cut_image.shape)
     nb_components, output, stats, centroids  = cv.connectedComponentsWithStats(otsu[odrez:,:])
-    print(stats)
+    #print(stats)
     img2 = np.zeros((output.shape))
     for i in range(1, nb_components):
         if stats[i][4]>=400:
@@ -442,5 +690,45 @@ def hough(orig):
     indeksi.sort()
     return cut_image, (avg_bot,top) , theta_rotacije, indeksi
 
+
+def video_homografija():
+    cap = cv.VideoCapture(0)
+
+    global img
+    global keypoint_click
+    keypoint_click = []
+    while True:
+        _,img=cap.read()
+
+        cv.imshow("Frame",img)
+        cv.setMouseCallback('Frame', click_event)
+        key = cv.waitKey(1)
+        if key == 32:
+            cv.namedWindow("Frame")
+            key = cv.waitKey(-1)
+
+        if key == 27:
+            break
+        if key == 114 or key == 82:
+            keypoint_click=[]
+    cap.release()
+    cv.destroyAllWindows()
+
 if __name__ == "__main__":
-    houghTest(None)
+    #img = cv.imread('images/piano2.jpg', 1)
+
+    # displaying the image
+    im_src = cv.imread('images/piano_object2.jpg')
+    im_dst = cv.imread('images/piano0.jpg')
+    h,w,_ = im_dst.shape
+    im_dst=im_dst[int(int(h/3) * 2):h, 0:w]
+
+    video_homografija()
+    #custom_point_detec(im_src,im_dst)
+    # setting mouse handler for the image
+    # and calling the click_event() function
+
+    #cv.setMouseCallback('image', click_event)
+    cv.waitKey(0)
+    cv.destroyAllWindows()
+    #houghTest(None)
