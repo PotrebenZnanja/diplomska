@@ -254,8 +254,8 @@ def click_event(event, x, y, flags, params):
         # displaying the coordinates
         # on the Shell
         print(x, ' ', y)
-        keypoint_click.append((x,y))
-        print(keypoint_click)
+        keypoint_stena_click.append((x,y))
+        print(keypoint_stena_click)
 
         # displaying the coordinates
         # on the image window
@@ -267,6 +267,7 @@ def click_event(event, x, y, flags, params):
                     str(g) + ',' + str(r),
                     (x, y), font, 0.4,
                     (255, 255, 0), 1)
+        cv.circle(img, (x, y), 4, (255, 130, 255), 2)
         cv.imshow('Frame', img)
 
 def houghTest(image):
@@ -692,15 +693,52 @@ def hough(orig):
 
 
 def video_homografija():
-    cap = cv.VideoCapture(0)
-
+    #cap = cv.VideoCapture(0)
     global img
-    global keypoint_click
-    keypoint_click = []
-    while True:
-        _,img=cap.read()
+    img = cv.imread("images/piano8.jpg")
+    w, h = (img.shape[1], img.shape[0])
+    #
+    scale = 0.25
+    img = cv.resize(img, (int(w * scale), int(h * scale)))
+    img2 = cv.imread("images/piano_object2.jpg", cv.IMREAD_COLOR)
+    h1, w1, _ = img2.shape
 
-        cv.imshow("Frame",img)
+    img2 = cv.resize(img2, (int(w1 * scale),(int(h1 * scale))))
+    h1, w1, _ = img2.shape
+    print(int(h1/3*2),w1,h1)
+    #img2 = img2[int(h1/3*2):,0:w1]
+    global keypoint_click
+    global keypoint_stena_click
+    keypoint_click = []
+    keypoint_stena_click=[]
+    show_circles=0
+    show_homography=0
+    dst_pts = np.float32([[0,0],[img2.shape[1],0],[0,img2.shape[0]],[img2.shape[1],img2.shape[0]]])
+    while True:
+        #_,img=cap.read()
+
+        if show_homography and len(keypoint_click)==4:
+            #print(np.float32(keypoint_click))
+            #print(np.float32([[0,0],[img.shape[1],0],[0,img.shape[0]],[img.shape[1],img.shape[0]]]))
+
+            print(keypoint_click)
+            print(keypoint_stena_click)
+
+            matrix = cv.getPerspectiveTransform(dst_pts,np.float32(keypoint_click))
+            res = cv.warpPerspective(img2,matrix,(img.shape[1],img.shape[0]))
+
+            if len(keypoint_stena_click)==2:
+                keypoint_stena_click.extend((keypoint_click[0], keypoint_click[1]))
+            elif len(keypoint_stena_click)==4:
+                matrix_stena = cv.getPerspectiveTransform(dst_pts,np.float32(keypoint_stena_click))
+                res_stena = cv.warpPerspective(img2, matrix_stena, (img.shape[1], img.shape[0]))
+                res=res+res_stena
+            cv.imshow("warped",res)
+
+        if show_circles:
+            for k in keypoint_click:
+                cv.circle(img, (k[0], k[1]), 4, (0, 255, 255), 2)
+        cv.imshow("Frame", img)
         cv.setMouseCallback('Frame', click_event)
         key = cv.waitKey(1)
         if key == 32:
@@ -711,7 +749,20 @@ def video_homografija():
             break
         if key == 114 or key == 82:
             keypoint_click=[]
-    cap.release()
+            keypoint_stena_click=[]
+
+        if key == 115 or key == 83:
+            if show_circles==0:
+                show_circles=1
+            else:
+                show_circles=0
+        if key == 116 or key == 84:
+            if show_homography:
+                show_homography=0
+            else:
+                show_homography=1
+
+    #cap.release()
     cv.destroyAllWindows()
 
 if __name__ == "__main__":
