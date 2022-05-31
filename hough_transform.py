@@ -1,7 +1,5 @@
-from audioop import avg
 import math
 import cv2 as cv
-
 import numpy as np
 from matplotlib import pyplot as plt
 from scipy import ndimage
@@ -18,7 +16,6 @@ from math import sqrt
 #   skupaj z Otsu thresholding metoda za avtomatsko kalkulacijo razpoznavanja objektov (crne tipke proti belimi)
 #
 #Zacetni background image je sama najdena klaviatura (obrezana)
-
 
 standard_layout_bele = ["a", "h", "c", "d", "e", "f", "g", "a", "h", "c", "d", "e", "f", "g", "a", "h", "c",
                         "d", "e", "f", "g", "a", "h", "C1", "D1", "E1", "F1", "G1", "A1", "H1", "C2", "D2",
@@ -118,7 +115,6 @@ def ORB_metoda(img1,img2,rotate=False):
     cv.imshow("ORB region found", img2)
     cv.imshow("orb_match", res);
 
-
 def FLANN_metoda(img1,img2,rotate=False):
     # ------- FLANN
     # Initiate SIFT detector
@@ -209,8 +205,6 @@ def point_detec(img_s,img_d):
     img_2 = cv.resize(img2, (int(img2.shape[1] * scale), int(img2.shape[0] * scale)))
     ORB_metoda(img_1,img_2,True)
 
-
-
 def custom_point_detec(im_src,im_dst):
     #im_src = cv.imread('images/piano_object2.jpg')
     pts_src = np.array([[66, 72], [66, 574], [4229, 83],[4240, 583]])
@@ -229,7 +223,6 @@ def custom_point_detec(im_src,im_dst):
     #cv.imshow("Source Image", dim1)
     #cv.imshow("Destination Image", dim2)
     #cv.imshow("Warped Source Image", dim)
-
 
 def click_event(event, x, y, flags, params):
     # checking for left mouse clicks
@@ -691,11 +684,10 @@ def hough(orig):
     indeksi.sort()
     return cut_image, (avg_bot,top) , theta_rotacije, indeksi
 
-
 def video_homografija():
     #cap = cv.VideoCapture(0)
     global img
-    img = cv.imread("images/piano8.jpg")
+    img = cv.imread("images/piano4.jpg")
     w, h = (img.shape[1], img.shape[0])
     #
     scale = 0.25

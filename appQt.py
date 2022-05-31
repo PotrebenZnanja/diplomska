@@ -13,6 +13,13 @@ import numpy as np
 import hough_transform as ht
 import musicScript as ms
 
+# Projektor postavimo v prostor
+# s kamero se pomaknemo v zrcalo projektorja
+# klikni gumb, da vzame sliko projekcije, da lahko dobimo homografsko povrsino
+# pritisnemo tocke na sliki, kamor naj projektor projicira sliko kamere in stolpcev na steno
+#  Sliko naj zajame na video threadu in sicer mora zajeti kar celo, brez rezanja
+# tako shranimo sliko in naredimo homografijo kar znotraj programa, čez cel ekran
+
 #TODO
 #- Label posebi za helper
 #- Global array (predstavlja image labela v formi pyqt), ki se naj premika v sozitju s tempom (torej bo nota dolga 1*60/tempo (1 pomeni cetrtinka, 2 polovinka, 4 celinka, itd.)
@@ -29,6 +36,8 @@ helperLabel = np.zeros((90,320,3), dtype=np.uint8)
 
 WHITE = (255,255,255)
 BLACK = (0,0,0)
+keypoints=[]
+homo_transform = False
 
 #helper thread naj bo kar musicThread
 class HelperThread(QObject):
@@ -120,18 +129,18 @@ class HelperThread(QObject):
         print("stopping run_flag")
         self._run_flag=False
 
-
-
 #Main thread za cel video
 class VideoThread(QObject): #QThread spremeni ce ne dela
     change_pixmap_signal = pyqtSignal(QPixmap)
     change_pixmap_signal_calib = pyqtSignal(QPixmap, np.ndarray)
+    change_pixmap_signal_projektor = pyqtSignal(np.ndarray)
     url = ""
     def __init__(self, path):
         super(VideoThread, self).__init__()
         self.url = path
         self._run_flag = True
         self.calib = False
+        self.projektor = False
         self.tmp_image=None
         self.update_timer=0
         self.theta = 1.5707963268
@@ -144,7 +153,15 @@ class VideoThread(QObject): #QThread spremeni ce ne dela
         #cap = cv2.VideoCapture(self.url)
         cap = cv2.imread('images/piano10.jpg', cv2.IMREAD_COLOR) #this line
         while self._run_flag and cap is not None:
-            if self.calib and self.tmp_image is not None:
+            if self.projektor:
+                cv_img = cv2.imread('images/piano7.jpg', cv2.IMREAD_COLOR)#this line
+                #ret, cv_img = cap.read() #this line
+                result = self.convert_cv_qt_homography(cv_img)
+
+                self.change_pixmap_signal_projektor.emit(result)
+
+
+            elif self.calib and self.tmp_image is not None:
                 result = self.convert_cv_qt(self.tmp_image)
                 self.change_pixmap_signal_calib.emit(result,self.indeksi)
             else:
@@ -167,7 +184,7 @@ class VideoThread(QObject): #QThread spremeni ce ne dela
                 self.tmp_image = cv_img
 
         # shut down capture system
-        cap.release() 
+        cap.release()
 
     def change_calib(self,cal):
         self.calib = cal
@@ -178,10 +195,51 @@ class VideoThread(QObject): #QThread spremeni ce ne dela
             self.bot = 270
             self.calib = True
 
+    def change_projektor(self,proj):
+        self.projektor = proj
+
+    def convert_cv_qt_homography(self,cv_img):
+        #print(cv_img)
+        cv_img = cv2.resize(cv_img, (1920,1080))
+        h, w,_ = cv_img.shape
+        #print(cv_img.shape,h,w)
+        dst_pts = np.float32([[0, 0], [w, 0], [0, h], [w, h]])
+        global keypoints
+        global homo_transform
+        global helperLabel
+
+        if homo_transform and len(keypoints)>=4:
+            #cv_img = cv2.resize(cv_img, (960, 540))
+            h2, w2, _ = cv_img.shape
+            h1 = int(h2 / 3)
+            cv_img = cv_img[int((h1) * 2):h, 0:w2, :]
+            cv_img = cv_img[self.top:self.bot, :, :]
+            cv_img = cv2.resize(cv_img, (w, h))
+            matrix = cv2.getPerspectiveTransform(dst_pts, np.float32(keypoints[:4]))
+            res = cv2.warpPerspective(cv_img, matrix, (w, h))
+
+            if len(keypoints)==6:
+                matrix_stena = cv2.getPerspectiveTransform(dst_pts,np.float32([keypoints[4],keypoints[5],keypoints[0],keypoints[1]]))
+                arr = cv2.resize(helperLabel, (w, h))
+                res_stena = cv2.warpPerspective(arr, matrix_stena, (w, h))
+                res += res_stena
+            return res
+        else:
+            for i in keypoints:
+                cv2.circle(cv_img, i, 4, (0, 255, 255), 2)
+        rgb_image = cv2.cvtColor(cv_img, cv2.COLOR_BGR2RGB)
+        h, w, ch = rgb_image.shape
+        bytes_per_line = ch * w
+        convert_to_Qt_format = QtGui.QImage(rgb_image.data, w, h, bytes_per_line, QtGui.QImage.Format_BGR888)
+        p = convert_to_Qt_format.scaled(WIDTH, HEIGHT, Qt.KeepAspectRatio)
+        return cv_img
+        #return QPixmap.fromImage(p)
+
     def convert_cv_qt(self, cv_img):
         h, w, _ = cv_img.shape
         #h1 = int(h / 3)
         #---
+
         if self.calib:
                 # cv_img[int(h1*2):h,0:w,:],(self.bot,self.top),self.theta = ht.hough(cv_img)
                 cv_img, (self.bot, self.top), self.theta, self.indeksi = ht.hough(cv_img)
@@ -246,6 +304,7 @@ class App(QWidget):#QWidget
     video_slot = pyqtSignal(np.ndarray)
     video_stop_signal = pyqtSignal()
     video_calib_signal = pyqtSignal(bool)
+    video_projektor_signal = pyqtSignal(bool)
     play_signal = pyqtSignal(bool,str)
 
     trenutne_note = np.zeros(88).astype(int) #88 ker je toliko najvec na klavirju in v MIDI file I suppose...
@@ -253,8 +312,18 @@ class App(QWidget):#QWidget
     indeksi = None
     helper_send_signal = pyqtSignal(np.ndarray)
     helper_stop_signal = pyqtSignal()
-    
-    def __init__(self,surface=None,parent=None):
+    keypoints=[]
+    def keyPressEvent(self, event):
+        global keypoints
+        global homo_transform
+        if event.key() == Qt.Key_R:
+            print("delete keypoints")
+            keypoints=[]
+        if event.key() == Qt.Key_T:
+            homo_transform = True if homo_transform == False else False
+        #event.accept()
+
+    def __init__(self,parent=None):
         super(App,self).__init__(parent)
         self.hnj = 0
         self.timer = QTimer(self)
@@ -281,9 +350,20 @@ class App(QWidget):#QWidget
 
         self.b2 = QPushButton("Calibrate")
         self.b2.clicked.connect(self.calibrate)
-
         self.flo = QFormLayout()
 
+        ## create the label that holds the image
+        self.image_label = QLabel(self)
+
+        self.image_projektor = QLabel(self)
+        self.image_projektor.mousePressEvent = self.getPos
+        self.image_projektor.resize(WIDTH, HEIGHT)
+        self.image_helper = QLabel(self)
+        # size image je 960x180, od tega bo ostalega 720-koncni_odrez crno/sivo polje s tipkami
+        # self.image_label.resize(960, 180)
+        # self.image_helper.resize(960, 360)
+
+        self.flo.addRow(self.image_projektor)
         l1 = QLabel("IP address")
         l1.setFont(QFont("Arial", 16))
         l1.setStyleSheet("padding-left:10px")
@@ -295,16 +375,12 @@ class App(QWidget):#QWidget
         self.flo.addRow(l1, self.e1)
         self.flo.addRow(l2, self.e2)
         self.flo.addRow(self.b1,self.b2)
-        
-        ## create the label that holds the image
-        self.image_label = QLabel(self)
-        self.image_helper = QLabel(self)
-        #size image je 960x180, od tega bo ostalega 720-koncni_odrez crno/sivo polje s tipkami
-        self.image_label.resize(960, 180)
-        self.image_helper.resize(960, 360)
 
         self.flo.addRow(self.image_helper)
         self.flo.addRow(self.image_label)
+
+        self.projektor_gumb = QPushButton("Projektor slika")
+        self.projektor_gumb.clicked.connect(self.projektor)
 
         #---------
         #self.cam1 = QPushButton("USB / integrated Camera")
@@ -318,14 +394,16 @@ class App(QWidget):#QWidget
         self.playButton.clicked.connect(self.playFunc)
         self.playButton.setDisabled(True)
 
-
-        self.flo.addRow(self.musicList,self.playButton)
         self.flo.addRow(self.musicList,self.playButton)
         self.flo.setContentsMargins(0, 0, 0, 0)
+        self.flo.addRow(self.projektor_gumb,QLabel())
         self.setLayout(self.flo)
+        self.projektor_gumb.hide()
         self.b2.hide()
 
+
     k = 1
+    #print(self.image_label)
 
     def stevilo_crnih_pred_noto(self,n):
         k =0
@@ -336,15 +414,59 @@ class App(QWidget):#QWidget
                 break
         return k
 
+    def projektor(self):
+        st = self.flo.rowCount()
+        w = 2*st
+        for i in range(0,w-6): #skrije vse razen zadnjih dveh vrstic v layoutu
 
+            item = self.flo.itemAt(i)
+            if item !=None:
+                wi = item.widget()
+                if wi.isHidden():
+                    wi.show()
+                else:
+                    wi.hide()
+        #self.image_label.show()
+        #self.image_helper.show()
+        #pic = cv2.imread('images/piano7.jpg', cv2.IMREAD_COLOR)
+        #self.image_projektor.setPixmap(self.convert_cv_qt(pic))
+
+        if self.projektor_gumb.text() == "Projektor slika" :
+            self.projektor_gumb.setText("Izklop projektor slike")
+            self.image_projektor.show()
+            self.video_projektor_signal.emit(True)
+
+        else:
+            self.projektor_gumb.setText("Projektor slika")
+            self.image_projektor.hide()
+            self.video_projektor_signal.emit(False)
+
+    @pyqtSlot(np.ndarray)
+    def update_projektor_label(self,pic):
+        #global homo_transform
+        #h, w, _ = pic.shape
+        res = self.convert_cv_qt(pic)
+        self.image_projektor.setPixmap(res)
+
+    def getPos(self, event):
+
+        global keypoints
+        x = event.pos().x()
+        y = event.pos().y()
+        h = self.image_projektor.height()
+        if len(keypoints)<6:
+            keypoints.append((x,y))
+        print(keypoints)
 
     def update_image(self):
 
         if self.helper._run_flag==False:
             self.trenutne_note[:]=0
             pass
+        if self.indeksi is None:
+            return
         if len(self.indeksi)<52:
-            print(len(self.indeksi),"Niso bile najdene vse tipke! Potrebna ponovna kalibracija")
+            #print(len(self.indeksi),"Niso bile najdene vse tipke! Potrebna ponovna kalibracija")
             pass
 
         elif self.image_helper.pixmap() is not None:
@@ -451,6 +573,7 @@ class App(QWidget):#QWidget
         self.b1.clicked.disconnect()
         self.b1.clicked.connect(self.disconnection)
         self.b2.show()
+        self.projektor_gumb.show()
         #Button za finish calibration
         self.image_label.show()
 
@@ -462,10 +585,12 @@ class App(QWidget):#QWidget
             
             self.video_stop_signal.connect(self.video.stop)
             self.video_calib_signal.connect(self.video.change_calib)
+            self.video_projektor_signal.connect(self.video.change_projektor)
             self.video.moveToThread(self.thread1)
 
             self.video.change_pixmap_signal.connect(self.update_label)
             self.video.change_pixmap_signal_calib.connect(self.update_label_helper)
+            self.video.change_pixmap_signal_projektor.connect(self.update_projektor_label)
 
             self.thread1.started.connect(self.video.run)
             self.thread1.finished.connect(self.video.stop)
@@ -583,6 +708,8 @@ if __name__ == "__main__":
 
     app = QApplication(sys.argv)
     screen = app.primaryScreen()
+    global WIDTH
+    global HEIGHT
     WIDTH = screen.size().width()
     HEIGHT = screen.size().height()
 
