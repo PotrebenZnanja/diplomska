@@ -757,6 +757,9 @@ def video_homografija():
     #cap.release()
     cv.destroyAllWindows()
 
+#def obj_detec():
+
+
 if __name__ == "__main__":
     #img = cv.imread('images/piano2.jpg', 1)
 
