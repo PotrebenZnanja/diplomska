@@ -706,6 +706,7 @@ def video_homografija():
     show_circles=0
     show_homography=0
     dst_pts = np.float32([[0,0],[img2.shape[1],0],[0,img2.shape[0]],[img2.shape[1],img2.shape[0]]])
+    #print(keypoint_click)
     while True:
         #_,img=cap.read()
 

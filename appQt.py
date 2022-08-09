@@ -38,6 +38,7 @@ WHITE = (255,255,255)
 BLACK = (0,0,0)
 keypoints=[]
 homo_transform = False
+avtomatsko_iskanje = False
 
 #helper thread naj bo kar musicThread
 class HelperThread(QObject):
@@ -162,9 +163,9 @@ class VideoThread(QObject): #QThread spremeni ce ne dela
                 ret, cv_img = cap.read()  # this line
                 #cv2.imwrite("current_cap.png",cv_img)
                 #yol = yolo.run(weights='bestNano.pt',source="current_cap.png",nosave=True,return_img=True)
-                yol = yolo.run(cv_img)
-                result = self.convert_cv_qt_homography(yol)
-                self.change_pixmap_signal_projektor.emit(result)
+                #yol = yolo.run(cv_img)
+                #result = self.convert_cv_qt_homography(yol)
+                self.change_pixmap_signal_projektor.emit(cv_img)
                 self.current = True
 
             elif self.calib and self.tmp_image is not None:
@@ -220,6 +221,10 @@ class VideoThread(QObject): #QThread spremeni ce ne dela
         #print(cv_img.shape,h,w)
         dst_pts = np.float32([[0, 0], [w, 0], [0, h], [w, h]])
         #dst_pts = np.float32(keypoints[:4])
+        if avtomatsko_iskanje:
+            l = yolo.run(cv_img)
+            return l
+
         if homo_transform and len(keypoints)>=4:
             #cv_img = cv2.imread("images/piano_object.jpg", cv2.IMREAD_COLOR)
             #cv_img = cv2.resize(cv_img, (960, 540))
@@ -251,11 +256,11 @@ class VideoThread(QObject): #QThread spremeni ce ne dela
             for i in keypoints:
                 cv2.circle(cv_img, i, 4, (0, 255, 255), 2)
 
-        rgb_image = cv2.cvtColor(cv_img, cv2.COLOR_BGR2RGB)
-        h, w, ch = rgb_image.shape
-        bytes_per_line = ch * w
-        convert_to_Qt_format = QtGui.QImage(rgb_image.data, w, h, bytes_per_line, QtGui.QImage.Format_BGR888)
-        p = convert_to_Qt_format.scaled(WIDTH, HEIGHT, Qt.KeepAspectRatio)
+        #rgb_image = cv2.cvtColor(cv_img, cv2.COLOR_BGR2RGB)
+        #h, w, ch = rgb_image.shape
+        #bytes_per_line = ch * w
+        #convert_to_Qt_format = QtGui.QImage(rgb_image.data, w, h, bytes_per_line, QtGui.QImage.Format_BGR888)
+        #p = convert_to_Qt_format.scaled(WIDTH, HEIGHT, Qt.KeepAspectRatio)
         return cv_img
         #return QPixmap.fromImage(p)
 
@@ -326,12 +331,17 @@ class App(QWidget):#QWidget
     def keyPressEvent(self, event):
         global keypoints
         global homo_transform
+        global avtomatsko_iskanje
+
         if event.key() == Qt.Key_Z:
             keypoints.pop()
         if event.key() == Qt.Key_R:
             keypoints=[]
         if event.key() == Qt.Key_T:
             homo_transform = True if homo_transform == False else False
+        if event.key() == Qt.Key_A: # naj se izvede avtomatsko detektiranje klavirja
+            avtomatsko_iskanje = True if avtomatsko_iskanje == False else False
+
 
     def __init__(self,parent=None):
         super(App,self).__init__(parent)
@@ -426,7 +436,7 @@ class App(QWidget):#QWidget
                 break
         return k
 
-    def najdi(self):
+    def najdi(self): #avtomatsko detektiranje naj bo ob pritisku na gumb "a"
 
         self.projektor(najdi=True)
         self.video_projektor_signal.emit(2) #2 je popvraševanje za klaviaturo v prostoru
