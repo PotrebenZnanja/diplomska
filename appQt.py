@@ -12,7 +12,7 @@ import numpy as np
 import hough_transform as ht
 import musicScript as ms
 from yolov5 import custom_detect as yolo
-
+import time
 # Projektor postavimo v prostor
 # s kamero se pomaknemo v zrcalo projektorja
 # klikni gumb, da vzame sliko projekcije, da lahko dobimo homografsko povrsino
@@ -39,6 +39,8 @@ BLACK = (0,0,0)
 keypoints=[]
 homo_transform = False
 avtomatsko_iskanje = False
+pavziraj_iskanje = False
+printi_vse = False
 
 #helper thread naj bo kar musicThread
 class HelperThread(QObject):
@@ -152,13 +154,21 @@ class VideoThread(QObject): #QThread spremeni ce ne dela
         cap = cv2.VideoCapture(self.url)
         #cap = cv2.imread('images/piano10.jpg', cv2.IMREAD_COLOR) #this line
         self.current = False
-        while self._run_flag and cap is not None:
+        global pavziraj_iskanje
+        while self._run_flag and (cap is not None or self.tmp_image is not None):
+            print("dela")
+            if pavziraj_iskanje and self.projektor==1:
+                #ret, cv_img = tmp.read()  # this line
+                result = self.convert_cv_qt_homography(self.tmp_image)
+                self.change_pixmap_signal_projektor.emit(result)
+                continue
+
             if self.projektor==1:
                 #cv_img = cv2.imread('images/piano10.jpg', cv2.IMREAD_COLOR)#this line
                 ret, cv_img = cap.read() #this line
                 result = self.convert_cv_qt_homography(cv_img)
                 self.change_pixmap_signal_projektor.emit(result)
-
+                self.tmp_image = cv_img
             elif self.projektor == 2 and not self.current:
                 ret, cv_img = cap.read()  # this line
                 #cv2.imwrite("current_cap.png",cv_img)
@@ -167,6 +177,7 @@ class VideoThread(QObject): #QThread spremeni ce ne dela
                 #result = self.convert_cv_qt_homography(yol)
                 self.change_pixmap_signal_projektor.emit(cv_img)
                 self.current = True
+                self.tmp_image = cv_img
 
             elif self.calib and self.tmp_image is not None:
                 result = self.convert_cv_qt(self.tmp_image)
@@ -175,8 +186,10 @@ class VideoThread(QObject): #QThread spremeni ce ne dela
                 ret, cv_img = cap.read() #this line
                 #ret = True #this line
                 #cv_img=cap #this line
-                if cv_img is None:
+                if cv_img is None and self.tmp_image is None:
                     break
+                elif cv_img is None:
+                    cv_img = np.copy(self.tmp_image)
                 cv_img = cv2.resize(cv_img, (960, 540))
                 h, w, _ = cv_img.shape
                 h1 = int(h / 3)
@@ -184,11 +197,13 @@ class VideoThread(QObject): #QThread spremeni ce ne dela
                 cv_img = cv_img[self.top:self.bot, :, :]
                 if self.update_timer!=0:
                     self.update_timer-=1
-                elif ret and self.update_timer==0:
-                    result = self.convert_cv_qt(cv_img)
-                    self.change_pixmap_signal.emit(result) #Vrne QPixmap
-                    self.update_timer=0
-                self.tmp_image = cv_img
+
+                #elif ret and self.update_timer==0:
+                result = self.convert_cv_qt(cv_img if not pavziraj_iskanje else self.tmp_image)
+                self.change_pixmap_signal.emit(result) #Vrne QPixmap
+                self.update_timer=0
+                if not pavziraj_iskanje:
+                    self.tmp_image = cv_img
 
         # shut down capture system
         cap.release()
@@ -234,7 +249,7 @@ class VideoThread(QObject): #QThread spremeni ce ne dela
             cv_img = cv_img[self.top*2:self.bot*2, :, :]
             for i, number in enumerate(helperLabel[-1, :]):
                 if number[2] == 255:
-                    cv_img[:, i * 6:(i * 6+6)] = [255, 255, 0]
+                    cv_img[:, i * 6:(i * 6+6)] = [170, 0, 255]
                     print(i,cv_img[0,i*6])
                 elif number[0] == 100:
                     cv_img[:, i * 6:(i * 6+6)] = [0, 0, 255]
@@ -275,7 +290,7 @@ class VideoThread(QObject): #QThread spremeni ce ne dela
         else:
             if self.tmp_image is not None:
                 # cv_img[int(h1*2):h, 0:w, :] = self.tmp_image
-                cv_img = self.tmp_image
+                cv_img = np.copy(self.tmp_image)
             else:
                 self.timer = 1
                 # if self.update_timer==0:
@@ -288,9 +303,9 @@ class VideoThread(QObject): #QThread spremeni ce ne dela
             #print(i)
             #print(number)
             if number[2] == 255:
-                cv_img[:, i * 3:(i * 3 + 3)] = [255, 255, 0]
+                cv_img[:, i * 3:(i * 3 + 3)] = [170, 0, 255] #za črne tipke
             elif number[0] == 100:
-                cv_img[:, i * 3:(i * 3 + 3)] = [0, 0, 255]
+                cv_img[:, i * 3:(i * 3 + 3)] = [0, 0, 255] #za bele tipke
 
         rgb_image = cv2.cvtColor(cv_img, cv2.COLOR_BGR2RGB)
         h, w, ch = rgb_image.shape
@@ -332,6 +347,7 @@ class App(QWidget):#QWidget
         global keypoints
         global homo_transform
         global avtomatsko_iskanje
+        global pavziraj_iskanje
 
         if event.key() == Qt.Key_Z:
             keypoints.pop()
@@ -341,6 +357,8 @@ class App(QWidget):#QWidget
             homo_transform = True if homo_transform == False else False
         if event.key() == Qt.Key_A: # naj se izvede avtomatsko detektiranje klavirja
             avtomatsko_iskanje = True if avtomatsko_iskanje == False else False
+        if event.key() == Qt.Key_S:
+            pavziraj_iskanje = True if pavziraj_iskanje == False else False
 
 
     def __init__(self,parent=None):
@@ -534,6 +552,12 @@ class App(QWidget):#QWidget
             self.image_helper.setPixmap(pix.scaled(WIDTH,int(HEIGHT/2)))
 
     def disconnection(self):
+        povp=0
+        global pavziraj_iskanje
+        pavziraj_iskanje = False
+        for k in range(1,len(self.time_pass_arr)):
+            povp +=self.time_pass_arr[k]
+        print("Povprečno menjavanje slike: %s " % (povp/(len(self.time_pass_arr)-1)))
         self.b1.clicked.disconnect()
         self.b1.setText("Connect")
         self.video_stop_signal.emit()
@@ -638,7 +662,8 @@ class App(QWidget):#QWidget
     bot = None
     top = None
     theta = 1.5707963268
-
+    time_passed = time.time()
+    time_pass_arr=[]
     #whole_image = np.zeros((360,960,3), dtype=np.uint8) #celoten zaslon s tipkami in stolpci
     @pyqtSlot(QPixmap,np.ndarray)
     def update_label_helper(self,helper,indeksi):
@@ -654,7 +679,12 @@ class App(QWidget):#QWidget
     @pyqtSlot(QPixmap)
     def update_label(self, QLabelPixmap):
         # qt_img = self.convert_cv_qt(cv_img)
+        global printi_vse
+        if printi_vse:
+            print("cas menjave slike: %s s" % (time.time()-self.time_passed))
+        self.time_pass_arr.append((time.time()-self.time_passed))
         self.image_label.setPixmap(QLabelPixmap)
+        self.time_passed=time.time()
 
     #play_signal funkcija, vsakic ko se izvede ukaz na play, se tukaj sporoci naprej
     @pyqtSlot(list)
